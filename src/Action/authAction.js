@@ -1,11 +1,11 @@
 import axios from 'axios';
 import setAuthToken from '../Utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-// const server = "https://blooming-temple-81335.herokuapp.com";
+const server = "https://pacific-waters-24064.herokuapp.com/";
 
 export const registerUser=  (userData)=> async dispatch=>{
     try{
-        const User = await axios.post('http://localhost:5000/users/register', userData)
+        const User = await axios.post(`${server}/users/register`, userData)
         window.location.href = '/login';
     }catch(err){
         dispatch({
@@ -18,7 +18,7 @@ export const registerUser=  (userData)=> async dispatch=>{
 export const loginUser =(userData)=> async dispatch =>{
     try{
         
-        let res = await axios.post('http://localhost:5000/users/login', userData)
+        let res = await axios.post(`${server}/users/login`, userData)
         //save to local storage
         const{token, userInfo}= res.data;
         //set token to ls
