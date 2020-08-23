@@ -1,0 +1,361 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border:0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-image: url("./Assets/stepup-background.png");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.app{
+  width: 90%;
+  height:100%;
+  margin: 0 auto;
+}
+.navBar{
+  width: 100%;
+  height: 100px;
+  flex-direction: row;
+  display: flex;
+}
+.navUL{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navUL2{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navUL2>li{
+  margin: 5px;
+  text-decoration: none;
+  float: right;
+}
+.navUL>li{
+  margin: 5px;
+  text-decoration: none;
+}
+.navLogoContainer{
+  width:32.33%;
+  margin-top: 15px;
+}
+.navLogoContainer>h1{
+  font-weight: 500;
+  margin-left: 10px;
+}
+.navULContainer{
+  width:33.33%;
+  float: left;
+  margin-top: 30px;
+}
+.linkColor{
+  text-decoration: none;
+  color: black;
+  font-weight: 400;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.linkColor:hover{
+  color: #3283a8;
+}
+.signUpContainer{
+  width: 400px;
+  max-height: 700px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 5px 5px 10px #888888;
+  padding: 15px 0px;
+}
+.signInContainer{
+  width: 400px;
+  max-height: 700px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 5px 5px 10px #888888;
+  padding: 15px 0px;
+}
+.signInForm{
+  width: 80%;
+  margin: 0 auto;
+}
+.signInForm>form>input{
+  width: 100%;
+  padding: 10px 10px;
+  margin: 10px 0px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.signupForm{
+  width: 80%;
+  margin: 0 auto;
+}
+.signupForm>form>input{
+  width: 100%;
+  padding: 10px 10px;
+  margin: 10px 0px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.submitButton{
+  width: 100%;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  font-weight: 600;
+  margin-top: 10px;
+  background-color: #3b08bd;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.submitButton:hover{
+  background-color: #5224c7;
+  cursor: pointer;
+}
+.startBox{
+  width: 100%;
+  display: inline-block;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background-image: linear-gradient(-90deg, #470eb3, #5943fa);
+  box-shadow: 5px 10px 10px #888888;
+  margin-top: 50px;
+}
+.leftStart{
+  width: 29%;
+  margin-left: 10px;
+}
+.leftStart>p, .leftStart>h1{
+  color:white;
+}
+.leftStart>p{
+  line-height: 30px;
+}
+.rightStart{
+  width: 33.33%;
+  float: right;
+}
+.signUpButton{
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+}
+.signUpButton:hover{
+  background-color: #bbbcc7;
+  cursor: pointer;
+}
+.linkAccount{
+  text-decoration: none;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+  padding: 12px 10px;
+  border: 2px solid #5943fa;
+  margin-top: 10px;
+  color: #5943fa;
+}
+.linkAccount:hover{
+  color:#470eb3;
+  border: 2px solid #470eb3;
+  background-color: rgba(255, 255,255,0.5);
+}
+.accountCircle{
+  margin-top: 20px; 
+}
+.accountCircleContainer{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.signOutButton{
+  border: none;
+  background-color: #5943fa;
+  color: white;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 5px;
+  font-size: 16px;;
+}
+.signOutButton:hover{
+  cursor: pointer;
+  background-color: #470eb3;
+}
+.ProfileContainer{
+  background-color: rgba(238, 238, 238, 0.5);
+  width: 500px;
+  max-height: 500px;
+  padding:20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 5px 10px 10px #888888;
+  margin-top: 15px;
+}
+.commonContainer{
+  background-color: #f5f5f5;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 5px 10px 10px #888888;
+  margin-bottom: 100px;
+  min-height: 500px;
+}
+.carousel1 , .slide1{
+  background: white;
+}
+.carouselContainer{
+  width: 80%;
+  margin: 0 auto;
+}
+.jobBox{
+  width: 80%;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  height: auto;
+  box-shadow: 3px 3px 5px #888888;
+  margin-bottom: 10px;
+
+}
+.learnMoreButton{
+  padding: 5px 10px;
+  font-size: 14px;
+  color: white;
+  background-color: #5943fa;
+  border: none;
+  border-radius: 5px;
+}
+.learnMoreButton:hover{
+  background-color:#470eb3;
+  cursor: pointer;
+}
+.customRightArrow{
+  background-color: grey;
+  z-index: 1000;
+  color: blue;
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+}
+.addJobButton{
+  background-color: #5943fa;
+  cursor: pointer;
+  color: white;
+  border: none;
+  margin-top: 7px;
+  padding: 12px 22px;
+  align-content: flex-end;
+  justify-content: flex-end;
+  align-items: flex-end;
+  float: right;
+  border-radius: 10px;
+}
+.addJobButton:hover{
+  background-color:#470eb3;
+}
+.jobBoardHeader{
+  width: 100%;
+  display: flex;
+}
+.AppliedTitle{
+  width: 80%;
+  display: flex;
+}
+.addButtonContainer{
+  width: 100%;
+  justify-content: flex-end;
+}
+.ModalContainer{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 500;
+  background-color:rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+}
+.ClosedModal{
+  display:none;
+}
+.modal{
+  width: 450px;
+  height: 500px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease-out;
+}
+.backButton{
+  cursor: pointer;
+}
+.formTextInput{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.formContainer{
+  width: 80%;
+  margin: 0 auto;
+}
+.formButton{
+  width: 60%;
+  padding: 15px 25px;
+  border: none;
+  background-color: #5943fa;
+  color: white;
+  font-size: 15px;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+.formButton:hover{
+  background-color: #470eb3;
+  cursor: pointer;
+}
