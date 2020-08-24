@@ -5,7 +5,7 @@ const server = "https://pacific-waters-24064.herokuapp.com/";
 const dev= "http://localhost:5000";
 export const registerUser=  (userData)=> async dispatch=>{
     try{
-        const User = await axios.post(`${dev}/users/register`, userData)
+        const User = await axios.post(`${server}/users/register`, userData)
         window.location.href = '/login';
     }catch(err){
         dispatch({
@@ -18,7 +18,7 @@ export const registerUser=  (userData)=> async dispatch=>{
 export const loginUser =(userData)=> async dispatch =>{
     try{
         
-        let res = await axios.post(`${dev}/users/login`, userData)
+        let res = await axios.post(`${server}/users/login`, userData)
         //save to local storage
         const{token, userInfo}= res.data;
         //set token to ls
