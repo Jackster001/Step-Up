@@ -6,7 +6,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         Company:"",
         Description: "",
         Link: "",
-        JobsStatus: "Applied"
+        JobStatus: "Applied"
     })
 
     const submit =(e)=>{
@@ -17,7 +17,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
             Company:"",
             Description: "",
             Link: "",
-            JobsStatus: "Applied"
+            JobStatus: "Applied"
         })
         onSubmit(posting)
     }   
@@ -37,23 +37,23 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
                 <center><h2>Add a Job</h2></center>
                 <form class="formContainer" onSubmit={(e)=>submit(e)}>
                     <label for="Company">Company Name</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} type="text" id="Company" name="Company" placeholder="Company Name"/>
+                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Company} type="text" id="Company" name="Company" placeholder="Company Name"/>
 
                     <label for="Title">Job Title</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} type="text" id="Title" name="Title" placeholder="Job Title"/>
+                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Title} type="text" id="Title" name="Title" placeholder="Job Title"/>
 
                     <label for="Link">Job Link/URL</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} type="text" id="Link" name="Link" placeholder="Job Link"/>
+                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder="Job Link"/>
 
                     <label for="JobStatus">Job Status</label>
-                        <select className="formTextInput" id="JobStatus" name="JobStatus" onChange={(e)=> setValue(e)}>
+                        <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>
                         <option name="JobStatus" value="Applied" onChange={(e)=> setValue(e)}>Applied</option>
                         <option name="JobStatus" value="Interview" onChange={(e)=> setValue(e)}>Interview</option>
                         <option name="JobStatus" value="Rejected" onChange={(e)=> setValue(e)}>Rejected</option>
                         <option name="JobStatus" value="Offer" >Offer</option>
                     </select>
                 
-                    <center><input className="formButton" type="submit" value="Submit"/></center>
+                    <center><input className="formButton" type="submit" value="Submit"/></center><br/><br/>
                 </form>
             </div>
         </div>

@@ -5,7 +5,7 @@ const dev= "http://localhost:5000";
 
 export const getProfile = (id) => async (dispatch)=> {
     try{
-        const profile= await axios.get(`${server}/users/${id}`, 
+        const profile= await axios.get(`${dev}/users/${id}`, 
         {headers:{'Authorization':localStorage.jwtToken}});
         await dispatch({
             type:'GET_PROFILE',
@@ -33,8 +33,7 @@ export const disableUserProfileLoading = () => {
 // add job to jobs applied in the user data
 export const addJob = (id , jobData) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${server}/users/apply-job`,{id, jobData});
-        console.log(profile.data)
+        const profile= await axios.post(`${dev}/users/apply-job`,{id, jobData});
         await dispatch({
             type:'APPLY_JOB',
             payload: profile.data
@@ -60,15 +59,13 @@ export const removeJob = (id , job_id) => async (dispatch)=> {
 }
 
 // update job from jobs applied in the user data
-export const updateJob = (id , job_id) => async (dispatch)=> {
+export const updateJob = (id, jobData, i) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${server}/users/apply-job/${id}`, 
-        {headers:{'Authorization':localStorage.jwtToken}},job_id);
-        console.log(profile)
-        // await dispatch({
-        //     type:'GET_PROFILE',
-        //     payload: profile.data
-        // })
+        const profile= await axios.post(`${dev}/users/update-job/`, {id, jobData, i});
+        await dispatch({
+            type:'UPDATE_JOB',
+            payload: profile.data
+        })
     }catch(err){
         throw err
     }
@@ -77,7 +74,7 @@ export const updateJob = (id , job_id) => async (dispatch)=> {
 // get all jobs applied in the user data
 export const getAllJobs = (id) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${server}/users/apply-job/${id}`, 
+        const profile= await axios.post(`${dev}/users/apply-job/${id}`, 
         {headers:{'Authorization':localStorage.jwtToken}});
         console.log(profile)
         // await dispatch({
