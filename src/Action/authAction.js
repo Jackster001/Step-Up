@@ -1,7 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../Utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
-const server = "https://pacific-waters-24064.herokuapp.com/";
+const server = "https://pacific-waters-24064.herokuapp.com";
 const dev= "http://localhost:5000";
 export const registerUser=  (userData)=> async dispatch=>{
     try{

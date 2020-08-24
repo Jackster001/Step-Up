@@ -1,5 +1,5 @@
 import axios from 'axios';
-const server = "https://pacific-waters-24064.herokuapp.com/";
+const server = "https://pacific-waters-24064.herokuapp.com";
 const dev= "http://localhost:5000";
 
 
