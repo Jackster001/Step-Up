@@ -18,8 +18,10 @@ class JobStatus extends Component{
                 <div className="jobStatusLeft">
                     <h1>{this.props.Company}</h1>
                     <h2>{this.props.Title}</h2>
-                    <p className="editTextButton" onClick={()=>this.props.openEditModal(this.props.Index)}>Edit</p>
-                    {!this.props.isAuthenticated ? <button className="signUpButton">Sign Up</button> :<div></div>}
+                    <div className="jobStatusButtonRow">
+                        <p className="editTextButton" onClick={()=>this.props.openEditModal(this.props.Index)}>Edit </p>
+                        <p className="removeTextButton" onClick={()=>this.props.handleRemove(this.props.Index)}>Remove</p>
+                    </div>
                 </div>
                 <div className="jobStatusRight">
                     <StatusBar status={(this.props.JobStatus === "Applied"? 1 

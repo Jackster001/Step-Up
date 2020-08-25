@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import ApplyJobModal from './Modals/ApplyJobModal';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading} from '../Action/profileAction';
 import {JobStatus} from './';
-import EditJobModal from './Modals/EditJobModal'
+import EditJobModal from './Modals/EditJobModal';
+import RemoveModal from './Modals/RemoveModal';
 class Appliedboard extends Component{
     constructor(props) {
         super(props);
@@ -15,7 +16,7 @@ class Appliedboard extends Component{
           editIndex:null,
           query: "",
           SearchError: false,
-          AppliedToJobs: (this.props.profile.jobsApplied.length >= 1)
+          openRemoveModal: false
         }
     }
     componentDidMount(){
@@ -28,7 +29,6 @@ class Appliedboard extends Component{
         this.closeModal();
         this.closeEditModal()
       }
-      this.mapJobs()
     }
     openModal(){
       this.setState({openModal:true})
@@ -41,6 +41,12 @@ class Appliedboard extends Component{
     }
     closeEditModal(){
       this.setState({openEdit:false, editIndex:null})
+    }
+    openRemoveModal(){
+      this.setState({openRemoveModal: true})
+    }
+    closeRemoveModal(){
+      this.setState({openRemoveModal: false})
     }
     onSubmit(v){
       this.props.addJob(this.props.profile.id,v);
@@ -63,23 +69,12 @@ class Appliedboard extends Component{
           newData.push(job)
         }
       })
-      
+
       this.setState({SearchError: false, jobsApplied: newData})
     }
-    mapJobs(){
-      this.state.jobsApplied.map(job=>{
-        return(
-          <div>
-          <JobStatus 
-            Title={job.Title}
-            Company={job.Company}
-            Link={job.Link}
-            JobStatus = {job.JobStatus}
-          />
-          <hr/>
-          </div>
-        )
-      })
+    handleRemove(i){
+      this.props.removeJob(this.props.profile.id, i)
+      this.openRemoveModal()
     }
     render(){
         return (
@@ -116,8 +111,10 @@ class Appliedboard extends Component{
                             JobStatus = {job.JobStatus}
                             Index={i}
                             openEditModal={()=>this.openEditModal(i)} 
+                            handleRemove={()=>this.handleRemove(i)}
                           />
                           <EditJobModal jobProps={job} openModal={this.state.openEdit} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,i)}/>
+                          <RemoveModal Title={job.Title} Company={job.Company} openModal={this.state.openRemoveModal} close={()=>this.closeRemoveModal()}/>
                         <hr/>
                         </div>
                       )

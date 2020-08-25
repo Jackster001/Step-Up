@@ -44,15 +44,13 @@ export const addJob = (id , jobData) => async (dispatch)=> {
 }
 
 // remove job from jobs applied in the user data
-export const removeJob = (id , job_id) => async (dispatch)=> {
+export const removeJob = (id , i) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${server}/users/apply-job/${id}`, 
-        {headers:{'Authorization':localStorage.jwtToken}},job_id);
-        console.log(profile)
-        // await dispatch({
-        //     type:'GET_PROFILE',
-        //     payload: profile.data
-        // })
+        const profile= await axios.post(`${server}/users/delete-job`,{id,i});
+        await dispatch({
+            type:'REMOVE_JOB',
+            payload: profile.data
+        })
     }catch(err){
         throw err
     }
@@ -74,7 +72,7 @@ export const updateJob = (id, jobData, i) => async (dispatch)=> {
 // get all jobs applied in the user data
 export const getAllJobs = (id) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${server}/users/apply-job/${id}`, 
+        const profile= await axios.post(`${dev}/users/apply-job/${id}`, 
         {headers:{'Authorization':localStorage.jwtToken}});
         console.log(profile)
         // await dispatch({

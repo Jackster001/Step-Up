@@ -31,6 +31,13 @@ export default function(state= initialState, action){
                 loadingProfile: true
             }
         }
+        case "REMOVE_JOB":{
+            return{
+                ...state,
+                profile: action.payload,
+                loadingProfile: true
+            }
+        }
         case "DISABLE_USER_PROFILE_LOADING":
             return{
                 ...state,

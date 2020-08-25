@@ -18,7 +18,7 @@ class Landing extends Component {
         <div>
             <Startbox />
             <br/><br/><br/>
-            <Jobboard/>
+            {/* <Jobboard/> */}
         </div>
         );
     }
