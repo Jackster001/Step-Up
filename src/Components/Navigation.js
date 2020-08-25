@@ -12,9 +12,6 @@ class Navigation extends Component{
             initials:""
         }
     }
-    componentDidMount(){
-        this.setState({...this.state, initials:`${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`})
-    }
     NonAuthBar(){
         return(
             <div className="navBar">
@@ -51,7 +48,7 @@ class Navigation extends Component{
                 <div className="navULContainer">
                     <div className="accountCircleContainer">
                         <div className="accountCircle">
-                            <Link className="linkAccount" to={routes.ACCOUNT}>{this.state.initials}</Link>
+                            <Link className="linkAccount" to={routes.ACCOUNT}>{this.props.isAuthenticated ? `${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`:""}</Link>
                         </div>
                     </div>
                 </div>
