@@ -57,17 +57,14 @@ class Appliedboard extends Component{
         this.setState({jobsApplied: this.props.profile.jobsApplied, SearchError: false})
         return;
       }
-      let newData = this.state.jobsApplied.map(job=>{
+      let newData = []
+      this.state.jobsApplied.forEach(job=>{
         if(job.Title.toLowerCase().includes(query) || job.Company.toLowerCase().includes(query)){
-          return job
+          newData.push(job)
         }
       })
-      if(newData[0] === undefined){
-        this.setState({SearchError: true})
-        return;
-      }
-      this.setState({SearchError: false})
-      console.log(newData)
+      
+      this.setState({SearchError: false, jobsApplied: newData})
     }
     mapJobs(){
       this.state.jobsApplied.map(job=>{
@@ -99,7 +96,7 @@ class Appliedboard extends Component{
                 </div>
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 {
-                  !this.state.AppliedToJobs ? 
+                  this.props.profile.jobsApplied.length ===0 ? 
                     <div>
                       <h1>You have not applied to any Jobs yet</h1>
                     </div>
