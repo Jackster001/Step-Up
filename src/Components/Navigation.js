@@ -13,9 +13,7 @@ class Navigation extends Component{
         }
     }
     componentDidMount(){
-        if(this.props.isAuthenticated){
-            this.setState({...this.state, initials:`${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`})
-        }
+        this.setState({...this.state, initials:`${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`})
     }
     NonAuthBar(){
         return(
