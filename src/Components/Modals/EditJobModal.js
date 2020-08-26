@@ -44,7 +44,7 @@ class EditJobModal extends Component{
             Title: this.state.Title,
             Company: this.state.Company,
             Description: this.state.Description,
-            Link: this.state.Description,
+            Link: this.state.Link,
             JobStatus: this.state.JobStatus,
         };
         this.props.onSubmit(posting)
