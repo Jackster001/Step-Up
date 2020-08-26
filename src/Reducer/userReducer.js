@@ -1,7 +1,13 @@
 const initialState = {
-    profile:{},
+    profile:{            },
     loadingProfile: false,
-    editModalData: {},
+    editModalData: {        
+        Title: "",
+        Company: "",
+        Description: "",
+        Link: "",
+        JobStatus: "Applied",
+    },
     openingEditModal:false
 }
 
