@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+
 const ApplyJobModal =({openModal, close, onSubmit})=>{
 
     const [jobPosting, setJobPosting] = useState({

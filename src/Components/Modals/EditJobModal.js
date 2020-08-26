@@ -1,68 +1,114 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import {setEditModalData,openingEditModalFunction} from '../../Action/profileAction'
+class EditJobModal extends Component{
 
-const EditJobModal =({openModal, close, onSubmit, jobProps})=>{
+    constructor(props){
+        super(props);
+        this.state={
+            Title: "",
+            Company: "",
+            Description: "",
+            Link: "",
+            JobStatus: "",
+            openModal:false
+        }
+    }
 
-    const [jobPosting, setJobPosting] = useState({
-        Title: jobProps.Title,
-        Company: jobProps.Company,
-        Description: jobProps.Description,
-        Link: jobProps.Link,
-        JobStatus: jobProps.JobStatus,
-    })
+    componentDidMount(){
+        this.setState({
+            Title: this.props.editModalData.Title,
+            Company: this.props.editModalData.Company,
+            Description: this.props.editModalData.Description,
+            Link: this.props.editModalData.Link,
+            JobStatus: this.props.editModalData.JobStatus,
+        })
+    }
+    componentDidUpdate(){
+        if(this.props.openingEditModal){
+            this.props.openingEditModalFunction()
+            this.setState({
+                Title: this.props.editModalData.Title,
+                Company: this.props.editModalData.Company,
+                Description: this.props.editModalData.Description,
+                Link: this.props.editModalData.Link,
+                JobStatus: this.props.editModalData.JobStatus,
+            })
+            this.props.openEditModal()
+        }
+    }
 
-    const submit =(e)=>{
+    submit =(e)=>{
         e.preventDefault();
-        let posting=jobPosting;
-        onSubmit(posting)
+        let posting={
+            Title: this.state.Title,
+            Company: this.state.Company,
+            Description: this.state.Description,
+            Link: this.state.Description,
+            JobStatus: this.state.JobStatus,
+        };
+        this.props.onSubmit(posting)
     }   
 
-    const setValue = (event) => {
+    setValue = (event) => {
         const { value, name } = event.target;
-        setJobPosting({
-            ...jobPosting,
+        this.setState({
+            ...this.state,
             [name]: value
         });
     }
 
+    close = () =>{
+        this.setState({openModal:false})
+    }
+
+    render(){
     return (
-        <div className={openModal ? "ModalContainer": "ClosedModal"}>
+        <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
             <div className="modal">
-                <h3 className="backButton" onClick={()=>close()}>&#8592; Back</h3>
-                <center><h2>{jobProps.Company}</h2></center>
-                <form class="formContainer" onSubmit={(e)=>submit(e)}>
+                <h3 className="backButton" onClick={()=>this.props.close()}>&#8592; Back</h3>
+                <center><h2>{this.state.Company}</h2></center>
+                <form class="formContainer" onSubmit={(e)=>this.submit(e)}>
                     <div className="editInputRow">
                         <div className="editInputContainer">
                             <label for="Company">Company Name</label>
-                            <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Company} type="text" id="Company" name="Company" placeholder={jobProps.Company}/>
+                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Company} type="text" id="Company" name="Company" placeholder={this.state.Company}/>
                         </div>
                         <div className="editInputContainer">
                             <label for="Title">Job Title</label>
-                            <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Title} type="text" id="Title" name="Title" placeholder={jobProps.Title}/>
+                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Title} type="text" id="Title" name="Title" placeholder={this.state.Title}/>
                         </div>
                     </div>
                     <div className="editInputRow">
                         <div className="editInputContainer">
                             <label for="Link">Job Link/URL</label>
-                            <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder={jobProps.Link}/>
+                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Link} type="text" id="Link" name="Link" placeholder={this.state.Link}/>
                         </div>
                         <div className="editInputContainer">
                         <label for="JobStatus">Job Status</label>
-                            <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>
-                            <option name="JobStatus" value="Applied" onChange={(e)=> setValue(e)}>Applied</option>
-                            <option name="JobStatus" value="Interview" onChange={(e)=> setValue(e)}>Interview</option>
-                            <option name="JobStatus" value="Rejected" onChange={(e)=> setValue(e)}>Rejected</option>
+                            <select className="formTextInput" id="JobStatus" value={this.state.JobStatus} name="JobStatus" onChange={(e)=> this.setValue(e)}>
+                            <option name="JobStatus" value="Applied" onChange={(e)=> this.setValue(e)}>Applied</option>
+                            <option name="JobStatus" value="Interview" onChange={(e)=> this.setValue(e)}>Interview</option>
+                            <option name="JobStatus" value="Rejected" onChange={(e)=> this.setValue(e)}>Rejected</option>
                             <option name="JobStatus" value="Offer" >Offer</option>
                         </select>
                         </div>
                     </div>
                     <label for="Link">Job Link/URL</label>
-                    <textarea className="formTextArea" onChange={(e)=> setValue(e)} value={jobPosting.Description} type="text" id="Description" name="Description" placeholder="Description"/>
+                    <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
                 
                     <center><input className="formButton" type="submit" value="Submit"/></center><br/><br/>
                 </form>
             </div>
         </div>
     );
-
+    }
 }
-export default EditJobModal;
+const mapStateToProps =(state) =>({
+    isAuthenticated: state.authState.isAuthenticated,
+    profile: state.userState.profile,
+    loadingProfile: state.userState.loadingProfile,
+    openingEditModal: state.userState.openingEditModal,
+    editModalData: state.userState.editModalData
+})
+export default connect(mapStateToProps,{setEditModalData,openingEditModalFunction})(EditJobModal);

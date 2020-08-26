@@ -1,6 +1,8 @@
 const initialState = {
     profile:{},
-    loadingProfile: false
+    loadingProfile: false,
+    editModalData: {},
+    openingEditModal:false
 }
 
 export default function(state= initialState, action){
@@ -48,6 +50,19 @@ export default function(state= initialState, action){
                 ...state,
                 loginError:true
             }
+        case "SET_EDIT_DATA":
+            return{
+                ...state,
+                editModalData: action.payload,
+                openingEditModal: true
+            
+        }
+        case "OPEN_EDIT_MODAL":
+            return{
+                ...state,
+                openingEditModal: false
+            }
+        
         default:
             return state;
     }

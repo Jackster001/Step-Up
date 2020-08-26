@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StatusBar } from '.';
+
 class JobStatus extends Component{
     constructor(props){
         super(props)

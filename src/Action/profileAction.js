@@ -69,6 +69,29 @@ export const updateJob = (id, jobData, i) => async (dispatch)=> {
     }
 }
 
+export const setEditModalData =(data) => async (dispatch)=> {
+    try{
+        console.log(data)
+        await dispatch({
+            type:"SET_EDIT_DATA",
+            payload: data
+        })
+    }catch(err){
+        throw err
+    }
+}
+
+export const openingEditModalFunction =() => async (dispatch)=> {
+    try{
+        await dispatch({
+            type:"OPEN_EDIT_MODAL",
+            payload: false
+        })
+    }catch(err){
+        throw err
+    }
+}
+
 // get all jobs applied in the user data
 export const getAllJobs = (id) => async (dispatch)=> {
     try{

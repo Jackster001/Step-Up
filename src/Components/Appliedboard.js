@@ -4,6 +4,7 @@ import ApplyJobModal from './Modals/ApplyJobModal';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading} from '../Action/profileAction';
 import {JobStatus} from './';
 import EditJobModal from './Modals/EditJobModal';
+import {setEditModalData,openingEditModalFunction} from '../Action/profileAction' 
 import RemoveModal from './Modals/RemoveModal';
 class Appliedboard extends Component{
     constructor(props) {
@@ -12,8 +13,9 @@ class Appliedboard extends Component{
           openModal: false,
           updatedData: {},
           jobsApplied:[],
-          openEdit: false,
-          editIndex:null,
+          openEditModal: false,
+          editData: {},
+          editIndex:0,
           query: "",
           SearchError: false,
           openRemoveModal: false
@@ -36,11 +38,15 @@ class Appliedboard extends Component{
     closeModal(){
       this.setState({openModal:false})
     }
-    openEditModal(i){
-      this.setState({openEdit:true, editIndex: i})
+    handleEditModal(i){
+      this.setState({editIndex:i})
+      this.props.setEditModalData(this.state.jobsApplied[i])
+    }
+    openEditModal(){
+      this.setState({openEditModal: true})
     }
     closeEditModal(){
-      this.setState({openEdit:false, editIndex:null})
+      this.setState({openEditModal:false, editIndex:0})
     }
     openRemoveModal(){
       this.setState({openRemoveModal: true})
@@ -89,6 +95,7 @@ class Appliedboard extends Component{
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
                     </div>
                 </div>
+                <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 {
                   this.props.profile.jobsApplied.length ===0 ? 
@@ -110,16 +117,16 @@ class Appliedboard extends Component{
                             Link={job.Link}
                             JobStatus = {job.JobStatus}
                             Index={i}
-                            openEditModal={()=>this.openEditModal(i)} 
+                            openEditModal={()=>this.handleEditModal(i)} 
                             handleRemove={()=>this.handleRemove(i)}
                           />
-                          <EditJobModal jobProps={job} openModal={this.state.openEdit} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,i)}/>
                           <RemoveModal Title={job.Title} Company={job.Company} openModal={this.state.openRemoveModal} close={()=>this.closeRemoveModal()}/>
                         <hr/>
                         </div>
                       )
                     })}
                   </div>
+                  
                 }
             </div>
         );
@@ -128,7 +135,9 @@ class Appliedboard extends Component{
 const mapStateToProps =(state) =>({
     isAuthenticated: state.authState.isAuthenticated,
     profile: state.userState.profile,
-    loadingProfile: state.userState.loadingProfile
+    loadingProfile: state.userState.loadingProfile,
+    editModalData: state.userState.editModalData,
+    openingEditModal: state.userState.openingEditModal
 })
 
-export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading})(Appliedboard);
+export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading,setEditModalData,openingEditModalFunction})(Appliedboard);
