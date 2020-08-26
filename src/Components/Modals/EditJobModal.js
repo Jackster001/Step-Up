@@ -16,13 +16,13 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
-        this.setState({
-            Title: this.props.editModalData.Title,
-            Company: this.props.editModalData.Company,
-            Description: this.props.editModalData.Description,
-            Link: this.props.editModalData.Link,
-            JobStatus: this.props.editModalData.JobStatus,
-        })
+        // this.setState({
+        //     Title: this.props.editModalData.Title,
+        //     Company: this.props.editModalData.Company,
+        //     Description: this.props.editModalData.Description,
+        //     Link: this.props.editModalData.Link,
+        //     JobStatus: this.props.editModalData.JobStatus,
+        // })
     }
     componentDidUpdate(){
         if(this.props.openingEditModal){

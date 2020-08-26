@@ -95,7 +95,7 @@ class Appliedboard extends Component{
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
                     </div>
                 </div>
-                {/* <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/>  */}
+                <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 {
                   this.props.profile.jobsApplied.length ===0 ? 
