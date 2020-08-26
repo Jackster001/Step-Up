@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+.LogoText{
+  cursor: pointer;
+}
+.logoLink{
+  color:black;
+  text-decoration: none;
+}

@@ -16,7 +16,7 @@ class Navigation extends Component{
         return(
             <div className="navBar">
                 <div className="navLogoContainer">
-                    <h1>Step Up</h1>
+                    <a className="logoLink" href="/"><h1 className="LogoText">Step Up</h1></a>
                 </div>
                 <div className="navULContainer">
                     <ul className="navUL">
@@ -37,7 +37,7 @@ class Navigation extends Component{
         return(
             <div className="navBar">
                 <div className="navLogoContainer">
-                    <h1>Step Up</h1>
+                    <a className="logoLink" href="/home"><h1 className="LogoText">Step Up</h1></a>
                 </div>
                 <div className="navULContainer">
                     <ul className="navUL">
