@@ -1,5 +1,5 @@
 import axios from 'axios';
-const server = "https://step-up-careers-api.herokuapp.com/";
+const server = "https://step-up-careers-api.herokuapp.com";
 const dev= "http://localhost:5000";
 
 
