@@ -13,23 +13,6 @@ class Login extends Component {
             password:''
         }
     }
-    componentDidMount(){
-      auth.onAuthStateChanged(function (user){
-          if(user){
-              console.log(user)
-              // setTrue()
-              // firebase.auth().signOut()
-              // logoutUser()
-              // auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-              // console.log(auth.currentUser)
-              // firebase.auth().signOut()
-          }else{
-              // logoutUser()
-              // firebase.auth().signOut()
-              console.log("logged out")
-          }
-      })
-    }
     componentWillReceiveProps(nextProps) {
       if (nextProps.errors) {
         this.setState({ errors: nextProps.errors });

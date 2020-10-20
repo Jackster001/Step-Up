@@ -68,22 +68,11 @@ export const loginUser =(userData)=> async dispatch =>{
           var errorCode = error.code;
           var errorMessage = error.message;
         });     
-
-        await dispatch({
-            type:"AUTHENTICATE_USER",
-        })
         
-        firestore.collection("Step-up-data").doc(user.user.uid).get().then(doc=>{
-            if(doc){
-                setUserProfileLoading();
-                dispatch({
-                    type:"SET_CURRENT_USER",
-                    payload: doc.data()
-                }) 
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });
+        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get()
+
+        userInfo = userInfo.data();
+        console.log(userInfo)
         // let res = await axios.post(`${server}/users/login`, userData)
         //save to local storage
         // const{token, userInfo}= res.data;
@@ -94,6 +83,14 @@ export const loginUser =(userData)=> async dispatch =>{
         //decode token to get user data
         // const decoded =jwt_decode(token);
         // await dispatch(setToken(decoded));
+        await setUserProfileLoading();
+        await dispatch({
+            type:"SET_CURRENT_USER",
+            payload: userInfo
+        }) 
+        await dispatch({
+            type:"AUTHENTICATE_USER",
+        })
     }catch(err){
         dispatch({
             type: "GET_ERRORS",

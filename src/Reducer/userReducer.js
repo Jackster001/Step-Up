@@ -1,5 +1,5 @@
 const initialState = {
-    profile:{            },
+    profile:{},
     loadingProfile: false,
     editModalData: {        
         Title: "",
