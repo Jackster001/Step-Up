@@ -12,29 +12,31 @@ import { setToken, logoutUser } from './Action/authAction';
 import Navigation from './Components/Navigation';
 import jwt_decode from 'jwt-decode';
 import { PersistGate } from 'redux-persist/integration/react'
+import firebase from "firebase/app";
+import {auth} from "./Firebase/firebase"
 
 function App() {
-  useEffect(()=>{
-    // Check for token
-    if (localStorage.jwtToken) {
-      
-      // Set auth token header auth
-      setAuthToken(localStorage.jwtToken);
-      // Decode token and get user info and exp
-      const decoded = jwt_decode(localStorage.jwtToken);
-      // Set user and isAuthenticated
-      store.dispatch(setToken(decoded));
-      // Check for expired token
-      const currentTime = Date.now() / 1000;
-      if (decoded.exp < currentTime) {
-        // Logout user
-        store.dispatch(logoutUser());
+  // useEffect(()=>{
+  //   // Check for token
+  //   if (localStorage.jwtToken) {
+  //     // Set auth token header auth
+  //     setAuthToken(localStorage.jwtToken);
+  //     // Decode token and get user info and exp
+  //     const decoded = jwt_decode(localStorage.jwtToken);
+  //     // Set user and isAuthenticated
+  //     store.dispatch(setToken(decoded));
+  //     // Check for expired token
+  //     const currentTime = Date.now() / 1000;
+  //     if (decoded.exp < currentTime) {
+  //       // Logout user
+  //       store.dispatch(logoutUser());
 
-        // Redirect to login
-        window.location.href = `/login`;
-      }
-    }}
-  ,[])
+  //       // Redirect to login
+  //       window.location.href = `/login`;
+  //     }
+  //   }}
+  // ,[])
+
   return ( 
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

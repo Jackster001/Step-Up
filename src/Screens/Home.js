@@ -14,7 +14,7 @@ class Home extends Component {
     if(this.props.loadingProfile){
       this.props.disableUserProfileLoading()
       this.setState({...this.state, profile: this.props.profile})
-      console.log(this.state.profile)
+      console.log(this.props.profile)
     }
   }
   render() {

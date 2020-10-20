@@ -6,6 +6,12 @@ const initialState = {
 
 export default function(state= initialState, action){
     switch(action.type){
+        case "AUTHENTICATE_USER":
+            return{
+                ...state,
+                isAuthenticated: true,
+                loginError:false
+            }
         case "SET_TOKEN":
             return{
                 ...state,

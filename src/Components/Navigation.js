@@ -49,6 +49,7 @@ class Navigation extends Component{
                     <div className="accountCircleContainer">
                         <div className="accountCircle">
                             <Link className="linkAccount" to={routes.ACCOUNT}>{this.props.isAuthenticated ? `${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`:""}</Link>
+                            {/* <Link className="linkAccount" to={routes.ACCOUNT}>Lin</Link> */}
                         </div>
                     </div>
                 </div>

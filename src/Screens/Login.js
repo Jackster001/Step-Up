@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../Action/authAction';
 import * as routes from '../Routes/routes';
+import {auth, firestore} from '../Firebase/firebase';
 
 class Login extends Component {
     constructor(props) {
@@ -11,6 +12,23 @@ class Login extends Component {
             email:'',
             password:''
         }
+    }
+    componentDidMount(){
+      auth.onAuthStateChanged(function (user){
+          if(user){
+              console.log(user)
+              // setTrue()
+              // firebase.auth().signOut()
+              // logoutUser()
+              // auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+              // console.log(auth.currentUser)
+              // firebase.auth().signOut()
+          }else{
+              // logoutUser()
+              // firebase.auth().signOut()
+              console.log("logged out")
+          }
+      })
     }
     componentWillReceiveProps(nextProps) {
       if (nextProps.errors) {
