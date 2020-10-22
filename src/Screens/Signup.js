@@ -77,7 +77,8 @@ class SignUp extends Component {
                 </form>
                 <center>
                 <br/><br/>
-                <p>Already have an account? <Link to={routes.LOGIN}>Login</Link></p></center>
+                <p>Already have an account? <Link to={routes.LOGIN}>Login</Link></p>
+                <Link to={routes.PRIVACY}>Privacy Policy</Link></center>
             </div>
         </div>
     );

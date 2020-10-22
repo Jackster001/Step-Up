@@ -536,3 +536,9 @@ code {
   box-sizing: border-box;
   transition: all 0.3s ease-out;
 }
+.PrivacyContainer{
+  background-color: white;
+  padding: 20px;
+  box-shadow: 3px 3px 5px #888888;
+  margin-bottom: 35px;
+}
