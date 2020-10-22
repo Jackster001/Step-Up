@@ -98,7 +98,7 @@ class Appliedboard extends Component{
                 <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 {
-                  this.props.profile.jobsApplied.length ===0 ? 
+                  this.state.jobsApplied.length ===0 ? 
                     <div>
                       <h1>You have not applied to any Jobs yet</h1>
                     </div>

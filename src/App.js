@@ -46,8 +46,8 @@ function App() {
               <PublicRoute exact path={routes.LANDING} component={screens.Landing}/>
               <PublicRoute exact path={routes.SIGNUP} component={screens.Signup}/>
               <PublicRoute exact path={routes.LOGIN} component={screens.Login}/>
-              <PrivateRoute exact path={routes.HOME} component={screens.Home}/>
-              <PrivateRoute exact path={routes.DASHBOARD} component={screens.Dashboard}/>
+              <PrivateRoute exact path={routes.HOME} component={screens.Dashboard}/>
+              {/* <PrivateRoute exact path={routes.DASHBOARD} component={screens.Dashboard}/> */}
               <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account}/>
           </div>
         </Router>

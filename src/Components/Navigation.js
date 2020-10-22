@@ -24,7 +24,7 @@ class Navigation extends Component{
                 <div className="navULContainer">
                     <ul className="navUL">
                         <li><Link className="linkColor" to={routes.LANDING}>Home</Link></li>
-                        <li><Link className="linkColor" to={routes.LOGIN}>Dashboard</Link></li>
+                        {/* <li><Link className="linkColor" to={routes.LOGIN}>Dashboard</Link></li> */}
                     </ul>
                 </div>
                 <div className="navULContainer">
@@ -44,8 +44,8 @@ class Navigation extends Component{
                 </div>
                 <div className="navULContainer">
                     <ul className="navUL">
-                        <li><Link className="linkColor" to={routes.HOME}>Home</Link></li>
-                        <li ><Link className="linkColor" to={routes.DASHBOARD}>Dashboard</Link></li>
+                        {/* <li><Link className="linkColor" to={routes.HOME}>Home</Link></li> */}
+                        <li ><Link className="linkColor" to={routes.DASHBOARD}>Home</Link></li>
                     </ul>
                 </div>
                 <div className="navULContainer">
