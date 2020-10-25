@@ -1,7 +1,8 @@
 const initialState = {
     isAuthenticated: false,
     token: "",
-    loginError:false
+    loginError:false,
+    reset: false
 }
 
 export default function(state= initialState, action){
@@ -18,6 +19,16 @@ export default function(state= initialState, action){
                 token: action.payload,
                 isAuthenticated: true,
                 loginError:false
+            }
+        case "PASSWORD_RESET":
+            return{
+                ...state,
+                reset: true
+            }
+        case "PASSWORD_RESET_OFF":
+            return{
+                ...state,
+                reset: false
             }
         case "LOGIN_ERROR":
             return{

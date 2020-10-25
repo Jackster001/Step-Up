@@ -98,6 +98,23 @@ export const loginUser =(userData)=> async dispatch =>{
     }
 }
 
+// Reset Password
+export const resetPassword = (emailAddress) => async dispatch => {
+    try{
+        await auth.sendPasswordResetEmail(emailAddress)
+        await dispatch ({
+            type: "PASSWORD_RESET"
+        });
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const resetOff = () =>{
+    return{
+        type: "PASSWORD_RESET_OFF"
+    }
+}
 
 // Profile loading
 export const setUserProfileLoading = () => {

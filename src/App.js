@@ -16,26 +16,6 @@ import firebase from "firebase/app";
 import {auth} from "./Firebase/firebase"
 
 function App() {
-  // useEffect(()=>{
-  //   // Check for token
-  //   if (localStorage.jwtToken) {
-  //     // Set auth token header auth
-  //     setAuthToken(localStorage.jwtToken);
-  //     // Decode token and get user info and exp
-  //     const decoded = jwt_decode(localStorage.jwtToken);
-  //     // Set user and isAuthenticated
-  //     store.dispatch(setToken(decoded));
-  //     // Check for expired token
-  //     const currentTime = Date.now() / 1000;
-  //     if (decoded.exp < currentTime) {
-  //       // Logout user
-  //       store.dispatch(logoutUser());
-
-  //       // Redirect to login
-  //       window.location.href = `/login`;
-  //     }
-  //   }}
-  // ,[])
 
   return ( 
     <Provider store={store}>
@@ -46,9 +26,9 @@ function App() {
               <PublicRoute exact path={routes.LANDING} component={screens.Landing}/>
               <PublicRoute exact path={routes.SIGNUP} component={screens.Signup}/>
               <PublicRoute exact path={routes.LOGIN} component={screens.Login}/>
+              <PublicRoute exact path={routes.RESET} component={screens.Reset}/>
               <PublicRoute exact path={routes.PRIVACY} component={screens.Privacy}/>
               <PrivateRoute exact path={routes.HOME} component={screens.Dashboard}/>
-              {/* <PrivateRoute exact path={routes.DASHBOARD} component={screens.Dashboard}/> */}
               <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account}/>
           </div>
         </Router>

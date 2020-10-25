@@ -542,3 +542,48 @@ code {
   box-shadow: 3px 3px 5px #888888;
   margin-bottom: 35px;
 }
+.resetContainer{
+  width: 500px;
+  max-height: 700px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 5px 5px 10px #888888;
+  padding: 15px 0px;
+}
+.resetContainerInner{
+  width: 80%;
+  margin: 0 auto;
+}
+.resetTexts{
+  font-weight: 900
+}
+.resetButton{
+  border: none;
+  padding: 0px 2px;
+  width: 40%;
+  border-radius: 10px;
+  background-attachment: fixed;
+  border: 1px solid black;
+  font-size: 16px;
+  height: 42px;
+  margin-top: 11px;
+  cursor: pointer;
+  outline: none;
+}
+.resetButton:hover{
+  background-color: white;
+}
+.resetEmailInput{
+  width: 100%;
+  padding: 10px 10px;
+  margin: 10px 0px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

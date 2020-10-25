@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../Action/authAction';
+import { loginUser,resetPassword } from '../Action/authAction';
 import * as routes from '../Routes/routes';
 import {auth, firestore} from '../Firebase/firebase';
 
@@ -59,7 +59,8 @@ class Login extends Component {
                 </form>
                 <center>
                 <br/><br/>
-                <p>Don't have an account? <Link to={routes.SIGNUP}>Sign Up</Link></p></center>
+                <p>Don't have an account? <Link to={routes.SIGNUP}>Sign Up</Link></p>
+                <p><Link to={routes.RESET}>Reset Password</Link></p></center>
             </div>
           </div>
         );
@@ -71,4 +72,4 @@ const mapStateToProps =(state) =>({
   loginError: state.authState.loginError
 })
 
-export default connect(mapStateToProps, {loginUser})(Login);
+export default connect(mapStateToProps, {loginUser, resetPassword})(Login);

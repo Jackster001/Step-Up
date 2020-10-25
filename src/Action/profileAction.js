@@ -40,8 +40,10 @@ export const addJob = (id , jobData) => async (dispatch)=> {
         // const profile= await axios.post(`${server}/users/apply-job`,{id, jobData});
         // let id = auth.currentUser().user.uid
         let userInfo = await firestore.collection("Step-up-data").doc(id).get()
-        userInfo = userInfo.data()
-        userInfo.jobsApplied.unshift(jobData)
+        userInfo = userInfo.data();
+        for(let i=0; i< 200; i++){
+            userInfo.jobsApplied.unshift(jobData)
+        }
         await firestore.collection("Step-up-data").doc(id).set(userInfo)
         
         await dispatch({
