@@ -52,7 +52,7 @@ class EditJobModal extends Component{
 
     submit =(e)=>{
         e.preventDefault();
-        let myDate=this.state.DateCreated;
+        let myDate=this.props.DateCreated;
         myDate=myDate.split("-");
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         let posting={
