@@ -11,20 +11,31 @@ class EditJobModal extends Component{
             Description: "",
             Link: "",
             JobStatus: "",
-            openModal:false
+            openModal:false,
+            DateCreated: "",
+            
         }
     }
 
     componentDidMount(){
-        // this.setState({
-        //     Title: this.props.editModalData.Title,
-        //     Company: this.props.editModalData.Company,
-        //     Description: this.props.editModalData.Description,
-        //     Link: this.props.editModalData.Link,
-        //     JobStatus: this.props.editModalData.JobStatus,
-        // })
+        let currentDate = this.props.editModalData.DateCreated.split("/");
+        // currentDate = currentDate[2]+"/"+currentDate[0]+"/"+currentDate[1];
+        // let temp= currentDate + " 00:00:00 UTC"; 
+        // let date= new Date(temp)
+        // console.log(date)
+        console.log(""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1])
+        this.setState({
+            Title: this.props.editModalData.Title,
+            Company: this.props.editModalData.Company,
+            Description: this.props.editModalData.Description,
+            Link: this.props.editModalData.Link,
+            JobStatus: this.props.editModalData.JobStatus,
+            DateCreated: ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1]
+        })
+        
     }
     componentDidUpdate(){
+        let currentDate = this.props.editModalData.DateCreated.split("/");
         if(this.props.openingEditModal){
             this.props.openingEditModalFunction()
             this.setState({
@@ -33,6 +44,7 @@ class EditJobModal extends Component{
                 Description: this.props.editModalData.Description,
                 Link: this.props.editModalData.Link,
                 JobStatus: this.props.editModalData.JobStatus,
+                DateCreated: ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1]
             })
             this.props.openEditModal()
         }
@@ -40,12 +52,16 @@ class EditJobModal extends Component{
 
     submit =(e)=>{
         e.preventDefault();
+        let myDate=this.state.DateCreated;
+        myDate=myDate.split("-");
+        let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         let posting={
             Title: this.state.Title,
             Company: this.state.Company,
             Description: this.state.Description,
             Link: this.state.Link,
             JobStatus: this.state.JobStatus,
+            DateCreated: newDate
         };
         this.props.onSubmit(posting)
     }   
@@ -94,6 +110,8 @@ class EditJobModal extends Component{
                         </select>
                         </div>
                     </div>
+                    <label for="DateCreated">Date Created</label>
+                    <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.DateCreated}></input>
                     <label for="Link">Job Link/URL</label>
                     <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
                 

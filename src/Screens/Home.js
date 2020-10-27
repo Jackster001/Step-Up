@@ -10,13 +10,13 @@ class Home extends Component {
       profile:{}
     }
   }
-  componentDidUpdate(){
-    if(this.props.loadingProfile){
-      this.props.disableUserProfileLoading()
-      this.setState({...this.state, profile: this.props.profile})
-      console.log(this.props.profile)
-    }
-  }
+  // componentDidUpdate(){
+  //   if(this.props.loadingProfile){
+  //     this.props.disableUserProfileLoading()
+  //     this.setState({...this.state, profile: this.props.profile})
+  //     console.log(this.props.profile)
+  //   }
+  // }
   render() {
     return (
       <div>

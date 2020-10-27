@@ -294,23 +294,22 @@ code {
   width: 100%;
   display: flex;
   margin-bottom: 20px;
-  padding-bottom: 30px;
-  border-bottom: 3px solid black
 }
 .AppliedTitle{
   width: 30%;
   display: flex;
+  font-weight: 900;
 }
 .SearchContainer{
   width: 40%;
   display: flex;
 }
 .addButtonContainer{
-  width: 30%;
+  width: 60%;
   justify-content: flex-end;
 }
 .ModalContainer{
-  position: absolute;
+  position: fixed;
   top:0;
   left:0;
   z-index: 500;
@@ -375,13 +374,17 @@ code {
   cursor: pointer;
 }
 .jobStatusContainer{
-  max-width: 90%;
+  max-width: 95%;
   margin: 0 auto;
   display: flex;
-  margin-top: 10px
+  margin-top: 10px;
+  background-color: white;
+  padding: 15px 5px;
+  border-radius: 10px;
+  box-shadow: 2px 5px 5px #888888;
 }
 .JobContainer{
-  max-width: 1400px;
+  max-width: 1500px;
   background-color: #f5f5f5;
   margin: 0 auto;
   padding: 40px 20px;
@@ -447,10 +450,22 @@ code {
 }
 .jobStatusLeft{
   width: 30%;
+  margin-left: 15px;
+}
+.jobStatusLeft>h1{
+  line-height: 5px;
+}
+.jobStatusLeft>h3{
+  line-height: 5px;
+}
+.jobStatusMiddle{
+  width: 40%;
 }
 .jobStatusRight{
-  width: 70%;
-  margin: 0 auto;
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 15px;
 }
 .ProgressBar-stepLabel {
   display: block;
@@ -477,6 +492,8 @@ code {
 .editTextButton{
   text-decoration: underline;
   cursor: pointer;
+  margin-top: 50px;
+
 }
 .SearchInput{
   width: 75%;
@@ -506,7 +523,7 @@ code {
   background-color: #470eb3;
 }
 .statusBarContainer{
-  margin-top: 20px;
+  /* margin-top: 25px; */
 }
 .jobStatusButtonRow{
   display: flex;
@@ -586,4 +603,25 @@ code {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+.jobsInnerContainer{
+  max-height: 500px;
+  overflow-y: auto;
+  border: 3px solid #d4d4d4;
+  border-radius: 10px;
+}
+.jobsInnerContainer::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, .5);
+}
+.jobsInnerContainer::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.jobsInnerContainer::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+.jobBoardContainer{
+  padding: 5px 0px;
 }

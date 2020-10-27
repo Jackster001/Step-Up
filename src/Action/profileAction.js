@@ -41,9 +41,9 @@ export const addJob = (id , jobData) => async (dispatch)=> {
         // let id = auth.currentUser().user.uid
         let userInfo = await firestore.collection("Step-up-data").doc(id).get()
         userInfo = userInfo.data();
-        for(let i=0; i< 200; i++){
-            userInfo.jobsApplied.unshift(jobData)
-        }
+        userInfo.jobsApplied.unshift(jobData)
+        setUserProfileLoading()
+    
         await firestore.collection("Step-up-data").doc(id).set(userInfo)
         
         await dispatch({

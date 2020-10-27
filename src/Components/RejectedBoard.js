@@ -6,13 +6,13 @@ import {JobStatus} from './';
 import EditJobModal from './Modals/EditJobModal';
 import {setEditModalData,openingEditModalFunction} from '../Action/profileAction' 
 import RemoveModal from './Modals/RemoveModal';
-class Appliedboard extends Component{
+class RejectedBoard extends Component{
     constructor(props) {
         super(props);
         this.state = {
           openModal: false,
           updatedData: {},
-          jobsApplied:[],
+          rejections:[],
           openEditModal: false,
           editData: {},
           editIndex:0,
@@ -22,17 +22,14 @@ class Appliedboard extends Component{
         }
     }
     componentDidMount(){
-      this.setState({...this.state, jobsApplied:this.props.profile.jobsApplied})
+      this.setState({...this.state, rejections:this.props.profile.rejections})
     }
     componentDidUpdate(){
       if(this.props.loadingProfile){
         this.props.disableUserProfileLoading()
-        this.setState({
-          jobsApplied: this.props.profile.jobsApplied
-        }, () => {
-          this.closeModal();
-          this.closeEditModal()
-        });
+        this.setState({jobsApplied: this.props.profile.jobsApplied})
+        this.closeModal();
+        this.closeEditModal()
       }
     }
     openModal(){
@@ -88,8 +85,8 @@ class Appliedboard extends Component{
     render(){
         return (
             <div className="JobContainer">
-              <div className="AppliedTitle"><h1>Jobs Tracker ({this.state.jobsApplied.length})</h1></div>
                 <div className="jobBoardHeader">
+                    <div className="AppliedTitle"><h3>Jobs Applied</h3></div>
                     <div className="SearchContainer">
                       <input className="SearchInput" type="text" placeholder="Search for Applied Jobs ..." onChange={(e)=> this.handleSearchInput(e)}></input>
                       <button className="Search-Button" onClick={()=>this.search(this.state.query)}>Search</button>
@@ -100,7 +97,6 @@ class Appliedboard extends Component{
                 </div>
                 <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
-                <div className="jobsInnerContainer">
                 {
                   this.state.jobsApplied.length ===0 ? 
                     <div>
@@ -121,17 +117,17 @@ class Appliedboard extends Component{
                             Link={job.Link}
                             JobStatus = {job.JobStatus}
                             Index={i}
-                            DateCreated={job.DateCreated}
                             openEditModal={()=>this.handleEditModal(i)} 
                             handleRemove={()=>this.handleRemove(i)}
                           />
                           <RemoveModal Title={job.Title} Company={job.Company} openModal={this.state.openRemoveModal} close={()=>this.closeRemoveModal()}/>
+                        <hr/>
                         </div>
                       )
                     })}
                   </div>
+                  
                 }
-                </div>
             </div>
         );
     }
@@ -144,4 +140,4 @@ const mapStateToProps =(state) =>({
     openingEditModal: state.userState.openingEditModal
 })
 
-export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading,setEditModalData,openingEditModalFunction})(Appliedboard);
+export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading,setEditModalData,openingEditModalFunction})(RejectedBoard);

@@ -7,12 +7,18 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         Company:"",
         Description: "",
         Link: "",
-        JobStatus: "Applied"
+        JobStatus: "Applied",
+        DateCreated: Date.now()
     })
 
     const submit =(e)=>{
         e.preventDefault();
         let posting=jobPosting;
+        let myDate=posting.DateCreated;
+        myDate=myDate.split("-");
+        console.log(myDate)
+        let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
+        posting.DateCreated = newDate
         setJobPosting({
             Title:"",
             Company:"",
@@ -45,6 +51,9 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
 
                     <label for="Link">Job Link/URL</label>
                     <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder="Job Link"/>
+                    
+                    <label for="DateCreated">Date Created</label>
+                    <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> setValue(e)}></input>
 
                     <label for="JobStatus">Job Status</label>
                         <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>

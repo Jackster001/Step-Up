@@ -10,7 +10,7 @@ class JobStatus extends Component{
                     :this.props.JobStatus === "Interview"? 2
                     :this.props.JobStatus === "Rejected"? 3
                     : 4
-                   )
+            )
         }
     }
     render(){
@@ -19,24 +19,24 @@ class JobStatus extends Component{
                 <div className="jobStatusLeft">
                     <h1>{this.props.Company}</h1>
                     <h2>{this.props.Title}</h2>
-                    <div className="jobStatusButtonRow">
-                        <p className="editTextButton" onClick={()=>this.props.openEditModal(this.props.Index)}>Edit </p>
-                        <p className="removeTextButton" onClick={()=>this.props.handleRemove(this.props.Index)}>Remove</p>
-                    </div>
+                    <h3>{this.props.DateCreated}</h3>
                 </div>
-                <div className="jobStatusRight">
+                <div className="jobStatusMiddle">
                     <StatusBar status={(this.props.JobStatus === "Applied"? 1 
                     :this.props.JobStatus === "Interview"? 2
                     :this.props.JobStatus === "Rejected"? 3
                     : 4
                    )}/>
                 </div>
+                <div className="jobStatusRight">
+                    <h3 className="editTextButton" onClick={()=>this.props.openEditModal(this.props.Index)}>View / Edit</h3>
+                </div>
             </div>
         );
     }
 }
 const mapStateToProps =(state) =>({
-    isAuthenticated: state.authState.isAuthenticated
+    isAuthenticated: state.authState.isAuthenticated,
 })
 
 export default connect(mapStateToProps)(JobStatus);
