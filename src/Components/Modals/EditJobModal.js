@@ -18,24 +18,24 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
-        let currentDate = this.props.editModalData.DateCreated.split("/");
+        // let currentDate = this.props.editModalData.DateCreated.split("/");
         // currentDate = currentDate[2]+"/"+currentDate[0]+"/"+currentDate[1];
         // let temp= currentDate + " 00:00:00 UTC"; 
         // let date= new Date(temp)
         // console.log(date)
-        console.log(""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1])
+        // console.log(""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1])
         this.setState({
             Title: this.props.editModalData.Title,
             Company: this.props.editModalData.Company,
             Description: this.props.editModalData.Description,
             Link: this.props.editModalData.Link,
             JobStatus: this.props.editModalData.JobStatus,
-            DateCreated: ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1]
+            DateCreated: this.props.editModalData.JobStatus.DateCreated
         })
         
     }
     componentDidUpdate(){
-        let currentDate = this.props.editModalData.DateCreated.split("/");
+
         if(this.props.openingEditModal){
             this.props.openingEditModalFunction()
             this.setState({
@@ -44,7 +44,7 @@ class EditJobModal extends Component{
                 Description: this.props.editModalData.Description,
                 Link: this.props.editModalData.Link,
                 JobStatus: this.props.editModalData.JobStatus,
-                DateCreated: ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1]
+                DateCreated: this.props.editModalData.JobStatus.DateCreated
             })
             this.props.openEditModal()
         }
