@@ -18,24 +18,27 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
-        // let currentDate = this.props.editModalData.DateCreated.split("/");
-        // currentDate = currentDate[2]+"/"+currentDate[0]+"/"+currentDate[1];
+        let currentDate = this.props.editModalData.DateCreated.split("/");
+        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        console.log(currentDate)
         // let temp= currentDate + " 00:00:00 UTC"; 
         // let date= new Date(temp)
         // console.log(date)
         // console.log(""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1])
+        // console.log(this.props.editModalData.DateCreated)
         this.setState({
             Title: this.props.editModalData.Title,
             Company: this.props.editModalData.Company,
             Description: this.props.editModalData.Description,
             Link: this.props.editModalData.Link,
             JobStatus: this.props.editModalData.JobStatus,
-            DateCreated: this.props.editModalData.JobStatus.DateCreated
+            DateCreated: ""+currentDate
         })
         
     }
     componentDidUpdate(){
-
+        let currentDate = this.props.editModalData.DateCreated.split("/");
+        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
         if(this.props.openingEditModal){
             this.props.openingEditModalFunction()
             this.setState({
@@ -44,7 +47,7 @@ class EditJobModal extends Component{
                 Description: this.props.editModalData.Description,
                 Link: this.props.editModalData.Link,
                 JobStatus: this.props.editModalData.JobStatus,
-                DateCreated: this.props.editModalData.JobStatus.DateCreated
+                DateCreated: currentDate
             })
             this.props.openEditModal()
         }
@@ -52,7 +55,7 @@ class EditJobModal extends Component{
 
     submit =(e)=>{
         e.preventDefault();
-        let myDate=this.props.DateCreated;
+        let myDate = this.state.DateCreated;
         myDate=myDate.split("-");
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         let posting={
