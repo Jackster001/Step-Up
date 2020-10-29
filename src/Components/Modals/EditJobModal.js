@@ -18,28 +18,25 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
-        let currentDate = this.props.editModalData.DateCreated.split("/");
-        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
-        console.log(currentDate)
-        // let temp= currentDate + " 00:00:00 UTC"; 
-        // let date= new Date(temp)
-        // console.log(date)
-        // console.log(""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1])
-        // console.log(this.props.editModalData.DateCreated)
-        this.setState({
-            Title: this.props.editModalData.Title,
-            Company: this.props.editModalData.Company,
-            Description: this.props.editModalData.Description,
-            Link: this.props.editModalData.Link,
-            JobStatus: this.props.editModalData.JobStatus,
-            DateCreated: ""+currentDate
-        })
+        if(this.props.editModalData.DateCreated){
+            let currentDate = this.props.editModalData.DateCreated.split("/");
+            currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+            console.log(currentDate)
+            this.setState({
+                Title: this.props.editModalData.Title,
+                Company: this.props.editModalData.Company,
+                Description: this.props.editModalData.Description,
+                Link: this.props.editModalData.Link,
+                JobStatus: this.props.editModalData.JobStatus,
+                DateCreated: ""+currentDate
+            })
+        }
         
     }
     componentDidUpdate(){
-        let currentDate = this.props.editModalData.DateCreated.split("/");
-        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
         if(this.props.openingEditModal){
+            let currentDate = this.props.editModalData.DateCreated.split("/");
+            currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
             this.props.openingEditModalFunction()
             this.setState({
                 Title: this.props.editModalData.Title,
