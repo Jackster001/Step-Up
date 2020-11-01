@@ -149,7 +149,7 @@ class Appliedboard extends Component{
                 <div className="jobBoardHeader">
                     <div className="SearchContainer">
                       <input className="SearchInput" type="text" placeholder="Search for Applied Jobs ..." onChange={(e)=> this.handleSearchInput(e)} onKeyDown={()=>this.search(this.state.query)}></input>
-                      <button className="Search-Button" onClick={()=>this.search(this.state.query)}>Search</button>
+                      {/* <button className="Search-Button" onClick={()=>this.search(this.state.query)}>Search</button> */}
                     </div>
                     <div className="addButtonContainer">
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
