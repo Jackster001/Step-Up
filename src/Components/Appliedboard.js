@@ -76,22 +76,35 @@ class Appliedboard extends Component{
       this.props.updateJob(this.props.profile.id,v,i)
     }
     handleSearchInput(e){
-      let value = e.target.value.toLowerCase()
-      this.setState({query: value})
-    }
-    search(query){
+      let query = e.target.value.toLowerCase()
+      this.setState({query: query})
       if(query === ""){
         this.setState({jobsApplied: this.props.profile.jobsApplied, SearchError: false})
         return;
       }
       let newData = []
-      this.state.jobsApplied.forEach(job=>{
+      this.props.profile.jobsApplied.forEach(job=>{
         if(job.Title.toLowerCase().includes(query) || job.Company.toLowerCase().includes(query)){
           newData.push(job)
         }
       })
 
       this.setState({SearchError: false, jobsApplied: newData})
+    }
+    search(query){
+      // console.log(query)
+      // if(query === ""){
+      //   this.setState({jobsApplied: this.props.profile.jobsApplied, SearchError: false})
+      //   return;
+      // }
+      // let newData = []
+      // this.props.profile.jobsApplied.forEach(job=>{
+      //   if(job.Title.toLowerCase().includes(query) || job.Company.toLowerCase().includes(query)){
+      //     newData.push(job)
+      //   }
+      // })
+
+      // this.setState({SearchError: false, jobsApplied: newData})
     }
     handleRemove(i){
       this.props.removeJob(this.props.profile.id, i)
