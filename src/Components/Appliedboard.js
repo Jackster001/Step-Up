@@ -38,7 +38,8 @@ class Appliedboard extends Component{
       if(this.props.loadingProfile){
         this.props.disableUserProfileLoading()
         this.setState({
-          jobsApplied: this.props.profile.jobsApplied
+          jobsApplied: this.props.profile.jobsApplied,
+          checked: {}
         }, () => {
           this.closeModal();
           if(!this.state.removed){
