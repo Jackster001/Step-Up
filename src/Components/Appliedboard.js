@@ -118,7 +118,7 @@ class Appliedboard extends Component{
           map[checkBox[i].value] = true;
         }
       }
-      if(JSON.stringify(map) === '{}') return this.setState({jobsApplied: this.props.profile.jobsApplied})
+      if(JSON.stringify(map) === '{}') return this.setState({jobsApplied: this.props.profile.jobsApplied, checked : {}})
       let jobsFiltered = [];
       for(let i=0; i< this.props.profile.jobsApplied.length; i++){
         if(map[this.props.profile.jobsApplied[i].JobStatus]){
