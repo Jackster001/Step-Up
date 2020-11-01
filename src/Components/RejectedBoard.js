@@ -80,7 +80,7 @@ class RejectedBoard extends Component{
     }
     handleRemove(i){
       this.props.removeJob(this.props.profile.id, i)
-      this.openRemoveModal()
+      // this.openRemoveModal()
     }
     render(){
         return (

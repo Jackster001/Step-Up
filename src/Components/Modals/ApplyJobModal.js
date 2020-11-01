@@ -8,7 +8,8 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         Description: "",
         Link: "",
         JobStatus: "Applied",
-        DateCreated: Date.now()
+        DateCreated: Date.now(),
+        removed:false
     })
 
     const submit =(e)=>{

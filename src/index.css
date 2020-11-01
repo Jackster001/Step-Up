@@ -522,14 +522,10 @@ code {
 .Search-Button:hover{
   background-color: #470eb3;
 }
-.statusBarContainer{
-  /* margin-top: 25px; */
-}
 .jobStatusButtonRow{
   display: flex;
 }
 .removeTextButton{
-  margin-left: 8px;
   text-decoration: underline;
   cursor: pointer;
 }

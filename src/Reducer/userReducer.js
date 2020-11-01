@@ -1,6 +1,7 @@
 const initialState = {
     profile:{},
     loadingProfile: false,
+    loadingProfileAfterRemoval: false,
     editModalData: {        
         Title: "",
         Company: "",
@@ -48,7 +49,7 @@ export default function(state= initialState, action){
         case "DISABLE_USER_PROFILE_LOADING":
             return{
                 ...state,
-                loadingProfile:false
+                loadingProfile:false,
             }
         case "LOGIN_ERROR":
             return{

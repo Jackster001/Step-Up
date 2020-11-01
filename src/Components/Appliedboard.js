@@ -18,7 +18,8 @@ class Appliedboard extends Component{
           editIndex:0,
           query: "",
           SearchError: false,
-          openRemoveModal: false
+          openRemoveModal: false,
+          removed: false
         }
     }
     componentDidMount(){
@@ -31,7 +32,7 @@ class Appliedboard extends Component{
           jobsApplied: this.props.profile.jobsApplied
         }, () => {
           this.closeModal();
-          this.closeEditModal()
+          // this.closeEditModal()
         });
       }
     }
@@ -49,7 +50,7 @@ class Appliedboard extends Component{
       this.setState({openEditModal: true})
     }
     closeEditModal(){
-      this.setState({openEditModal:false, editIndex:0})
+      this.setState({openEditModal:false, editIndex:0, removed: false})
     }
     openRemoveModal(){
       this.setState({openRemoveModal: true})
@@ -83,7 +84,7 @@ class Appliedboard extends Component{
     }
     handleRemove(i){
       this.props.removeJob(this.props.profile.id, i)
-      this.openRemoveModal()
+      this.setState({removed: true})
     }
     render(){
         return (
@@ -98,7 +99,7 @@ class Appliedboard extends Component{
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
                     </div>
                 </div>
-                <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
+                <EditJobModal removed={this.state.removed} openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} handleRemove={()=>this.handleRemove(this.state.editIndex)} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 <div className="jobsInnerContainer">
                 {
@@ -125,7 +126,7 @@ class Appliedboard extends Component{
                             openEditModal={()=>this.handleEditModal(i)} 
                             handleRemove={()=>this.handleRemove(i)}
                           />
-                          <RemoveModal Title={job.Title} Company={job.Company} openModal={this.state.openRemoveModal} close={()=>this.closeRemoveModal()}/>
+                          <RemoveModal Index={i} Title={job.Title} Company={job.Company} openModal={this.state.openRemoveModal} close={()=>this.closeRemoveModal()}/>
                         </div>
                       )
                     })}

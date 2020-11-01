@@ -13,7 +13,6 @@ class EditJobModal extends Component{
             JobStatus: "",
             openModal:false,
             DateCreated: "",
-            
         }
     }
 
@@ -74,50 +73,59 @@ class EditJobModal extends Component{
         });
     }
 
-    close = () =>{
-        this.setState({openModal:false})
+    onRemove = () =>{
+        this.props.handleRemove(this.props.Index)
+        // this.setState=({removed: true})
     }
 
     render(){
     return (
         <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
-            <div className="modal">
-                <h3 className="backButton" onClick={()=>this.props.close()}>&#8592; Back</h3>
-                <center><h2>{this.state.Company}</h2></center>
-                <form class="formContainer" onSubmit={(e)=>this.submit(e)}>
-                    <div className="editInputRow">
-                        <div className="editInputContainer">
-                            <label for="Company">Company Name</label>
-                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Company} type="text" id="Company" name="Company" placeholder={this.state.Company}/>
-                        </div>
-                        <div className="editInputContainer">
-                            <label for="Title">Job Title</label>
-                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Title} type="text" id="Title" name="Title" placeholder={this.state.Title}/>
-                        </div>
-                    </div>
-                    <div className="editInputRow">
-                        <div className="editInputContainer">
+                {
+                    !this.props.removed ?
+                        <div className="modal">
+                        <h3 className="backButton" onClick={()=>this.props.close()}>&#8592; Back</h3>
+                        <center><h2>{this.state.Company}</h2></center>
+                        <form class="formContainer" onSubmit={(e)=>this.submit(e)}>
+                            <div className="editInputRow">
+                                <div className="editInputContainer">
+                                    <label for="Company">Company Name</label>
+                                    <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Company} type="text" id="Company" name="Company" placeholder={this.state.Company}/>
+                                </div>
+                                <div className="editInputContainer">
+                                    <label for="Title">Job Title</label>
+                                    <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Title} type="text" id="Title" name="Title" placeholder={this.state.Title}/>
+                                </div>
+                            </div>
+                            <div className="editInputRow">
+                                <div className="editInputContainer">
+                                    <label for="Link">Job Link/URL</label>
+                                    <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Link} type="text" id="Link" name="Link" placeholder={this.state.Link}/>
+                                </div>
+                                <div className="editInputContainer">
+                                <label for="JobStatus">Job Status</label>
+                                    <select className="formTextInput" id="JobStatus" value={this.state.JobStatus} name="JobStatus" onChange={(e)=> this.setValue(e)}>
+                                    <option name="JobStatus" value="Applied" onChange={(e)=> this.setValue(e)}>Applied</option>
+                                    <option name="JobStatus" value="Interview" onChange={(e)=> this.setValue(e)}>Interview</option>
+                                    <option name="JobStatus" value="Rejected" onChange={(e)=> this.setValue(e)}>Rejected</option>
+                                    <option name="JobStatus" value="Offer" >Offer</option>
+                                </select>
+                                </div>
+                            </div>
+                            <label for="DateCreated">Date Created</label>
+                            <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.DateCreated}></input>
                             <label for="Link">Job Link/URL</label>
-                            <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Link} type="text" id="Link" name="Link" placeholder={this.state.Link}/>
-                        </div>
-                        <div className="editInputContainer">
-                        <label for="JobStatus">Job Status</label>
-                            <select className="formTextInput" id="JobStatus" value={this.state.JobStatus} name="JobStatus" onChange={(e)=> this.setValue(e)}>
-                            <option name="JobStatus" value="Applied" onChange={(e)=> this.setValue(e)}>Applied</option>
-                            <option name="JobStatus" value="Interview" onChange={(e)=> this.setValue(e)}>Interview</option>
-                            <option name="JobStatus" value="Rejected" onChange={(e)=> this.setValue(e)}>Rejected</option>
-                            <option name="JobStatus" value="Offer" >Offer</option>
-                        </select>
-                        </div>
+                            <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
+                        
+                            <center><input className="formButton" type="submit" value="Submit"/>
+                            <p className="removeTextButton" onClick={()=>this.onRemove()}>Remove</p></center><br/><br/>
+                        </form></div>
+                    :            
+                    <div className="modal">
+                        <center><h2>Job for {this.state.Company} has been removed</h2>
+                        <button className="closeButton" onClick={()=>this.props.close()}>Close</button></center>
                     </div>
-                    <label for="DateCreated">Date Created</label>
-                    <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.DateCreated}></input>
-                    <label for="Link">Job Link/URL</label>
-                    <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
-                
-                    <center><input className="formButton" type="submit" value="Submit"/></center><br/><br/>
-                </form>
-            </div>
+                }
         </div>
     );
     }
@@ -125,7 +133,7 @@ class EditJobModal extends Component{
 const mapStateToProps =(state) =>({
     isAuthenticated: state.authState.isAuthenticated,
     profile: state.userState.profile,
-    loadingProfile: state.userState.loadingProfile,
+    loadingProfileAfterRemoval: state.userState.loadingProfileAfterRemoval,
     openingEditModal: state.userState.openingEditModal,
     editModalData: state.userState.editModalData
 })

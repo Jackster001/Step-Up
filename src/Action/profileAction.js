@@ -34,6 +34,7 @@ export const disableUserProfileLoading = () => {
     };
 };
 
+
 // add job to jobs applied in the user data
 export const addJob = (id , jobData) => async (dispatch)=> {
     try{
