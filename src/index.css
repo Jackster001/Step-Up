@@ -274,6 +274,14 @@ code {
   position: absolute;
   right: 0;
 }
+.filterIcon{
+  width: 35px;
+  height: 35px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 9px;
+  cursor: pointer;
+} 
 .addJobButton{
   background-color: #5943fa;
   cursor: pointer;
@@ -621,4 +629,31 @@ code {
 }
 .jobBoardContainer{
   padding: 5px 0px;
+}
+
+.MultiSelectContainer{
+  width: 300px;
+  height: 10px;
+  float: right;
+}
+
+#checkboxes {
+  display: block;
+  background-color: white;
+  border: 1px #dadada solid;
+  position: relative;
+  float: right;
+  width: 120px;
+  margin-top: 40px;
+  margin-right: -5px;
+  padding: 10px;
+}
+
+#checkboxes label {
+  display: block;
+  padding: 2px
+}
+
+#checkboxes label:hover {
+  cursor: pointer;
 }

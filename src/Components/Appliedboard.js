@@ -6,6 +6,7 @@ import {JobStatus} from './';
 import EditJobModal from './Modals/EditJobModal';
 import {setEditModalData,openingEditModalFunction} from '../Action/profileAction' 
 import RemoveModal from './Modals/RemoveModal';
+import filterIcon from '../Assets/Filter_Icon.svg';
 class Appliedboard extends Component{
     constructor(props) {
         super(props);
@@ -19,7 +20,15 @@ class Appliedboard extends Component{
           query: "",
           SearchError: false,
           openRemoveModal: false,
-          removed: false
+          removed: false,
+          showCheckboxes: false,
+          checkBox:[
+            {value: "Applied", isChecked: false},
+            {value: "Rejected", isChecked: false},
+            {value: "Interview", isChecked: false},
+            {value: "Offer", isChecked: false}
+          ],
+          checked: {}
         }
     }
     componentDidMount(){
@@ -32,7 +41,9 @@ class Appliedboard extends Component{
           jobsApplied: this.props.profile.jobsApplied
         }, () => {
           this.closeModal();
-          // this.closeEditModal()
+          if(!this.state.removed){
+            this.closeEditModal()
+          }
         });
       }
     }
@@ -86,6 +97,37 @@ class Appliedboard extends Component{
       this.props.removeJob(this.props.profile.id, i)
       this.setState({removed: true})
     }
+    onPressShowFilter(){
+      let opposite = this.state.showCheckboxes;
+      this.setState({showCheckboxes: !opposite})
+    }
+    onPressChangeFilter(e){
+      let value = e.target.value;
+      var checkBox= this.state.checkBox
+      let map ={}
+      for(let i=0; i< checkBox.length; i++){
+        if(value === checkBox[i].value && checkBox[i].isChecked === false){
+            checkBox[i].isChecked = !checkBox[i].isChecked;
+            map[checkBox[i].value] = true;
+            this.setState({checkBox: checkBox})
+            console.log(checkBox[i].isChecked)
+        }
+        else if(value === checkBox[i].value && checkBox[i].isChecked === true){
+          checkBox[i].isChecked = false
+          this.setState({checkBox: checkBox})
+        }else if(checkBox[i].isChecked === true){
+          map[checkBox[i].value] = true;
+        }
+      }
+      let jobsFiltered = [];
+      for(let i=0; i< this.props.profile.jobsApplied.length; i++){
+        if(map[this.props.profile.jobsApplied[i].JobStatus]){
+          jobsFiltered.push(this.props.profile.jobsApplied[i])
+        }
+      }
+      return this.setState({jobsApplied: jobsFiltered, checked: map})
+      
+    }
     render(){
         return (
             <div className="JobContainer">
@@ -97,6 +139,23 @@ class Appliedboard extends Component{
                     </div>
                     <div className="addButtonContainer">
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
+                      <div className="MultiSelectContainer">
+                        <img className="filterIcon" src={filterIcon} onClick={()=> this.onPressShowFilter()}/>
+                          {
+                            this.state.showCheckboxes ?
+                              <div id="checkboxes">
+                                <label for="one">
+                                  <input type="checkbox" id="one" value="Applied" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Applied"]}/>Applied</label>
+                                <label for="two">
+                                  <input type="checkbox" id="two" value="Rejected" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Rejected"]}/>Rejected</label>
+                                <label for="three">
+                                  <input type="checkbox" id="three" value="Interview" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Interview"]}/>Interview</label>
+                                <label for="four">
+                                  <input type="checkbox" id="four" value="Offer" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Offer"]}/>Offer</label>
+                              </div>
+                            : <div></div>
+                          }
+                        </div>
                     </div>
                 </div>
                 <EditJobModal removed={this.state.removed} openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} handleRemove={()=>this.handleRemove(this.state.editIndex)} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
