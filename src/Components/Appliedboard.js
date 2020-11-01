@@ -110,7 +110,6 @@ class Appliedboard extends Component{
             checkBox[i].isChecked = !checkBox[i].isChecked;
             map[checkBox[i].value] = true;
             this.setState({checkBox: checkBox})
-            console.log(checkBox[i].isChecked)
         }
         else if(value === checkBox[i].value && checkBox[i].isChecked === true){
           checkBox[i].isChecked = false
@@ -119,6 +118,7 @@ class Appliedboard extends Component{
           map[checkBox[i].value] = true;
         }
       }
+      if(JSON.stringify(map) === '{}') return this.setState({jobsApplied: this.props.profile.jobsApplied})
       let jobsFiltered = [];
       for(let i=0; i< this.props.profile.jobsApplied.length; i++){
         if(map[this.props.profile.jobsApplied[i].JobStatus]){
@@ -134,7 +134,7 @@ class Appliedboard extends Component{
               <div className="AppliedTitle"><h1>Jobs Tracker ({this.state.jobsApplied.length})</h1></div>
                 <div className="jobBoardHeader">
                     <div className="SearchContainer">
-                      <input className="SearchInput" type="text" placeholder="Search for Applied Jobs ..." onChange={(e)=> this.handleSearchInput(e)}></input>
+                      <input className="SearchInput" type="text" placeholder="Search for Applied Jobs ..." onChange={(e)=> this.handleSearchInput(e)} onKeyDown={()=>this.search(this.state.query)}></input>
                       <button className="Search-Button" onClick={()=>this.search(this.state.query)}>Search</button>
                     </div>
                     <div className="addButtonContainer">
