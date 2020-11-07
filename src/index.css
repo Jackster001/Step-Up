@@ -278,10 +278,22 @@ code {
   width: 35px;
   height: 35px;
   float: right;
-  margin-right: 10px;
   margin-top: 9px;
   cursor: pointer;
+  margin-left: 5px;
 } 
+.filterSection{
+  display: inline-flex;
+  float: right;
+  margin-right: 10px;
+  line-height: 16px;
+}
+.filterSection>p{
+  font-size: 20px;
+  font-weight: 700;
+  color: #5943fa;
+  cursor: pointer;
+}
 .addJobButton{
   background-color: #5943fa;
   cursor: pointer;
@@ -331,8 +343,17 @@ code {
 .ClosedModal{
   display:none;
 }
+.removeButton{
+  border: none;
+  padding: 5px 8px;
+  border-radius: 10px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
 .modal{
   width: 500px;
+  min-height: 500px;
   max-height: 900px;
   background-color: white;
   position: absolute;
@@ -342,6 +363,22 @@ code {
   border-radius: 10px;
   padding: 20px;
   transition: all 0.3s ease-out;
+}
+.modal2{
+  width: 500px;
+  min-height: 500px;
+  max-height: 900px;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .backButton{
   cursor: pointer;
@@ -536,6 +573,7 @@ code {
 .removeTextButton{
   text-decoration: underline;
   cursor: pointer;
+  color: red
 }
 .closeButton{
   border: none;
@@ -644,8 +682,8 @@ code {
   position: relative;
   float: right;
   width: 120px;
-  margin-top: 40px;
-  margin-right: -5px;
+  margin-top: 45px;
+  margin-right: -65px;
   padding: 10px;
 }
 

@@ -24,7 +24,6 @@ class Navigation extends Component{
                 <div className="navULContainer">
                     <ul className="navUL">
                         <li><Link className="linkColor" to={routes.LANDING}>Home</Link></li>
-                        {/* <li><Link className="linkColor" to={routes.LOGIN}>Dashboard</Link></li> */}
                     </ul>
                 </div>
                 <div className="navULContainer">
@@ -44,7 +43,6 @@ class Navigation extends Component{
                 </div>
                 <div className="navULContainer">
                     <ul className="navUL">
-                        {/* <li><Link className="linkColor" to={routes.HOME}>Home</Link></li> */}
                         <li ><Link className="linkColor" to={routes.DASHBOARD}>Home</Link></li>
                     </ul>
                 </div>
@@ -52,7 +50,6 @@ class Navigation extends Component{
                     <div className="accountCircleContainer">
                         <div className="accountCircle">
                             <Link className="linkAccount" to={routes.ACCOUNT}>{this.props.isAuthenticated && this.props.profile ? `${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`:""}</Link>
-                            {/* <Link className="linkAccount" to={routes.ACCOUNT}>Lin</Link> */}
                         </div>
                     </div>
                 </div>

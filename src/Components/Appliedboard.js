@@ -154,7 +154,10 @@ class Appliedboard extends Component{
                     <div className="addButtonContainer">
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
                       <div className="MultiSelectContainer">
-                        <img className="filterIcon" src={filterIcon} onClick={()=> this.onPressShowFilter()}/>
+                        <div className="filterSection">
+                          <p onClick={()=> this.onPressShowFilter()}>Filter</p>
+                          <img className="filterIcon" src={filterIcon} onClick={()=> this.onPressShowFilter()}/>
+                        </div>
                           {
                             this.state.showCheckboxes ?
                               <div id="checkboxes">

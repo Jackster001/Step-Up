@@ -94,8 +94,6 @@ class Jobboard extends Component{
                     className="carouselContainer" 
                     responsive={responsive}
                     containerClass="carousel-container"
-                    // renderButtonGroupOutside={true}
-                    // customRightArrow={<CustomRightArrow />}
                 >
                     {this.state.jobs.map(job=>(
                         <div className="jobBox">

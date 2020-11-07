@@ -13,11 +13,12 @@ class EditJobModal extends Component{
             JobStatus: "",
             openModal:false,
             DateCreated: "",
+            removeConfirmation: false
         }
     }
 
     componentDidMount(){
-        if(this.props.editModalData.DateCreated){
+        if(this.props.editModalData && this.props.editModalData.DateCreated){
             let currentDate = this.props.editModalData.DateCreated.split("/");
             currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
             console.log(currentDate)
@@ -73,16 +74,20 @@ class EditJobModal extends Component{
         });
     }
 
+    onRemoveConfirmation(){
+        this.setState({removeConfirmation: true})
+    }
+
     onRemove = () =>{
         this.props.handleRemove(this.props.Index)
-        // this.setState=({removed: true})
+        this.setState({removeConfirmation: false})
     }
 
     render(){
     return (
         <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
                 {
-                    !this.props.removed ?
+                    !this.props.removed && !this.state.removeConfirmation ?
                         <div className="modal">
                         <h3 className="backButton" onClick={()=>this.props.close()}>&#8592; Back</h3>
                         <center><h2>{this.state.Company}</h2></center>
@@ -118,10 +123,16 @@ class EditJobModal extends Component{
                             <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
                         
                             <center><input className="formButton" type="submit" value="Submit"/>
-                            <p className="removeTextButton" onClick={()=>this.onRemove()}>Remove</p></center><br/><br/>
+                            <p className="removeTextButton" onClick={()=>this.onRemoveConfirmation()}>Remove</p></center><br/><br/>
                         </form></div>
-                    :            
-                    <div className="modal">
+                    :   this.state.removeConfirmation?
+                        <div className="modal2">
+                            <center><h1>Delete Job</h1>
+                            <h2>Are you sure you want to delete this job?</h2>
+                            <button className="removeButton" onClick={()=>this.onRemove()}>Remove Job</button></center>
+                        </div>
+                    :
+                    <div className="modal2">
                         <center><h2>Job for {this.state.Company} has been removed</h2>
                         <button className="closeButton" onClick={()=>this.props.close()}>Close</button></center>
                     </div>
