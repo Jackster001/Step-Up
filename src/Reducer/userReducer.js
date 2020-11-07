@@ -68,7 +68,11 @@ export default function(state= initialState, action){
                 ...state,
                 openingEditModal: false
             }
-        
+        case "PROFILE_LOGOUT":
+            return{
+                ...state,
+                profile: {}
+            }
         default:
             return state;
     }

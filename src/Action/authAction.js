@@ -41,7 +41,28 @@ export const registerUser=  (userData)=> async dispatch=>{
             date : new Date()
         })
 
-        window.location.href = '/login';
+        let user = await auth.signInWithEmailAndPassword(userData.email, userData.password)
+
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(function() {
+          return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
+        })
+        .catch(function(error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+        });     
+        
+        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get()
+
+        userInfo = userInfo.data();
+        await setUserProfileLoading();
+        await dispatch({
+            type:"SET_CURRENT_USER",
+            payload: userInfo
+        }) 
+        await dispatch({
+            type:"AUTHENTICATE_USER",
+        })
     }catch(err){
         dispatch({
             type: "GET_ERRORS",
@@ -56,15 +77,9 @@ export const loginUser =(userData)=> async dispatch =>{
 
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(function() {
-          // Existing and future Auth states are now persisted in the current
-          // session only. Closing the window would clear any existing state even
-          // if a user forgets to sign out.
-          // ...
-          // New sign-in will be persisted with session persistence.
           return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
         })
         .catch(function(error) {
-          // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
         });     
@@ -72,17 +87,6 @@ export const loginUser =(userData)=> async dispatch =>{
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get()
 
         userInfo = userInfo.data();
-        console.log(userInfo)
-        // let res = await axios.post(`${server}/users/login`, userData)
-        //save to local storage
-        // const{token, userInfo}= res.data;
-        //set token to ls
-        // await localStorage.setItem('jwtToken', token);
-        //set token to auth header
-        // setAuthToken(token);
-        //decode token to get user data
-        // const decoded =jwt_decode(token);
-        // await dispatch(setToken(decoded));
         await setUserProfileLoading();
         await dispatch({
             type:"SET_CURRENT_USER",
@@ -148,6 +152,9 @@ export const logoutUser = () => dispatch => {
     // Set current user to {} which will set isAuthenticated to false
     // dispatch(setToken({}));
     firebase.auth().signOut()
+    dispatch({
+        type:"PROFILE_LOGOUT"
+    })
     dispatch({
         type:"LOG_OUT",
         payload: {}
