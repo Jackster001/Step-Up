@@ -7,7 +7,7 @@ class Startbox extends Component{
                 <div className="leftStart">
                     <h1>Track your Job</h1>
                     <p>Wtih Step Up you can connect your Indeed or Linkedin account and check what hiring step you are on</p>
-                    {!this.props.isAuthenticated ? <a href="/login"><button className="signUpButton">Sign Up</button></a> :<div></div>}
+                    {!this.props.isAuthenticated ? <a href="/signup"><button className="signUpButton">Sign Up</button></a> :<div></div>}
                 </div>
                 <div className="rightStart"></div>
             </div>
