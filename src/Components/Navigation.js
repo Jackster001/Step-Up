@@ -3,17 +3,25 @@ import { Link } from 'react-router-dom'
 import * as routes from '../Routes/routes';
 import { connect } from 'react-redux';
 import { logoutUser } from '../Action/authAction';
+import firebase from "firebase/app";
 
 class Navigation extends Component{
     constructor(props){
         super(props)
         this.state={
             navigationType:"navigation",
-            initials:""
+            initials:"",
+            authenticated: false
         }
     }
     componentDidMount(){
-        console.log(this.props.profile)
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if (user) {
+        //         this.setState({authenticated: true})
+        //     } else {
+        //         this.setState({authenticated: false})
+        //     }
+        // })
     }
     NonAuthBar(){
         return(

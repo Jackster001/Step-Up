@@ -6,28 +6,14 @@ import firebase from "firebase/app";
 const server = "https://step-up-careers-api.herokuapp.com";
 const dev= "http://localhost:5000";
 
-
-
-export const setTrue = () => dispatch =>{
+export const setAuth = (auth) => dispatch =>{
     dispatch({
-        type:"AUTHENTICATE_USER",
+        type:"SET_AUTH",
+        payload: auth
     })
 
 }
-// auth.onAuthStateChanged(function (user){
-//     if(user){
-//         console.log(user)
-//         // setTrue()
-//         // firebase.auth().signOut()
-//         logoutUser()
-//         // auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-//         console.log(auth.currentUser)
-//         // firebase.auth().signOut()
-//     }else{
-//         logoutUser()
-//         firebase.auth().signOut()
-//     }
-// })
+
 
 export const registerUser=  (userData)=> async dispatch=>{
     try{
@@ -44,8 +30,8 @@ export const registerUser=  (userData)=> async dispatch=>{
         let user = await auth.signInWithEmailAndPassword(userData.email, userData.password)
 
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        .then(function() {
-          return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
+        .then(function() {  
+            return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
         })
         .catch(function(error) {
           var errorCode = error.code;
@@ -60,9 +46,7 @@ export const registerUser=  (userData)=> async dispatch=>{
             type:"SET_CURRENT_USER",
             payload: userInfo
         }) 
-        await dispatch({
-            type:"AUTHENTICATE_USER",
-        })
+        await setAuth(true);
     }catch(err){
         dispatch({
             type: "GET_ERRORS",
@@ -92,9 +76,10 @@ export const loginUser =(userData)=> async dispatch =>{
             type:"SET_CURRENT_USER",
             payload: userInfo
         }) 
-        await dispatch({
-            type:"AUTHENTICATE_USER",
-        })
+        await setAuth(true);
+        // await dispatch({
+        //     type:"AUTHENTICATE_USER",
+        // })
     }catch(err){
         dispatch({
             type: "GET_ERRORS",

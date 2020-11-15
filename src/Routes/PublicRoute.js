@@ -1,15 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import firebase from "firebase/app";
 
-const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+
+const PublicRoute = ({ component: Component,isAuthenticated, ...rest }) => {
+
+  return(
     <Route {...rest} render={props => (
-        isAuthenticated?
-            <Redirect to="/home" />
+        isAuthenticated? <Redirect to="/home" />
         : <Component {...props} />
     )} />
-);
+  )
+};
 
 PublicRoute.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired

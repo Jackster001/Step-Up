@@ -7,18 +7,23 @@ const initialState = {
 
 export default function(state= initialState, action){
     switch(action.type){
-        case "AUTHENTICATE_USER":
-            return{
-                ...state,
-                isAuthenticated: true,
-                loginError:false
-            }
+        // case "AUTHENTICATE_USER":
+        //     return{
+        //         ...state,
+        //         isAuthenticated: true,
+        //         loginError:false
+        //     }
         case "SET_TOKEN":
             return{
                 ...state,
                 token: action.payload,
                 isAuthenticated: true,
                 loginError:false
+            }
+        case "SET_AUTH":
+            return{
+                ...state,
+                isAuthenticated: action.payload
             }
         case "PASSWORD_RESET":
             return{
