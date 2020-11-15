@@ -8,9 +8,18 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         Description: "",
         Link: "",
         JobStatus: "Applied",
-        DateCreated: Date.now(),
+        DateCreated: new Date(), 
         removed:false
     })
+
+    useEffect(()=>{
+        let currentDate = jobPosting.DateCreated,
+            month = '' + (currentDate.getMonth() + 1),
+            day = '' + currentDate.getDate(),
+            year = currentDate.getFullYear();
+        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        setJobPosting({...jobPosting, DateCreated: year + "-" + month + "-" + day})
+    },[])
 
     const submit =(e)=>{
         e.preventDefault();
@@ -54,7 +63,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
                     <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder="Job Link"/>
                     
                     <label for="DateCreated">Date Created</label>
-                    <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> setValue(e)}></input>
+                    <input type="date" id="start" name="DateCreated" className="formTextInput" value={jobPosting.DateCreated} onChange={(e)=> setValue(e)}></input>
 
                     <label for="JobStatus">Job Status</label>
                         <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>

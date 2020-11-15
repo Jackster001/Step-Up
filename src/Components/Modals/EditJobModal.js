@@ -21,7 +21,6 @@ class EditJobModal extends Component{
         if(this.props.editModalData && this.props.editModalData.DateCreated){
             let currentDate = this.props.editModalData.DateCreated.split("/");
             currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
-            console.log(currentDate)
             this.setState({
                 Title: this.props.editModalData.Title,
                 Company: this.props.editModalData.Company,
