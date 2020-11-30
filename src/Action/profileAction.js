@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {auth, firestore} from '../Firebase/firebase'
+import {auth, firestore} from '../Firebase/firebase';
+import { v4 as uuidv4 } from 'uuid';
 const server = "https://step-up-careers-api.herokuapp.com";
 const dev= "http://localhost:5000";
 
@@ -42,9 +43,9 @@ export const addJob = (id , jobData) => async (dispatch)=> {
         // let id = auth.currentUser().user.uid
         let userInfo = await firestore.collection("Step-up-data").doc(id).get()
         userInfo = userInfo.data();
+        jobData.job_id= uuidv4();
         userInfo.jobsApplied.unshift(jobData)
         setUserProfileLoading()
-    
         await firestore.collection("Step-up-data").doc(id).set(userInfo)
         
         await dispatch({
@@ -89,11 +90,17 @@ export const updateJob = (id, jobData, i) => async (dispatch)=> {
     }
 }
 
-export const setEditModalData =(data) => async (dispatch)=> {
+export const setEditModalData =(id, data) => async (dispatch)=> {
     try{
+        let contactList = await firestore.collection("Contact-Data").doc(id).get();
+        contactList = contactList.data()
+        let result = []
+        if(!!contactList){
+            result = contactList[data.job_id]
+        }
         await dispatch({
             type:"SET_EDIT_DATA",
-            payload: data
+            payload: {data, result},
         })
     }catch(err){
         throw err
@@ -125,3 +132,32 @@ export const getAllJobs = (id) => async (dispatch)=> {
         throw err
     }
 }
+
+// add job to jobs applied in the user data
+export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
+    try{
+        let contactList = await firestore.collection("Contact-Data").doc(id).get();
+        contactList = contactList.data()
+        if(!!contactList){
+            contactList[job_id].push(contactData);
+            await firestore.collection("Contact-Data").doc(id).set(contactList)
+        }else{
+            await firestore.collection("Contact-Data").doc(id).set({[job_id]:[contactData]})
+        }
+
+        await dispatch({
+            type:'GET_CONTACT',
+            payload: contactList[job_id]
+        })
+    }catch(err){
+        throw err
+    }
+}
+
+export const disableContactLoading = () =>{
+    return{
+        type: "DISABLE_CONTACT_LOADING"
+    }
+}
+
+

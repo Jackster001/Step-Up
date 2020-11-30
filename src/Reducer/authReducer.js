@@ -2,17 +2,12 @@ const initialState = {
     isAuthenticated: false,
     token: "",
     loginError:false,
-    reset: false
+    reset: false,
+    authLoading: false
 }
 
 export default function(state= initialState, action){
     switch(action.type){
-        // case "AUTHENTICATE_USER":
-        //     return{
-        //         ...state,
-        //         isAuthenticated: true,
-        //         loginError:false
-        //     }
         case "SET_TOKEN":
             return{
                 ...state,
@@ -23,7 +18,13 @@ export default function(state= initialState, action){
         case "SET_AUTH":
             return{
                 ...state,
-                isAuthenticated: action.payload
+                isAuthenticated: action.payload,
+                authLoading: true
+            }
+        case "AUTH_DONE":
+            return{
+                ...state,
+                authLoading: false
             }
         case "PASSWORD_RESET":
             return{

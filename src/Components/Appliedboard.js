@@ -36,7 +36,7 @@ class Appliedboard extends Component{
     }
     componentDidUpdate(){
       if(this.props.loadingProfile){
-        this.props.disableUserProfileLoading()
+        this.props.disableUserProfileLoading();
         this.setState({
           jobsApplied: this.props.profile.jobsApplied,
           checked: {}
@@ -56,7 +56,7 @@ class Appliedboard extends Component{
     }
     handleEditModal(i){
       this.setState({editIndex:i})
-      this.props.setEditModalData(this.state.jobsApplied[i])
+      this.props.setEditModalData(this.props.profile.id, this.state.jobsApplied[i]);
     }
     openEditModal(){
       this.setState({openEditModal: true})

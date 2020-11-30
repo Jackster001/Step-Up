@@ -14,14 +14,6 @@ class Reset extends Component {
         }
     }
 
-    componentWillUpdate(){
-      // if(this.props.reset){
-      //   this.props.resetOff();
-      //   console.log("here")
-      //   this.setState({reset: true})
-      // }
-    }
-
     handleInputChange = (event) => {
       const { value, name } = event.target;
       this.setState({

@@ -11,7 +11,12 @@ export const setAuth = (auth) => dispatch =>{
         type:"SET_AUTH",
         payload: auth
     })
+}
 
+export const disableAuthLoading = () => dispatch =>{
+    dispatch({
+        type:"AUTH_DONE"
+    })
 }
 
 
@@ -68,15 +73,18 @@ export const loginUser =(userData)=> async dispatch =>{
           var errorMessage = error.message;
         });     
         
-        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get()
+        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
-        userInfo = userInfo.data();
-        await setUserProfileLoading();
+        userInfo = await userInfo.data();
+        // await setUserProfileLoading();
         await dispatch({
             type:"SET_CURRENT_USER",
             payload: userInfo
         }) 
-        await setAuth(true);
+        dispatch({
+            type:"SET_AUTH",
+            payload: true
+        })
         // await dispatch({
         //     type:"AUTHENTICATE_USER",
         // })

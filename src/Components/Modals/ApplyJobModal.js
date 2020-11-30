@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-
+import { FaRegTimesCircle } from 'react-icons/fa';
 const ApplyJobModal =({openModal, close, onSubmit})=>{
 
     const [jobPosting, setJobPosting] = useState({
@@ -26,10 +26,10 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         let posting=jobPosting;
         let myDate=posting.DateCreated;
         myDate=myDate.split("-");
-        console.log(myDate)
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         posting.DateCreated = newDate
         setJobPosting({
+            ...jobPosting,
             Title:"",
             Company:"",
             Description: "",
@@ -50,7 +50,10 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
     return (
         <div className={openModal ? "ModalContainer": "ClosedModal"}>
             <div className="modal">
-                <h3 className="backButton" onClick={()=>close()}>&#8592; Back</h3>
+                <div className="backButtonContainer">
+                    <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>close()}/></div>
+                </div>
+                {/* <h3 className="backButton" onClick={()=>close()}>&#8592; Back</h3> */}
                 <center><h2>Add a Job</h2></center>
                 <form class="formContainer" onSubmit={(e)=>submit(e)}>
                     <label for="Company">Company Name</label>

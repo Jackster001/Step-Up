@@ -9,7 +9,9 @@ const initialState = {
         Link: "",
         JobStatus: "Applied",
     },
-    openingEditModal:false
+    openingEditModal:false,
+    contactLoading: false,
+    contactList:[]
 }
 
 export default function(state= initialState, action){
@@ -46,6 +48,19 @@ export default function(state= initialState, action){
                 loadingProfile: true
             }
         }
+        case "GET_CONTACT":{
+            return{
+                ...state,
+                contactList: action.payload,
+                contactLoading: true
+            }
+        }
+        case "DISABLE_CONTACT_LOADING":{
+            return{
+                ...state,
+                contactLoading: false
+            }
+        }
         case "DISABLE_USER_PROFILE_LOADING":
             return{
                 ...state,
@@ -59,7 +74,8 @@ export default function(state= initialState, action){
         case "SET_EDIT_DATA":
             return{
                 ...state,
-                editModalData: action.payload,
+                editModalData: action.payload.data,
+                contactList: action.payload.result,
                 openingEditModal: true
             
         }
