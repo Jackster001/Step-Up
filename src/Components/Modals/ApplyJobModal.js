@@ -28,13 +28,19 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         myDate=myDate.split("-");
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         posting.DateCreated = newDate
+        let currentDate = new Date(),
+        month = '' + (currentDate.getMonth() + 1),
+        day = '' + currentDate.getDate(),
+        year = currentDate.getFullYear();
+        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
         setJobPosting({
             ...jobPosting,
             Title:"",
             Company:"",
             Description: "",
             Link: "",
-            JobStatus: "Applied"
+            JobStatus: "Applied",
+            DateCreated: year + "-" + month + "-" + day
         })
         onSubmit(posting)
     }   
