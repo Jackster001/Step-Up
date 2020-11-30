@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {setEditModalData,openingEditModalFunction, addContactInfo, disableContactLoading} from '../../Action/profileAction';
 import { FaRegTimesCircle, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
 import ContactCard from '../ContactCard'
-const contactDefault={
+var contactDefault={
     firstName: "",
     lastName: "",
     jobTitle:"",
@@ -44,7 +44,6 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
-        console.log(this.props.editModalData)
         if(this.props.editModalData && this.props.editModalData.DateCreated){
             let currentDate = this.props.editModalData.DateCreated.split("/");
             currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
@@ -118,6 +117,16 @@ class EditJobModal extends Component{
     onSubmitContact = (event) => {
         event.preventDefault();
         this.props.addContactInfo(this.props.profile.id, this.state.job_id, this.state.contactInfo)
+        contactDefault={
+            firstName: "",
+            lastName: "",
+            jobTitle:"",
+            contactEmail: "",
+            linkedin:"",
+            github:"",
+            twitter:"",
+            notes:""
+        }
         this.setState({...this.state, contactInfo: contactDefault})
     }
 
@@ -129,8 +138,18 @@ class EditJobModal extends Component{
         this.props.handleRemove(this.props.Index)
         this.setState({removeConfirmation: false})
     }
-    handleClose = () =>{
-        this.setState({...this.state, contactInfo: contactDefault, removeConfirmation: false, contactModal: false, addContact: false})
+    handleClose = async() =>{
+        contactDefault={
+            firstName: "",
+            lastName: "",
+            jobTitle:"",
+            contactEmail: "",
+            linkedin:"",
+            github:"",
+            twitter:"",
+            notes:""
+        }
+        await this.setState({...this.state, contactInfo: contactDefault, removeConfirmation: false, contactModal: false, addContact: false})
         this.props.close()
     }
 
@@ -198,7 +217,7 @@ class EditJobModal extends Component{
                                     <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault})}>Job Info</li>
                                     <li className="active" onClick={()=> this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault})}>Contacts</li>
                                 </ul>
-                                <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
+                                <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true, contactInfo: contactDefault})}>Create Contact</button>
                             </div><br/>
                             <div className="contactCardBox">
                                 {this.state.contactList && this.state.contactList.length>0 ? 
