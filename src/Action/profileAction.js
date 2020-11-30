@@ -138,16 +138,19 @@ export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
     try{
         let contactList = await firestore.collection("Contact-Data").doc(id).get();
         contactList = contactList.data()
-        if(!!contactList){
+        let result = []
+        if(!!contactList && contactList[job_id] != undefined){
             contactList[job_id].push(contactData);
+            result = contactList[job_id]
             await firestore.collection("Contact-Data").doc(id).set(contactList)
         }else{
             await firestore.collection("Contact-Data").doc(id).set({[job_id]:[contactData]})
+            result = [contactData]
         }
 
         await dispatch({
             type:'GET_CONTACT',
-            payload: contactList[job_id]
+            payload: result
         })
     }catch(err){
         throw err
