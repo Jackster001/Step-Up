@@ -118,6 +118,7 @@ class EditJobModal extends Component{
     onSubmitContact = (event) => {
         event.preventDefault();
         this.props.addContactInfo(this.props.profile.id, this.state.job_id, this.state.contactInfo)
+        this.setState({...this.state, contactInfo: contactDefault})
     }
 
     onRemoveConfirmation(){
@@ -128,6 +129,10 @@ class EditJobModal extends Component{
         this.props.handleRemove(this.props.Index)
         this.setState({removeConfirmation: false})
     }
+    handleClose = () =>{
+        this.setState({...this.state, contactInfo: contactDefault, removeConfirmation: false, contactModal: false, addContact: false})
+        this.props.close()
+    }
 
     render(){
     return (
@@ -137,12 +142,12 @@ class EditJobModal extends Component{
                         <div className="modal">
                             {/* <h3 className="backButton" onClick={()=>this.props.close()}>&#8592; Back</h3> */}
                             <div className="backButtonContainer">
-                                <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.props.close()}/></div>
+                                <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.handleClose()}/></div>
                             </div>
                             <center><h2>{this.state.Company}</h2></center>
                             <div className="editTopContainer">
                                 <ul className="editNavbar">
-                                    <li onClick={()=> this.setState({...this.state,contactModal: false})}>Job Info</li>
+                                    <li className="active" onClick={()=> this.setState({...this.state,contactModal: false})}>Job Info</li>
                                     <li onClick={()=> this.setState({...this.state,contactModal: true})}>Contacts</li>
                                 </ul>
                             </div>
@@ -185,13 +190,13 @@ class EditJobModal extends Component{
                     :   this.state.contactModal? 
                         <div className="ContactModal">
                             <div className="backButtonContainer">
-                                <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.props.close()}/></div>
+                                <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.handleClose()}/></div>
                             </div>
                             <center><h2>{this.state.Company}</h2></center>
                             <div className="editTopContainer">
                                 <ul className="editNavbar">
                                     <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault})}>Job Info</li>
-                                    <li onClick={()=> this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault})}>Contacts</li>
+                                    <li className="active" onClick={()=> this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault})}>Contacts</li>
                                 </ul>
                                 <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
                             </div><br/>
@@ -210,13 +215,13 @@ class EditJobModal extends Component{
                     :   this.state.addContact? 
                     <div className="ContactModal">
                         <div className="backButtonContainer">
-                            <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.props.close()}/></div>
+                            <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>this.handleClose()}/></div>
                         </div>
                         <center><h2>{this.state.Company}</h2></center>
                         <div className="editTopContainer">
                             <ul className="editNavbar">
                                 <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault})}>Job Info</li>
-                                <li onClick={()=> this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault})}>Contacts</li>
+                                <li className="active" onClick={()=> this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault})}>Contacts</li>
                             </ul>
                             <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
                         </div>
