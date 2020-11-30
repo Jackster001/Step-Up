@@ -27,7 +27,7 @@ class EditJobModal extends Component{
             openModal:false,
             DateCreated: "",
             removeConfirmation: false,
-            contactModal: true,
+            contactModal: false,
             contactList: [],
             addContact: false,
             contactInfo:{
@@ -44,6 +44,7 @@ class EditJobModal extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props.editModalData)
         if(this.props.editModalData && this.props.editModalData.DateCreated){
             let currentDate = this.props.editModalData.DateCreated.split("/");
             currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
@@ -87,12 +88,13 @@ class EditJobModal extends Component{
         myDate=myDate.split("-");
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         let posting={
+            job_id: this.props.editModalData.job_id,
             Title: this.state.Title,
             Company: this.state.Company,
             Description: this.state.Description,
             Link: this.state.Link,
             JobStatus: this.state.JobStatus,
-            DateCreated: newDate
+            DateCreated: newDate,
         };
         this.props.onSubmit(posting)
     }   
@@ -194,7 +196,7 @@ class EditJobModal extends Component{
                                 <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
                             </div><br/>
                             <div className="contactCardBox">
-                                {this.state.contactList.length>0 ? 
+                                {this.state.contactList && this.state.contactList.length>0 ? 
                                     <>{this.state.contactList.map((contact,i)=>{
                                         return <ContactCard key={i} contactInfo={contact}/>
                                     })}</>
