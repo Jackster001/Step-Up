@@ -844,3 +844,12 @@ code {
   overflow: hidden;
   margin-top: 10px;
 }
+.editIcon{
+  float: right;
+  margin: 5px;
+  color: black;
+}
+.editIcon:hover{
+  cursor: pointer;
+  color: white
+}

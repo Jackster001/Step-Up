@@ -3,6 +3,7 @@ import setAuthToken from '../Utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 import {auth, firestore} from '../Firebase/firebase'
 import firebase from "firebase/app";
+import { persistor } from '../store';
 const server = "https://step-up-careers-api.herokuapp.com";
 const dev= "http://localhost:5000";
 
@@ -144,6 +145,7 @@ export const logoutUser = () => dispatch => {
     // setAuthToken(false);
     // Set current user to {} which will set isAuthenticated to false
     // dispatch(setToken({}));
+    persistor.purge();
     firebase.auth().signOut()
     dispatch({
         type:"PROFILE_LOGOUT"

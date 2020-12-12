@@ -133,7 +133,7 @@ export const getAllJobs = (id) => async (dispatch)=> {
     }
 }
 
-// add job to jobs applied in the user data
+// add contact
 export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
     try{
         let contactList = await firestore.collection("Contact-Data").doc(id).get();
@@ -151,6 +151,41 @@ export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
         await dispatch({
             type:'GET_CONTACT',
             payload: result
+        })
+    }catch(err){
+        throw err
+    }
+}
+
+// edit contact
+export const editContactInfo = (id, job_id, contactData) => async (dispatch)=> {
+    try{
+        let contactList = await firestore.collection("Contact-Data").doc(id).get();
+        contactList = contactList.data()
+        contactList[job_id] = contactData;
+        await firestore.collection("Contact-Data").doc(id).set(contactList)
+
+        await dispatch({
+            type:'GET_CONTACT',
+            payload: contactList[job_id]
+        })
+    }catch(err){
+        throw err
+    }
+}
+
+        
+// delete contact
+export const deleteContactInfo = (id, job_id, i) => async (dispatch)=> {
+    try{
+        let contactList = await firestore.collection("Contact-Data").doc(id).get();
+        contactList = contactList.data()
+        contactList[job_id].splice(i)
+        await firestore.collection("Contact-Data").doc(id).set(contactList)
+
+        await dispatch({
+            type:'GET_CONTACT',
+            payload: contactList[job_id]
         })
     }catch(err){
         throw err
