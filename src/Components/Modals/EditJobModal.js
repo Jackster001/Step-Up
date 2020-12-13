@@ -381,7 +381,7 @@ class EditJobModal extends Component{
                                         <textarea className="formTextArea" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.notes} type="text" id="notes" name="notes" placeholder="Write your notes here..."/>
                                     </div>
                                 </div><br/><br/>
-                                <center><button className="createNewContactButton">Edit Contact</button></center>
+                                <center><button className="createNewContactButton">Save</button></center>
                                 <center><p className="removeTextButton" onClick={()=>this.onRemoveContact()}>Remove</p></center><br/><br/>
                             </form>
                         </div>
