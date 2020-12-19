@@ -8,7 +8,7 @@ export const CheckError =(err)=>{
         }
     }else if(err === "auth/wrong-password"){
         return {
-            errorMessage: "Wrong Email or Password",
+            errorMessage: "Incorrect Password",
             errorType: "auth",
             location: "login",
             errorShow: true
