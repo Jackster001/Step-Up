@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {setEditModalData,openingEditModalFunction, addContactInfo, disableContactLoading, editContactInfo, deleteContactInfo} from '../../Action/profileAction';
 import { FaRegTimesCircle, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
+import DeleteConfirmation from './DeleteConfirmation'
 import ContactCard from '../ContactCard'
 var contactDefault={
     firstName: "",
@@ -27,6 +28,7 @@ class EditJobModal extends Component{
             openModal:false,
             DateCreated: "",
             removeConfirmation: false,
+            removeConfirmation_Contact: false,
             contactModal: false,
             contactList: [],
             addContact: false,
@@ -185,12 +187,18 @@ class EditJobModal extends Component{
     }
 
     onRemoveContact = async() =>{
+        this.setState({...this.state, removeConfirmation_Contact: false})
         this.props.deleteContactInfo(this.props.profile.id, this.state.job_id, this.state.editIndex)
     }
 
     render(){
     return (
         <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
+            <DeleteConfirmation 
+                showModal={this.state.removeConfirmation_Contact}
+                onClickCancel={()=> this.setState({...this.state, removeConfirmation_Contact: false})}
+                onClickRemove={()=> this.onRemoveContact()}
+            />
                 {
                     !this.state.editContactOpen && !this.props.removed && !this.state.removeConfirmation  && !this.state.contactModal && !this.state.addContact?
                         <div className="modal">
@@ -320,7 +328,7 @@ class EditJobModal extends Component{
                                         <label for="notes">Notes</label>
                                         <textarea className="formTextArea" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.notes} type="text" id="notes" name="notes" placeholder="Write your notes here..."/>
                                     </div>
-                                </div><br/><br/>
+                                </div><br/>
                                 <center><button className="createNewContactButton">Submit New Contact</button></center>
                         </form>
                     </div>
@@ -380,9 +388,9 @@ class EditJobModal extends Component{
                                         <label for="notes">Notes</label>
                                         <textarea className="formTextArea" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.notes} type="text" id="notes" name="notes" placeholder="Write your notes here..."/>
                                     </div>
-                                </div><br/><br/>
+                                </div><br/>
                                 <center><button className="createNewContactButton">Save</button></center>
-                                <center><p className="removeTextButton" onClick={()=>this.onRemoveContact()}>Remove</p></center><br/><br/>
+                                <center><p className="removeTextButton" onClick={()=>this.setState({...this.state, removeConfirmation_Contact: true})}>Remove</p></center><br/><br/>
                             </form>
                         </div>
                     :   this.state.removeConfirmation?

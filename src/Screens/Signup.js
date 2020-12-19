@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { registerUser } from '../Action/authAction';
 import {connect} from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import {ErrorComponent} from '../Components';
 import * as routes from '../Routes/routes';
 
 class SignUp extends Component {
@@ -44,6 +45,7 @@ class SignUp extends Component {
         <div className="signUpContainer">
             <div className="signupForm">
                 <h2 className="SignUpTitle">Create an Account</h2>
+                <ErrorComponent location="sign-up"/>
                 <form onSubmit={(e)=>this.onSubmit(e)}>
                     <input 
                         type='firstName'
@@ -76,7 +78,7 @@ class SignUp extends Component {
                     <center><button className='submitButton'>Sign Up</button></center>
                 </form>
                 <center>
-                <br/><br/>
+                <br/>
                 <p>Already have an account? <Link to={routes.LOGIN}>Login</Link></p>
                 <Link to={routes.PRIVACY}>Privacy Policy</Link></center>
             </div>

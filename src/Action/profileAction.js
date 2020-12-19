@@ -1,9 +1,6 @@
 import axios from 'axios';
 import {auth, firestore} from '../Firebase/firebase';
 import { v4 as uuidv4 } from 'uuid';
-const server = "https://step-up-careers-api.herokuapp.com";
-const dev= "http://localhost:5000";
-
 
 export const getProfile = (id) => async (dispatch)=> {
     try{
@@ -121,9 +118,9 @@ export const openingEditModalFunction =() => async (dispatch)=> {
 // get all jobs applied in the user data
 export const getAllJobs = (id) => async (dispatch)=> {
     try{
-        const profile= await axios.post(`${dev}/users/apply-job/${id}`, 
-        {headers:{'Authorization':localStorage.jwtToken}});
-        console.log(profile)
+        // const profile= await axios.post(`${dev}/users/apply-job/${id}`, 
+        // {headers:{'Authorization':localStorage.jwtToken}});
+        // console.log(profile)
         // await dispatch({
         //     type:'GET_PROFILE',
         //     payload: profile.data

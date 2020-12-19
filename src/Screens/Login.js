@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { loginUser,resetPassword } from '../Action/authAction';
 import * as routes from '../Routes/routes';
 import {auth, firestore} from '../Firebase/firebase';
+import {ErrorComponent} from '../Components';
 
 class Login extends Component {
     constructor(props) {
@@ -39,6 +40,7 @@ class Login extends Component {
           <div className="signInContainer">
             <div className="signInForm">
                 <h2>Sign into Account</h2>
+                <ErrorComponent location="login"/>
                 <form onSubmit={(e)=>this.onSubmit(e)}>
                     <input 
                         type="email"
@@ -58,7 +60,7 @@ class Login extends Component {
                     <center><button className='submitButton'>Login</button></center>
                 </form>
                 <center>
-                <br/><br/>
+                <br/>
                 <p>Don't have an account? <Link to={routes.SIGNUP}>Sign Up</Link></p>
                 <p><Link to={routes.RESET}>Reset Password</Link></p></center>
             </div>

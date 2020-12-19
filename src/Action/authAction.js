@@ -4,8 +4,7 @@ import jwt_decode from 'jwt-decode';
 import {auth, firestore} from '../Firebase/firebase'
 import firebase from "firebase/app";
 import { persistor } from '../store';
-const server = "https://step-up-careers-api.herokuapp.com";
-const dev= "http://localhost:5000";
+import {CheckError} from './errorAction'
 
 export const setAuth = (auth) => dispatch =>{
     dispatch({
@@ -19,7 +18,6 @@ export const disableAuthLoading = () => dispatch =>{
         type:"AUTH_DONE"
     })
 }
-
 
 export const registerUser=  (userData)=> async dispatch=>{
     try{
@@ -55,7 +53,8 @@ export const registerUser=  (userData)=> async dispatch=>{
         await setAuth(true);
     }catch(err){
         dispatch({
-            type: "GET_ERRORS",
+            type: "SET_ERROR",
+            payload: CheckError(err.code)
         })
     }
 }
@@ -72,6 +71,7 @@ export const loginUser =(userData)=> async dispatch =>{
         .catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
+          console.log(errorMessage)
         });     
         
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
@@ -91,7 +91,8 @@ export const loginUser =(userData)=> async dispatch =>{
         // })
     }catch(err){
         dispatch({
-            type: "GET_ERRORS",
+            type: "SET_ERROR",
+            payload: CheckError(err.code)
         })
     }
 }
@@ -105,7 +106,10 @@ export const resetPassword = (emailAddress) => async dispatch => {
             type: "PASSWORD_RESET"
         });
     }catch(err){
-        console.log(err)
+        dispatch({
+            type: "SET_ERROR",
+            payload: CheckError(err.code)
+        })
     }
 }
 
@@ -156,5 +160,18 @@ export const logoutUser = () => dispatch => {
     })
     window.location.href = '/login';
 };
+
+
+// const CheckError=(err)=>{
+//     console.log(err);
+//     console.log("helloooo")
+
+// }
+// export const ClearErrors = dispatch =>{
+//     dispatch({
+//         type: "CLEAR_ERROR"
+//     })
+// }
+
 
   

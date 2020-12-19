@@ -7,6 +7,7 @@ import PublicRoute from './Routes/PublicRoute';
 import Navigation from './Components/Navigation';
 import * as screens from './Screens';
 import * as routes from './Routes/routes';
+import {ClearErrors} from './Action/errorAction';
 
 class Main extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class Main extends Component {
       }
     }
     componentDidMount() {
+      this.props.ClearErrors()
       if(this.props.isAuthenticated){
         firebase.auth().onAuthStateChanged((user)=>{
           if (user) {
@@ -25,6 +27,7 @@ class Main extends Component {
           }
         });
       }
+      
     }
     componentDidUpdate(){
       if(this.props.authLoading){
@@ -53,4 +56,4 @@ const mapStateToProps = state => ({
   profile: state.userState.profile
 });
 
-export default connect(mapStateToProps, {setAuth, disableAuthLoading})(Main);
+export default connect(mapStateToProps, {setAuth, disableAuthLoading, ClearErrors})(Main);
