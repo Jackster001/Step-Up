@@ -5,7 +5,16 @@ class ContactCard extends Component{
     constructor(props){
         super(props)
         this.state={
+            link:"#"
         }
+    }
+    componentDidMount(){
+        let link="#";
+        if(this.props.contactInfo.linkedin.length>0 && this.props.contactInfo.linkedin.indexOf(".com") > -1) link = this.props.contactInfo.linkedin;
+        else if(this.props.contactInfo.twitter.length>0 && this.props.contactInfo.twitter.indexOf(".com") > -1) link = this.props.contactInfo.twitter;
+        else if(this.props.contactInfo.github.length>0 && this.props.contactInfo.github.indexOf(".com") > -1) link = this.props.contactInfo.github;
+        if(link.length>4 && this.props.contactInfo.twitter.indexOf("http://") > -1) link = "http://"+link;
+        this.setState({link})
     }
     render(){
         return (
@@ -19,14 +28,7 @@ class ContactCard extends Component{
                 <center>
                     <div className="contactCardInfoContainer">
                         <h3>{this.props.contactInfo.firstName} {this.props.contactInfo.lastName}</h3><br/>
-                        <a href={(this.props.contactInfo.linkedin.indexOf("http://")>-1 || this.props.contactInfo.linkedin.indexOf("https://")>-1) && this.props.contactInfo.linkedin.length>8? 
-                            this.props.contactInfo.linkedin: 
-                            (this.props.contactInfo.twitter.indexOf("http://")>-1 || this.props.contactInfo.twitter.indexOf("https://")>-1) && this.props.contactInfo.twitter.length>8?
-                            this.props.contactInfo.twitter:
-                            (this.props.contactInfo.github.indexOf("http://")>-1 || this.props.contactInfo.github.indexOf("https://")>-1) && this.props.contactInfo.github.length>7?
-                            this.props.contactInfo.github:
-                            "#"
-                        }>Contact Link</a>
+                        <a target="_blank" href={this.state.link}>Contact Link</a>
                     </div>
                 </center>
             </div>

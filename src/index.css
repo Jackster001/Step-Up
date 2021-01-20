@@ -734,7 +734,7 @@ code {
 .ContactModal{
   width: 700px;
   min-height: 500px;
-  max-height: 700px;
+  max-height: 730px;
   background-color: white;
   position: absolute;
   top: 50%;
@@ -768,8 +768,9 @@ code {
 .contactForm{
   width: 95%;
   margin: 0 auto;
-  min-height: 360px;
+  min-height: 400px;
   margin-top: 20px;
+  margin-bottom: 60px;
 }
 .SocialMediaLinkContainer{
   width: 50%;

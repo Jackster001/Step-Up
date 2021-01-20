@@ -9,9 +9,9 @@ const contactDefault={
     lastName: "",
     jobTitle:"",
     contactEmail: "",
-    linkedin:"http://",
-    github:"http://",
-    twitter:"http://",
+    linkedin:"",
+    github:"",
+    twitter:"",
     notes:""
 }
 class EditJobModal extends Component{
@@ -37,9 +37,9 @@ class EditJobModal extends Component{
                 lastName: "",
                 jobTitle:"",
                 contactEmail: "",
-                linkedin:"http://",
-                github:"http://",
-                twitter:"http://",
+                linkedin:"",
+                github:"",
+                twitter:"",
                 notes:""
             },
             EditInfo:{
@@ -47,9 +47,9 @@ class EditJobModal extends Component{
                 lastName: "",
                 jobTitle:"",
                 contactEmail: "",
-                linkedin:"http://",
-                github:"http://",
-                twitter:"http://",
+                linkedin:"",
+                github:"",
+                twitter:"",
                 notes:""
             },
             editIndex: 0,
@@ -93,23 +93,20 @@ class EditJobModal extends Component{
                         lastName: "",
                         jobTitle:"",
                         contactEmail: "",
-                        linkedin:"http://",
-                        github:"http://",
-                        twitter:"http://",
+                        linkedin:"",
+                        github:"",
+                        twitter:"",
                         notes:""
                     }
                 })
-                console.log(this.props.contactList)
                 this.props.openEditModal()
             }
             if(this.props.contactLoading){
                 await this.props.disableContactLoading();
-                console.log(this.props.contactList[this.state.job_id]);
                 await this.setState({contactList: this.props.contactList[this.state.job_id], addContact: false, contactModal: true});
             }
             if(this.props.addedContactLoading){
                 await this.props.disableContactLoading();
-                console.log(this.props.contactList);
                 await this.setState({contactList: this.props.contactList, addContact: false, contactModal: true});
             }
         }
@@ -164,16 +161,16 @@ class EditJobModal extends Component{
     onSubmitContact = (event) => {
         event.preventDefault();
         this.props.addContactInfo(this.props.profile.id, this.state.job_id, this.state.contactInfo)
-        // this.setState({...this.state, contactInfo: {
-        //     firstName: "",
-        //     lastName: "",
-        //     jobTitle:"",
-        //     contactEmail: "",
-        //     linkedin:"http://",
-        //     github:"http://",
-        //     twitter:"http://",
-        //     notes:""
-        // }});
+        this.setState({...this.state, contactInfo: {
+            firstName: "",
+            lastName: "",
+            jobTitle:"",
+            contactEmail: "",
+            linkedin:"",
+            github:"",
+            twitter:"",
+            notes:""
+        }});
     }
 
     onRemoveConfirmation(){
@@ -347,17 +344,17 @@ class EditJobModal extends Component{
                                 <div className="editInputRow">
                                     <div className="SocialMediaLinkContainer">
                                         <FaLinkedin size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.linkedin} type="text" id="linkedin" name="linkedin"  placeholder="Linkedin link..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.linkedin} type="text" id="linkedin" name="linkedin"  placeholder="http://"/>
                                     </div>
                                     <div className="SocialMediaLinkContainer">
                                         <FaTwitter size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.twitter} type="text" id="twitter" name="twitter" placeholder="Twitter link..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.twitter} type="text" id="twitter" name="twitter" placeholder="http://"/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="SocialMediaLinkContainer">
                                         <FaGithub size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.github} type="text" id="github" name="github" placeholder="Github link..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.github} type="text" id="github" name="github" placeholder="http://"/>
                                     </div>
                                 </div><br/>
                                 <div className="editInputRow">
@@ -387,17 +384,17 @@ class EditJobModal extends Component{
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
                                         <label for="firstName">First Name</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="First Name..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="http://"/>
                                     </div>
                                     <div className="editInputContainer">
                                         <label for="lastName">Last Name</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.lastName} type="text" id="lastName" name="lastName" placeholder="Last Name..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.lastName} type="text" id="lastName" name="lastName" placeholder="http://"/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
                                         <label for="jobTitle">Job Title</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="Job Title..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="http://"/>
                                     </div>
                                     <div className="editInputContainer">
                                         <label for="contactEmail">Contact's Email</label>
@@ -407,17 +404,17 @@ class EditJobModal extends Component{
                                 <div className="editInputRow">
                                     <div className="SocialMediaLinkContainer">
                                         <FaLinkedin size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.linkedin} type="text" id="linkedin" name="linkedin"  />
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.linkedin} type="text" id="linkedin" name="linkedin" placeholder="http://" />
                                     </div>
                                     <div className="SocialMediaLinkContainer">
                                         <FaTwitter size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.twitter} type="text" id="twitter" name="twitter" placeholder="Twitter link..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.twitter} type="text" id="twitter" name="twitter" placeholder="http://"/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="SocialMediaLinkContainer">
                                         <FaGithub size="40" className="iconStyle"/>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.github} type="text" id="github" name="github" placeholder="Github link..."/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.github} type="text" id="github" name="github" placeholder="http://"/>
                                     </div>
                                 </div><br/>
                                 <div className="editInputRow">
