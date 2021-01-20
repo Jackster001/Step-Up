@@ -77,7 +77,6 @@ export const loginUser =(userData)=> async dispatch =>{
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
         userInfo = await userInfo.data();
-        // await setUserProfileLoading();
         await dispatch({
             type:"SET_CURRENT_USER",
             payload: userInfo
@@ -86,9 +85,6 @@ export const loginUser =(userData)=> async dispatch =>{
             type:"SET_AUTH",
             payload: true
         })
-        // await dispatch({
-        //     type:"AUTHENTICATE_USER",
-        // })
     }catch(err){
         dispatch({
             type: "SET_ERROR",

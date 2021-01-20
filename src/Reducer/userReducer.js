@@ -11,6 +11,7 @@ const initialState = {
     },
     openingEditModal:false,
     contactLoading: false,
+    addedContactLoading: false,
     contactList:[]
 }
 
@@ -55,10 +56,18 @@ export default function(state= initialState, action){
                 contactLoading: true
             }
         }
+        case "ADD_CONTACT":{
+            return{
+                ...state,
+                contactList: action.payload,
+                addedContactLoading: true
+            }
+        }
         case "DISABLE_CONTACT_LOADING":{
             return{
                 ...state,
-                contactLoading: false
+                contactLoading: false,
+                addedContactLoading: false
             }
         }
         case "DISABLE_USER_PROFILE_LOADING":

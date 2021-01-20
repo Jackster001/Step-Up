@@ -83,7 +83,7 @@ class Appliedboard extends Component{
         this.setState({jobsApplied: this.props.profile.jobsApplied, SearchError: false})
         return;
       }
-      let newData = []
+      let newData = [];
       this.props.profile.jobsApplied.forEach(job=>{
         if(job.Title.toLowerCase().includes(query) || job.Company.toLowerCase().includes(query)){
           newData.push(job)
