@@ -13,7 +13,7 @@ class ContactCard extends Component{
         if(this.props.contactInfo.linkedin.length>0 && this.props.contactInfo.linkedin.indexOf(".com") > -1) link = this.props.contactInfo.linkedin;
         else if(this.props.contactInfo.twitter.length>0 && this.props.contactInfo.twitter.indexOf(".com") > -1) link = this.props.contactInfo.twitter;
         else if(this.props.contactInfo.github.length>0 && this.props.contactInfo.github.indexOf(".com") > -1) link = this.props.contactInfo.github;
-        if(link.length>4 && this.props.contactInfo.twitter.indexOf("http://") > -1) link = "http://"+link;
+        if(link.length>4 && this.props.contactInfo.twitter.indexOf("http://") === -1) link = "http://"+link;
         this.setState({link})
     }
     render(){
