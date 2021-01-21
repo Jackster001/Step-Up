@@ -146,7 +146,6 @@ class EditJobModal extends Component{
         const { value, name } = event.target;
         let contactInfo = this.state.EditInfo;
         contactInfo[name] = value;
-        console.log(contactInfo)
         this.setState({...this.state, contactInfo})
     }
 
