@@ -155,8 +155,9 @@ export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
             result = contactList[job_id];
             await firestore.collection("Contact-Data").doc(id).set(contactList);
         }else{
-            contactList[job_id] = contactData;
+            contactList[job_id] = [contactData];
             await firestore.collection("Contact-Data").doc(id).set(contactList)
+            result = contactList[job_id];
         }
         await dispatch({
             type:'ADD_CONTACT',
