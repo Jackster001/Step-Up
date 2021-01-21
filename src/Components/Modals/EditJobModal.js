@@ -4,16 +4,6 @@ import {setEditModalData,openingEditModalFunction, addContactInfo, disableContac
 import { FaRegTimesCircle, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
 import DeleteConfirmation from './DeleteConfirmation'
 import ContactCard from '../ContactCard'
-const contactDefault={
-    firstName: "",
-    lastName: "",
-    jobTitle:"",
-    contactEmail: "",
-    linkedin:"",
-    github:"",
-    twitter:"",
-    notes:""
-}
 class EditJobModal extends Component{
 
     constructor(props){
@@ -103,11 +93,49 @@ class EditJobModal extends Component{
             }
             if(this.props.contactLoading){
                 await this.props.disableContactLoading();
-                await this.setState({contactList: this.props.contactList[this.state.job_id], addContact: false, contactModal: true});
+                console.log(this.state.contactInfo)
+                await this.setState({contactList: this.props.contactList[this.state.job_id], addContact: false, contactModal: true, contactInfo: {
+                    firstName: "",
+                    lastName: "",
+                    jobTitle:"",
+                    contactEmail: "",
+                    linkedin:"",
+                    github:"",
+                    twitter:"",
+                    notes:""
+                }, EditInfo: {
+                    firstName: "",
+                    lastName: "",
+                    jobTitle:"",
+                    contactEmail: "",
+                    linkedin:"",
+                    github:"",
+                    twitter:"",
+                    notes:""
+                }});
             }
             if(this.props.addedContactLoading){
                 await this.props.disableContactLoading();
-                await this.setState({contactList: this.props.contactList, addContact: false, contactModal: true});
+                await this.setState({contactList: this.props.contactList, addContact: false, contactModal: true, contactInfo: {
+                    firstName: "",
+                    lastName: "",
+                    jobTitle:"",
+                    contactEmail: "",
+                    linkedin:"",
+                    github:"",
+                    twitter:"",
+                    notes:""
+                },EditInfo: {
+                    firstName: "",
+                    lastName: "",
+                    jobTitle:"",
+                    contactEmail: "",
+                    linkedin:"",
+                    github:"",
+                    twitter:"",
+                    notes:""
+                } });
+                console.log(this.state.contactInfo)
             }
         }
         catch(err){
@@ -144,7 +172,7 @@ class EditJobModal extends Component{
     setContactValues = (event) => {
         event.preventDefault()
         const { value, name } = event.target;
-        let contactInfo = this.state.EditInfo;
+        let contactInfo = this.state.contactInfo;
         contactInfo[name] = value;
         this.setState({...this.state, contactInfo})
     }
@@ -159,7 +187,7 @@ class EditJobModal extends Component{
 
     onSubmitContact = (event) => {
         event.preventDefault();
-        this.props.addContactInfo(this.props.profile.id, this.state.job_id, this.state.contactInfo)
+        this.props.addContactInfo(this.props.profile.id, this.state.job_id, this.state.contactInfo);
         this.setState({...this.state, contactInfo: {
             firstName: "",
             lastName: "",
@@ -169,7 +197,16 @@ class EditJobModal extends Component{
             github:"",
             twitter:"",
             notes:""
-        }});
+        },EditInfo: {
+            firstName: "",
+            lastName: "",
+            jobTitle:"",
+            contactEmail: "",
+            linkedin:"",
+            github:"",
+            twitter:"",
+            notes:""
+        } });
     }
 
     onRemoveConfirmation(){
@@ -186,9 +223,9 @@ class EditJobModal extends Component{
             lastName: "",
             jobTitle:"",
             contactEmail: "",
-            linkedin:"http://",
-            github:"http://",
-            twitter:"http://",
+            linkedin:"",
+            github:"",
+            twitter:"",
             notes:""
         }
         await this.setState({...this.state, contactInfo: resetForm, removeConfirmation: false, contactModal: false, addContact: false, editContactOpen: false})
@@ -212,7 +249,7 @@ class EditJobModal extends Component{
 
     onClickNavContact = async() =>{
         await this.props.getAllContactInfo(this.props.profile.id);
-        await this.setState({...this.state,contactModal: true, addContact: false, contactInfo: contactDefault, editContactOpen: false, EditInfo: {
+        await this.setState({...this.state,contactModal: true, addContact: false, editContactOpen: false, EditInfo: {
             firstName: "",
             lastName: "",
             jobTitle:"",
@@ -220,6 +257,15 @@ class EditJobModal extends Component{
             linkedin:"http://",
             github:"http://",
             twitter:"http://",
+            notes:""
+        },contactInfo: {
+            firstName: "",
+            lastName: "",
+            jobTitle:"",
+            contactEmail: "",
+            linkedin:"",
+            github:"",
+            twitter:"",
             notes:""
         }});
     }
@@ -288,10 +334,10 @@ class EditJobModal extends Component{
                             <center><h2>{this.state.Company}</h2></center>
                             <div className="editTopContainer">
                                 <ul className="editNavbar">
-                                    <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault})}>Job Info</li>
+                                    <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false})}>Job Info</li>
                                     <li className="active" onClick={()=> this.onClickNavContact()}>Contacts</li>
                                 </ul>
-                                <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true, contactInfo: contactDefault})}>Create Contact</button>
+                                <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
                             </div><br/>
                             <div className="contactCardBox">
                                 {this.state.contactList && this.state.contactList.length>0 ? 
@@ -313,7 +359,7 @@ class EditJobModal extends Component{
                         <center><h2>{this.state.Company}</h2></center>
                         <div className="editTopContainer">
                             <ul className="editNavbar">
-                                <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault, editContactOpen: false})}>Job Info</li>
+                                <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, editContactOpen: false})}>Job Info</li>
                                 <li className="active" onClick={()=> this.onClickNavContact()}>Contacts</li>
                             </ul>
                             <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
@@ -373,7 +419,7 @@ class EditJobModal extends Component{
                             <center><h2>{this.state.Company}</h2></center>
                             <div className="editTopContainer">
                                 <ul className="editNavbar">
-                                    <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, contactInfo: contactDefault, editContactOpen: false})}>Job Info</li>
+                                    <li onClick={()=> this.setState({...this.state,contactModal: false, addContact: false, editContactOpen: false})}>Job Info</li>
                                     <li className="active" onClick={()=> this.onClickNavContact()}>Contacts</li>
                                 </ul>
                                 <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
@@ -393,7 +439,7 @@ class EditJobModal extends Component{
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
                                         <label for="jobTitle">Job Title</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="http://"/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="Job Title..."/>
                                     </div>
                                     <div className="editInputContainer">
                                         <label for="contactEmail">Contact's Email</label>
