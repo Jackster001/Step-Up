@@ -15,7 +15,6 @@ class ContactCard extends Component{
         // else if(this.props.contactInfo.github.length>0 && this.props.contactInfo.github.indexOf(".com") > -1) link = this.props.contactInfo.github;
         // if(link.length>4 && link.indexOf("http://") == -1) link = "http://"+link;
         // this.setState({link})
-        console.log(this.props.contactInfo.contactEmail && this.props.contactInfo.contactEmail.length>0 ? "mailto: "+this.props.contactInfo.contactEmail: "#")
         this.setState({link:(this.props.contactInfo.contactEmail && this.props.contactInfo.contactEmail.length>0 ? "mailto: "+this.props.contactInfo.contactEmail: "#")})
     }
     render(){

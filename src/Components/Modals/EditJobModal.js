@@ -254,9 +254,9 @@ class EditJobModal extends Component{
             lastName: "",
             jobTitle:"",
             contactEmail: "",
-            linkedin:"http://",
-            github:"http://",
-            twitter:"http://",
+            linkedin:"",
+            github:"",
+            twitter:"",
             notes:""
         },contactInfo: {
             firstName: "",
@@ -429,11 +429,11 @@ class EditJobModal extends Component{
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
                                         <label for="firstName">First Name</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="http://"/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="First Name..."/>
                                     </div>
                                     <div className="editInputContainer">
                                         <label for="lastName">Last Name</label>
-                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.lastName} type="text" id="lastName" name="lastName" placeholder="http://"/>
+                                        <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.lastName} type="text" id="lastName" name="lastName" placeholder="Last Name..."/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
