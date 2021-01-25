@@ -935,9 +935,9 @@ code {
 }
 @keyframes MoveUpDown {
   0%, 100% {
-    bottom:100px;
+    top:100px;
   }
   50% {
-    bottom: 120px;
+    top: 120px;
   }
 }
