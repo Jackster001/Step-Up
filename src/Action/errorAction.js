@@ -13,7 +13,16 @@ export const CheckError =(err)=>{
             location: "login",
             errorShow: true
         }
-    }else if(err === "auth/email-already-in-use"){
+    }
+    else if(err === "auth/invalid-email"){
+        return {
+            errorMessage: "Both fields are required",
+            errorType: "auth",
+            location: "login",
+            errorShow: true
+        }
+    }
+    else if(err === "auth/email-already-in-use"){
         return {
             errorMessage: "Account Already Registered",
             errorType: "auth",

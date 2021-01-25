@@ -3,7 +3,48 @@ import { Link } from 'react-router-dom'
 import * as routes from '../Routes/routes';
 import { connect } from 'react-redux';
 import { logoutUser } from '../Action/authAction';
-import firebase from "firebase/app";
+import {Grid, withStyles, Button} from '@material-ui/core';
+import logo from '../Assets/Step Up Careers Logo.svg'; 
+// import logo from '../Assets/main_logo.png'; 
+
+const useStyles = (theme) => ({
+    navBar:{
+        width: "100%",
+        height: "100px",
+        flexDirection: "row",
+        display: "flex"
+    },
+    navLogoContainer:{
+        width: '33.33%',
+        marginTop: '30px',
+        // border: '1px solid black'
+    },
+    navUL:{
+        listStyleType: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    navULContainer:{
+        width:'33.33%',
+        float: 'left',
+        marginTop: '30px',
+        // border: '1px solid black'
+    },
+    linkColor:{
+        textDecoration: 'none',
+        color: 'white',
+        fontWeight: '400',
+    },
+    linkColor2:{
+        textDecoration: 'none',
+        color: 'white',
+        fontWeight: '400'
+    },
+    navItemSpace:{
+        marginRight: '10px'
+    }
+});
 
 class Navigation extends Component{
     constructor(props){
@@ -14,36 +55,27 @@ class Navigation extends Component{
             authenticated: false
         }
     }
-    componentDidMount(){
-        // firebase.auth().onAuthStateChanged(function(user) {
-        //     if (user) {
-        //         this.setState({authenticated: true})
-        //     } else {
-        //         this.setState({authenticated: false})
-        //     }
-        // })
-    }
     NonAuthBar(){
+        const { classes } = this.props;
         return(
-            <div className="navBar">
-                <div className="navLogoContainer">
-                    <a className="logoLink" href="/"><h1 className="LogoText">Step Up</h1></a>
+            <div className={classes.navBar}>
+                <div className={classes.navLogoContainer}>
+                    {/* <a className="logoLink" href="/"><h1 className="LogoText">Step Up</h1></a> */}
+                    <a href="/"><img src={logo} width={250}/></a>
                 </div>
-                <div className="navULContainer">
-                    <ul className="navUL">
-                        <li><Link className="linkColor" to={routes.LANDING}>Home</Link></li>
-                    </ul>
+                <div className={classes.navULContainer}>
                 </div>
-                <div className="navULContainer">
-                    <ul className="navUL2">
-                        <li><Link className="linkColor" to={routes.SIGNUP}>Sign Up</Link></li>
-                        <li><Link className="linkColor" to={routes.LOGIN}>Sign In</Link></li>
+                <div className={classes.navULContainer}>
+                    <ul className={classes.navUL}>
+                        <li className={classes.navItemSpace}><Button variant="contained" color="primary"><Link className={classes.linkColor} to={routes.SIGNUP}>Sign Up</Link></Button></li>
+                        <li><Button variant="contained" color="primary"><Link className={classes.linkColor2} to={routes.LOGIN}>Sign In</Link></Button></li>
                     </ul>
                 </div>
             </div>
         )
     }
     AuthBar(){
+        const { classes } = this.props;
         return(
             <div className="navBar">
                 <div className="navLogoContainer">
@@ -51,7 +83,7 @@ class Navigation extends Component{
                 </div>
                 <div className="navULContainer">
                     <ul className="navUL">
-                        <li ><Link className="linkColor" to={routes.DASHBOARD}>Home</Link></li>
+                        <li><Link className="linkColor" to={routes.DASHBOARD}>Home</Link></li>
                     </ul>
                 </div>
                 <div className="navULContainer">
@@ -65,6 +97,7 @@ class Navigation extends Component{
         )
     }
     render(){
+        const { classes } = this.props;
         return (
             <div>
                 {this.props.isAuthenticated ? this.AuthBar() : this.NonAuthBar()}
@@ -75,10 +108,9 @@ class Navigation extends Component{
 
 }
 
-
 const mapStateToProps =(state) =>({
     isAuthenticated: state.authState.isAuthenticated,
     profile: state.userState.profile
 })
   
-export default connect(mapStateToProps, {logoutUser})(Navigation);
+export default connect(mapStateToProps, {logoutUser})(withStyles(useStyles)(Navigation));

@@ -8,6 +8,8 @@ import Navigation from './Components/Navigation';
 import * as screens from './Screens';
 import * as routes from './Routes/routes';
 import {ClearErrors} from './Action/errorAction';
+import {Container} from '@material-ui/core';
+import Footer from './Components/Footer';
 
 class Main extends Component {
     constructor(props) {
@@ -37,15 +39,18 @@ class Main extends Component {
     }
     render() {
       return (
-        <div className="app">
-          <Navigation/>
-          <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
-          <PublicRoute exact path={routes.SIGNUP} component={screens.Signup} isAuthenticated={this.state.auth}/>
-          <PublicRoute exact path={routes.LOGIN} component={screens.Login} isAuthenticated={this.state.auth}/>
-          <PublicRoute exact path={routes.RESET} component={screens.Reset} isAuthenticated={this.state.auth}/>
-          <PublicRoute exact path={routes.PRIVACY} component={screens.Privacy} isAuthenticated={this.state.auth}/>
-          <PrivateRoute exact path={routes.HOME} component={screens.Dashboard} isAuthenticated={this.state.auth}/>
-          <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account} isAuthenticated={this.state.auth}/>
+        <div>
+          <Container className="app" maxWidth="lg">
+            <Navigation/>
+            <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
+            <PublicRoute exact path={routes.SIGNUP} component={screens.Signup} isAuthenticated={this.state.auth}/>
+            <PublicRoute exact path={routes.LOGIN} component={screens.Login} isAuthenticated={this.state.auth}/>
+            <PublicRoute exact path={routes.RESET} component={screens.Reset} isAuthenticated={this.state.auth}/>
+            <PublicRoute exact path={routes.PRIVACY} component={screens.Privacy} isAuthenticated={this.state.auth}/>
+            <PrivateRoute exact path={routes.HOME} component={screens.Dashboard} isAuthenticated={this.state.auth}/>
+            <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account} isAuthenticated={this.state.auth}/>
+          </Container>
+          <Footer isAuthenticated={this.state.auth}/>
         </div>
       );
     }

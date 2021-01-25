@@ -22,9 +22,7 @@ class ErrorComponent extends Component{
         return(
             <div>
                 {this.state.error.errorShow === true && this.state.error.location === this.props.location? 
-                    <center>
-                        <span className="errorText">{this.props.error.errorMessage}</span>
-                    </center>
+                    <span className="errorText">{this.props.error.errorMessage}</span>
                 :
                     <></>
                 }
