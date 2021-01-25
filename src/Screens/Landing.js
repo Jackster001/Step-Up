@@ -102,14 +102,14 @@ var items = [
 function Item(props)
 {
     return (
-        <Paper style={{padding: '10px'}}>
+        <div style={{padding: '10px', backgroundColor: 'none'}}>
           <img src={props.index === 0? notesImage
                     : props.index === 1? socialMediaImage
                     : props.index === 2? professionalImage
                     : props.index === 3? jobHuntImage
                     : goalImage} width={'100%'}/>
           <p style={{fontSize: '16px',fontWeight: 800,textAlign: 'center'}}>{props.text}</p>
-        </Paper>
+        </div>
     )
 }
 
