@@ -41,7 +41,7 @@ const useStyles = (theme) => ({
     marginBottom: '150px'
   },
   topSpace:{
-    marginTop: '20px'
+    marginTop: '-50px'
   },
   leftSpace:{
     marginLeft: '20px'
@@ -204,7 +204,7 @@ class Landing extends Component {
                   }
                 </Carousel>
               </Grid>
-            </Grid><br/><br/><br/><br/><br/><br/>
+            </Grid><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
             <Grid container spacing={2} className={classes.bottomStyle}>
               <Grid item xs={5}>
                 <Paper style={{padding: '5px'}}>
@@ -225,7 +225,7 @@ class Landing extends Component {
                 <Grid container className={classes.contactBoard}>
                   <Grid item xs={6}>
                     <div className={classes.contactText}>
-                      <h1 className={classes.whiteText}>Got Questions</h1>
+                      <h1 className={classes.whiteText}>Got Questions?</h1>
                       <Divider className={classes.dividerStyle} />
                       <p className={classes.whiteText}>Need more information or need help? We’re here to support you, feel free to select one of the options. </p>
                     </div>

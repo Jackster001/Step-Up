@@ -96,12 +96,13 @@ export const loginUser =(userData)=> async dispatch =>{
 // Reset Password
 export const resetPassword = (emailAddress) => async dispatch => {
     try{
-        await auth.sendPasswordResetEmail(emailAddress)
-        console.log("success")
+        let reset = await auth.sendPasswordResetEmail(emailAddress)
+        console.log(reset)
         await dispatch ({
             type: "PASSWORD_RESET"
         });
     }catch(err){
+        console.log(err)
         dispatch({
             type: "SET_ERROR",
             payload: CheckError(err.code)
