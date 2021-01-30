@@ -157,6 +157,23 @@ export const logoutUser = () => dispatch => {
     window.location.href = '/login';
 };
 
+export const setSignUpEmail = (email) => async (dispatch) => {
+    await dispatch({
+        type:'SET_SIGNUP_EMAIL',
+        payload: email
+    })
+    window.location.href = '/signup';
+}
+export const disableSignUpEmail = () => {
+    return{
+        type: "DISABLE_SET_SIGNUP_EMAIL"
+    }
+}
+export const clearSignUpEmail = () =>{
+    return{
+        type: "CLEAR_SIGNUP_EMAIL"
+    }
+}
 
 // const CheckError=(err)=>{
 //     console.log(err);

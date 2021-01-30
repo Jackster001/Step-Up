@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../Action/authAction';
 import {Grid, withStyles, Button} from '@material-ui/core';
 import logo from '../Assets/Step Up Careers Logo.svg'; 
+import {Color} from '../Utils/color';
 // import logo from '../Assets/main_logo.png'; 
 
 const useStyles = (theme) => ({
@@ -33,7 +34,7 @@ const useStyles = (theme) => ({
     },
     linkColor:{
         textDecoration: 'none',
-        color: 'white',
+        color: 'black',
         fontWeight: '400',
     },
     linkColor2:{
@@ -67,7 +68,7 @@ class Navigation extends Component{
                 </div>
                 <div className={classes.navULContainer}>
                     <ul className={classes.navUL}>
-                        <li className={classes.navItemSpace}><Button variant="contained" color="primary"><Link className={classes.linkColor} to={routes.SIGNUP}>Sign Up</Link></Button></li>
+                        <li className={classes.navItemSpace}><Button><Link className={classes.linkColor} to={routes.SIGNUP}>Sign Up</Link></Button></li>
                         <li><Button variant="contained" color="primary"><Link className={classes.linkColor2} to={routes.LOGIN}>Sign In</Link></Button></li>
                     </ul>
                 </div>

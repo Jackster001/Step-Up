@@ -86,7 +86,6 @@ export default function(state= initialState, action){
                 editModalData: action.payload.data,
                 contactList: action.payload.result,
                 openingEditModal: true
-            
         }
         case "OPEN_EDIT_MODAL":
             return{

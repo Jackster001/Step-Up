@@ -3,7 +3,29 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { resetPassword, resetOff } from '../Action/authAction';
 import * as routes from '../Routes/routes';
-import {auth, firestore} from '../Firebase/firebase';
+import { Grid, Paper, withStyles, TextField, Container, Button, Divider } from '@material-ui/core';
+import resetImage from '../Assets/Forgot Password.svg'
+
+const useStyles = (theme) => ({
+  inputStyle:{
+    width: '400px',
+    marginBottom: '10px'
+  },
+  containerStyle:{
+    marginTop: '70px',
+    marginBottom: "120px"
+  },
+  resetButton:{
+    width: '400px'
+  },
+  titleText:{
+    fontSize: "50px"
+  },
+  formStyle:{
+    marginTop: '160px',
+    marginLeft: '100px'
+  }
+})
 
 class Reset extends Component {
     constructor(props) {
@@ -28,33 +50,41 @@ class Reset extends Component {
     }
 
     render() {
+      const { classes } = this.props;
         return (
-          <div className="resetContainer"> 
-            <div className="resetContainerInner">
+          <Grid container spacing={2} className={classes.containerStyle}>
+            <Grid item xs={6}>
+              <img src={resetImage} width={'100%'}/>
+            </Grid>
               {this.state.reset === true ? 
-                <center>
-                  <h4 className="resetTexts">Your password reset request was emailed</h4>
-                  <Link to={routes.LOGIN}><button className="resetButton">Return to login</button></Link>
-                </center>
-              :
-                <div>
+                <Grid item xs={6}>
                   <center>
-                  <h2>Enter Your email to reset password</h2>
-                  <input 
-                    className="resetEmailInput"
-                    type="email"
-                    name='email'
-                    placeholder="Email"
-                    onChange={this.handleInputChange}
-                    required
-                  />
-                  <p>You will receive an email giving you instructions to reset your password</p>
-                  <center><button className='resetButton' onClick={(e)=>this.onPressReset(e)}>Send</button></center>
+                    <h4 className="resetTexts">Your password reset request was emailed</h4>
+                    <Link to={routes.LOGIN}><Button >Return to login</Button></Link>
                   </center>
-                </div>
+                </Grid>
+              :
+              <Grid item xs={6}>
+                <form className={classes.formStyle} onSubmit={(e)=>this.onSubmit(e)} autoComplete>
+                  <h1 className={classes.titleText}>Renew Password</h1>
+                  <div>
+                    <TextField 
+                      type="email"
+                      name="email"
+                      className={classes.inputStyle} 
+                      label="Email" variant="outlined" 
+                      onChange={this.handleInputChange}
+                      // error={this.props.error.errorShow || this.state.email_error_text.length != 0}
+                      helperText={this.state.email_error_text}
+                      required
+                    />
+                  </div>
+                  <div style={{width: '340px'}}><p>You will receive an email giving you instructions to reset your password</p></div>
+                  <Button className={classes.resetButton} variant="contained" color="primary" onClick={(e)=>this.onPressReset(e)}>Send</Button>
+                </form>
+              </Grid>
               }
-            </div>
-          </div>
+          </Grid>
         );
     }
 }
@@ -65,4 +95,4 @@ const mapStateToProps =(state) =>({
   reset: state.authState.reset
 })
 
-export default connect(mapStateToProps, {resetPassword, resetOff})(Reset);
+export default connect(mapStateToProps, {resetPassword, resetOff})(withStyles(useStyles)(Reset));

@@ -3,7 +3,9 @@ const initialState = {
     token: "",
     loginError:false,
     reset: false,
-    authLoading: false
+    authLoading: false,
+    signUpEmail: "",
+    signUpEmailSent: false
 }
 
 export default function(state= initialState, action){
@@ -49,6 +51,22 @@ export default function(state= initialState, action){
                 token:null
             }
         }
+        case "SET_SIGNUP_EMAIL":
+            return{
+                ...state,
+                signUpEmail: action.payload,
+                signUpEmailSent: true
+        }
+        case "DISABLE_SET_SIGNUP_EMAIL":
+            return{
+                ...state,
+                signUpEmailSent: false
+        }
+        case "CLEAR_SIGNUP_EMAIL":
+            return{
+                ...state,
+                signUpEmail:""
+            }
         default:
             return state;
     }

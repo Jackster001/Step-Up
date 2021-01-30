@@ -5,16 +5,22 @@ import {store, persistor} from './store';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react'
 import Main from './main';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import theme from './theme';
+
+const StepUpTheme = createMuiTheme(theme)
 
 function App() {
   return ( 
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router >
-          <Main/>
-        </Router>
-      </PersistGate>
-    </Provider>
+    <ThemeProvider theme={StepUpTheme}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <Router >
+            <Main/>
+          </Router>
+        </PersistGate>
+      </Provider>
+    </ThemeProvider>
   );
 }
 

@@ -6,6 +6,7 @@ import {ErrorComponent} from '../Components';
 import * as routes from '../Routes/routes';
 import {Grid, Paper, withStyles, TextField, Container, Button, Divider, Field} from '@material-ui/core';
 import signUpImage from '../Assets/Sign Up Illustratons.svg';
+import {disableSignUpEmail, clearSignUpEmail} from '../Action/authAction';
 
 const useStyles = (theme) => ({
     containerStyle:{
@@ -61,6 +62,13 @@ class SignUp extends Component {
           this.setState({ errors: nextProps.errors });
         }
     }
+    componentDidUpdate(){
+      if(this.props.signUpEmailSent){
+        this.props.disableSignUpEmail();
+        this.setState({...this.state, email: this.props.signUpEmail});
+        this.props.clearSignUpEmail();
+      }
+    }
     handleInputChange = (event) => {
         const { value, name } = event.target;
         this.setState({
@@ -109,47 +117,6 @@ class SignUp extends Component {
     render() {
         const { classes } = this.props;
         return (
-        // <div className="signUpContainer">
-        //     <div className="signupForm">
-        //         <h2 className="SignUpTitle">Create an Account</h2>
-        //         <ErrorComponent location="sign-up"/>
-        //         <form onSubmit={(e)=>this.onSubmit(e)}>
-        //             <input 
-        //                 type='firstName'
-        //                 name='firstName'
-        //                 placeholder="First Name"
-        //                 onChange={this.handleInputChange}
-        //                 required
-        //             />
-        //             <input 
-        //                 type='lastName'
-        //                 name='lastName'
-        //                 placeholder="Last Name"
-        //                 onChange={this.handleInputChange}
-        //                 required
-        //             />
-        //             <input 
-        //                 type="email"
-        //                 name='email'
-        //                 placeholder="Email"
-        //                 onChange={this.handleInputChange}
-        //                 required
-        //             />
-        //             <input 
-        //                 type='password'
-        //                 name='password'
-        //                 placeholder="Password"
-        //                 onChange={this.handleInputChange}
-        //                 required
-        //             />
-        //             <center><button className='submitButton'>Sign Up</button></center>
-        //         </form>
-        //         <center>
-        //         <br/>
-        //         <p>Already have an account? <Link to={routes.LOGIN}>Login</Link></p>
-        //         <Link to={routes.PRIVACY}>Privacy Policy</Link></center>
-        //     </div>
-        // </div>
         <Grid container spacing={5} className={classes.containerStyle}>
             <Grid item xs={6}>
             <form className={classes.formStyle} onSubmit={(e)=>this.onSubmit(e)} autoComplete>
@@ -189,6 +156,7 @@ class SignUp extends Component {
                     onChange={this.handleInputChange}
                     error={this.props.error.errorShow || this.state.email_error_text.length != 0}
                     helperText={this.state.email_error_text}
+                    value={this.state.email}
                     required
                   />
                 </div>
@@ -236,6 +204,8 @@ class SignUp extends Component {
 const mapStateToProps =(state) =>({
     isAuthenticated: state.authState.isAuthenticated,
     error: state.errorState.error,
+    signUpEmail: state.authState.signUpEmail,
+    signUpEmailSent: state.authState.signUpEmailSent,
 })
   
-export default connect(mapStateToProps, {registerUser})(withStyles(useStyles)(SignUp));
+export default connect(mapStateToProps, {registerUser, disableSignUpEmail, clearSignUpEmail})(withStyles(useStyles)(SignUp));

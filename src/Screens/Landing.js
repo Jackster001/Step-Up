@@ -11,6 +11,7 @@ import Carousel from 'react-material-ui-carousel';
 import chromeExtensionImage from '../Assets/image 3.png';
 import contactImage from '../Assets/Active Support-bro 1.svg';
 import demoImage from '../Assets/Features Overview-pana 1.svg';
+import {setSignUpEmail} from '../Action/authAction';
 
 const useStyles = (theme) => ({
   root: {
@@ -20,17 +21,17 @@ const useStyles = (theme) => ({
   paper: {
     padding: "20px",
     textAlign: 'left',
-    // backgroundColor: "#f5f5f5",
     minHeight: '500px'
   },
   inputField:{
     padding:'15px 15px',
-    textAlign: 'center',
+    textAlign: 'left',
     width: '200px'
   },
   sendButton:{
     height: '48px',
-    marginLeft: '10px'
+    marginLeft: '10px',
+    width: '120px'
   },
   title:{
     marginTop: '150px'
@@ -103,12 +104,10 @@ function Item(props)
 {
     return (
         <div style={{padding: '10px', backgroundColor: 'none'}}>
-          <img src={props.index === 0? notesImage
-                    : props.index === 1? socialMediaImage
-                    : props.index === 2? professionalImage
-                    : props.index === 3? jobHuntImage
-                    : goalImage} width={'100%'}/>
-          <p style={{fontSize: '16px',fontWeight: 800,textAlign: 'center'}}>{props.text}</p>
+          <img src={props.image} width={'100%'} style={{minHeight:"330px"}}/>
+          <p style={{fontSize: '16px',fontWeight: 800,textAlign: 'center'}}>
+            {props.text}
+          </p>
         </div>
     )
 }
@@ -117,7 +116,8 @@ class Landing extends Component {
   constructor(props){
       super(props)
       this.state={
-        index:0
+        index: 0,
+        email: ""
       }
   }
   componentDidMount() {
@@ -130,9 +130,19 @@ class Landing extends Component {
       this.props.history.push('/home');
     }
   }
+
   handleIndexChange=(index)=>{
     this.setState({...this.state, index});
   }
+
+  onChangeEmail=(event)=>{
+    this.setState({...this.state, email: event.target.value})
+  }
+
+  onSendEmail = () => {
+    this.props.setSignUpEmail(this.state.email);
+  }
+
   render() {
       const { classes } = this.props;
         return (
@@ -149,8 +159,9 @@ class Landing extends Component {
                       }} 
                       label="Email" 
                       variant="outlined" 
+                      onChange={(e)=>this.onChangeEmail(e)}
                     />
-                    <Button variant="contained" color="primary" className={classes.sendButton}>Send</Button>
+                    <Button variant="contained" color="primary" className={classes.sendButton} onClick={()=>this.onSendEmail()}>Send</Button>
                   </div>
                 </div>
               </Grid>
@@ -178,15 +189,16 @@ class Landing extends Component {
                   autoPlay={false} 
                   index={this.state.index} 
                   navButtonsAlwaysInvisible
+                  index={this.state.index}
                   onChange={(i)=>this.handleIndexChange(i)}
                   activeIndicatorProps={
                     {className:"activeIndicator"},
                     {style:{color:'#5943fa'}}
                   }
                 >
-                    {
-                        items.map( (item, i) => <Item index={this.state.index} item={item.image} text={item.text} /> )
-                    }
+                  {
+                    items.map( (item, i) => <Item index={this.state.index} image={item.image} text={item.text} /> )
+                  }
                 </Carousel>
               </Grid>
             </Grid><br/><br/><br/><br/><br/><br/>
@@ -220,7 +232,7 @@ class Landing extends Component {
                       <Grid item xs={6}>
                       <Paper>
                         <img src={contactImage} width={'100%'}/>
-                        <center><Button variant="contained" color="primary" className={classes.contactButton}>Contact Us</Button></center><br/>
+                        <center><a style={{textDecoration: 'none'}} href="mailto:help@stepupcareers.com"><Button variant="contained" color="primary" className={classes.contactButton}>Contact Us</Button></a></center><br/>
                       </Paper></Grid>
                       <Grid item xs={6}>
                       <Paper>
@@ -241,4 +253,4 @@ const mapStateToProps =(state) =>({
     isAuthenticated: state.authState.isAuthenticated
 })
 
-export default connect(mapStateToProps)(withStyles(useStyles)(Landing));
+export default connect(mapStateToProps,{setSignUpEmail})(withStyles(useStyles)(Landing));
