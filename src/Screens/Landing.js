@@ -12,6 +12,7 @@ import chromeExtensionImage from '../Assets/image 3.png';
 import contactImage from '../Assets/Active Support-bro 1.svg';
 import demoImage from '../Assets/Features Overview-pana 1.svg';
 import {setSignUpEmail} from '../Action/authAction';
+import Footer from '../Components/Footer';
 
 const useStyles = (theme) => ({
   root: {
@@ -146,7 +147,9 @@ class Landing extends Component {
   render() {
       const { classes } = this.props;
         return (
-          <div className={classes.root}>
+          <>
+          <Container className="app" maxWidth="lg">
+            <div className={classes.root}>
             <Grid container spacing={2} className={classes.bottomStyle}>
               <Grid item xs={7}>
                 <div className={classes.paper}>
@@ -246,6 +249,9 @@ class Landing extends Component {
               <Grid item xs={1}></Grid>
             </Grid>
           </div>
+          </Container>
+          <Footer/>
+        </>
         );
     }
 }

@@ -11,7 +11,7 @@ import loginImage from '../Assets/Login Illustration.svg';
 const useStyles = (theme) => ({
   containerStyle:{
     marginTop: '70px',
-    marginBottom: '250px'
+    marginBottom: '150px'
   },
   formStyle:{
     marginTop: '100px',

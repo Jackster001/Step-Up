@@ -13,7 +13,7 @@ const useStyles = (theme) => ({
   },
   containerStyle:{
     marginTop: '70px',
-    marginBottom: "120px"
+    marginBottom: "100px"
   },
   resetButton:{
     width: '400px'

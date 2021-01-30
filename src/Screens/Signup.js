@@ -11,7 +11,7 @@ import {disableSignUpEmail, clearSignUpEmail} from '../Action/authAction';
 const useStyles = (theme) => ({
     containerStyle:{
         marginTop: '100px',
-        marginBottom: '250px'
+        marginBottom: '150px'
     },
     formStyle:{
         marginTop: '0px',

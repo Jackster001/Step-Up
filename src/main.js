@@ -15,7 +15,8 @@ class Main extends Component {
     constructor(props) {
       super(props);
       this.state={
-        auth: this.props.isAuthenticated
+        auth: this.props.isAuthenticated,
+        pathName: window.location.pathname
       }
     }
     componentDidMount() {
@@ -29,12 +30,15 @@ class Main extends Component {
           }
         });
       }
-      
     }
     componentDidUpdate(){
       if(this.props.authLoading){
         this.props.disableAuthLoading()
         this.setState({...this.state, auth: this.props.isAuthenticated})
+      }
+      console.log(window.location.pathname !== this.state.pathName)
+      if(window.location.pathname !== this.state.pathName){
+        this.setState({...this.state, pathName: window.location.pathname})
       }
     }
     render() {
@@ -42,7 +46,9 @@ class Main extends Component {
         <div>
           <Container className="app" maxWidth="lg">
             <Navigation/>
-            <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
+          </Container>
+          <Container className="app" maxWidth="lg">
+            {/* <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/> */}
             <PublicRoute exact path={routes.SIGNUP} component={screens.Signup} isAuthenticated={this.state.auth}/>
             <PublicRoute exact path={routes.LOGIN} component={screens.Login} isAuthenticated={this.state.auth}/>
             <PublicRoute exact path={routes.RESET} component={screens.Reset} isAuthenticated={this.state.auth}/>
@@ -50,7 +56,12 @@ class Main extends Component {
             <PrivateRoute exact path={routes.HOME} component={screens.Dashboard} isAuthenticated={this.state.auth}/>
             <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account} isAuthenticated={this.state.auth}/>
           </Container>
-          <Footer isAuthenticated={this.state.auth}/>
+          <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
+          {/* {this.state.pathName === '/' ?
+            <Footer isAuthenticated={this.state.auth}/>
+            :
+            <></>
+          } */}
         </div>
       );
     }
