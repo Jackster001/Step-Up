@@ -73,7 +73,7 @@ const useStyles = (theme) => ({
     padding: '40px 20px',
     boxSizing: 'border-box',
     borderRadius: '5px',
-    backgroundImage: 'linear-gradient(-90deg, #470eb3, #5943fa)',
+    backgroundColor: '#5F18F4',
     boxShadow: '5px 10px 10px #888888',
     marginTop: '50px',
   },

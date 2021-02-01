@@ -176,7 +176,7 @@ class SignUp extends Component {
                 </div>
                 <div>
                   <TextField 
-                    type="confirmPassword"
+                    type="password"
                     name="confirmPassword"
                     className={classes.inputStyle} 
                     label="Confirm Password" 
