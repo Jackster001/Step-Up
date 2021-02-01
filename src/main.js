@@ -5,6 +5,7 @@ import { setAuth, disableAuthLoading, finishLogin} from '../src/Action/authActio
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
 import Navigation from './Components/Navigation';
+import TempNavigation from './Components/tempNavigation'
 import * as screens from './Screens';
 import * as routes from './Routes/routes';
 import {ClearErrors} from './Action/errorAction';
@@ -45,7 +46,8 @@ class Main extends Component {
       return (
         <div>
           <Container className="app" maxWidth="lg">
-            <Navigation/>
+            <TempNavigation/>
+            {/* <Navigation/> */}
           </Container>
           <Container className="app" maxWidth="lg">
             {/* <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/> */}
@@ -57,11 +59,6 @@ class Main extends Component {
             <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account} isAuthenticated={this.state.auth}/>
           </Container>
           <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
-          {/* {this.state.pathName === '/' ?
-            <Footer isAuthenticated={this.state.auth}/>
-            :
-            <></>
-          } */}
         </div>
       );
     }
