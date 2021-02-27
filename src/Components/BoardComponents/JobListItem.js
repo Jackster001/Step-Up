@@ -8,6 +8,10 @@ const useStyles = (theme) => ({
         border: '0.5px solid #c7c7c7',
         padding: '15px',
     },
+    settingsIcon:{
+        marginTop: '15px',
+        cursor: 'pointer'
+    }
 })
 
 class JobListItem extends Component{
@@ -47,7 +51,7 @@ class JobListItem extends Component{
                             </Select>
                         </Grid>
                         <Grid item xs={1} >
-                            <MoreVertIcon style={{marginTop: '15px'}}/>
+                            <MoreVertIcon className={classes.settingsIcon}/>
                         </Grid>
                     </Grid>
                 </Grid>
