@@ -5,5 +5,6 @@ export const SIGNUP = "/signup";
 export const DASHBOARD = "/dashboard";
 export const PRIVACY = "/privacy";
 export const RESET = "/reset";
-export const ACCOUNT = "/my-account"
-
+export const ACCOUNT = "/my-account";
+export const JOBSEARCH = '/job-search';
+export const GOAL = '/goal';

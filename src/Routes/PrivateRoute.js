@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import firebase from "firebase/app";
-import TempNavigation from '../Components/tempNavigation'
+import TempNavigation from '../Components/Navigation/SideNavigation'
 
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {

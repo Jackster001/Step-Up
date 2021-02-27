@@ -14,7 +14,7 @@ class StatusBar extends Component{
         return (
             <div className="statusBarContainer">
                 <ol className="ProgressBar">
-                    <li class="ProgressBar-step">
+                    <li className="ProgressBar-step">
                         <svg className={this.props.status > 0 ? "ProgressBar-icon is-current" : "ProgressBar-icon"} ></svg>
                         <span className="ProgressBar-stepLabel">Applied</span>
                     </li>

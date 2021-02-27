@@ -17,6 +17,13 @@ const initialState = {
 
 export default function(state= initialState, action){
     switch(action.type){
+        case "GET_PROFILE":
+            return{
+                ...state,
+                profile: action.payload,
+                loadingProfile: true,
+                loginError:false
+            }
         case "SET_CURRENT_USER":
             return{
                 ...state,

@@ -19,7 +19,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import logo from '../Assets/Step Up Careers Logo.svg';
+import logo from '../../Assets/Step Up Careers Logo.svg';
+import { Link } from 'react-router-dom';
+import * as routes from '../../Routes/routes';
 
 const drawerWidth = 240;
 
@@ -45,50 +47,30 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '10px',
     marginBottom: '10px'
   },
-//   toolbar: theme.mixins.toolbar,
   toolbar:{
     width: '90%',
     justifyContent: 'center',
     alignItems: 'center',
-    alignContent: 'center',
-    height: '800px',
+    alignContent: 'center'
   },
   content: {
     flexGrow: 1,
-    // backgroundColor: '#eeeeee',
     padding: theme.spacing(3),
   },
+  linkColor:{
+    textDecoration: 'none',
+    color: 'black',
+    fontWeight: '400',
+  }
 }));
 
 
-export default function TempNavigation({...props}) {
+export default function SideNavigation(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(newValue)
-  };
-  React.useEffect(()=>{
-      console.log(props.children)
-  })
-
   return (
     <div className={classes.root}>
-      {/* <CssBaseline /> */}
-      {/* <div className={classes.root2}>
-        <AppBar position="fixed" className={classes.appBar}>
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Item One" {...a11yProps(0)} />
-            <Tab label="Item Two" {...a11yProps(1)} />
-            <Tab label="Item Three" {...a11yProps(2)} />
-            </Tabs>
-        </AppBar>
-      </div> */}
-      {/* <AppBar
-        position="fixed"
-        title={<h1>Hello</h1>}
-      /> */}
       <Drawer
         className={classes.drawer}
         variant="permanent"
@@ -102,19 +84,21 @@ export default function TempNavigation({...props}) {
         <Divider/><br/>
         <List>
           {['Home', 'Job Search', 'Goals', 'Settings'].map((text, index) => (
-            <ListItem button key={text}>
-                <ListItemIcon>
-                    {text === "Home"?
+            <Link key={index} className={classes.linkColor} to={text === 'Home' ? routes.HOME : text === 'Job Search' ? routes.JOBSEARCH : text === 'Settings' ? routes.ACCOUNT : routes.GOAL}>
+              <ListItem button key={text}>
+                  <ListItemIcon>
+                      {text === "Home"?
                         <HomeIcon/>
-                    :text === "Job Search"?
+                      :text === "Job Search"?
                         <WorkIcon/>
-                    :text === "Goals"?
+                      :text === "Goals"?
                         <AccessibilityIcon/>
-                    : <SettingsIcon/>
-                    }
-                </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+                      : <SettingsIcon/>
+                      }
+                  </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
           ))}
         </List>
         </div></center>

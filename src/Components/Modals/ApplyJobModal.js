@@ -10,7 +10,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         JobStatus: "Applied",
         DateCreated: new Date(), 
         removed:false
-    })
+    });
 
     useEffect(()=>{
         let currentDate = jobPosting.DateCreated,
@@ -19,7 +19,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
             year = currentDate.getFullYear();
         currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
         setJobPosting({...jobPosting, DateCreated: year + "-" + month + "-" + day})
-    },[])
+    },[]);
 
     const submit =(e)=>{
         e.preventDefault();
@@ -33,6 +33,7 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         day = '' + currentDate.getDate(),
         year = currentDate.getFullYear();
         currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        onSubmit(posting);
         setJobPosting({
             ...jobPosting,
             Title:"",
@@ -42,7 +43,6 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
             JobStatus: "Applied",
             DateCreated: year + "-" + month + "-" + day
         })
-        onSubmit(posting)
     }   
 
     const setValue = (event) => {
@@ -61,20 +61,20 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
                 </div>
                 {/* <h3 className="backButton" onClick={()=>close()}>&#8592; Back</h3> */}
                 <center><h2>Add a Job</h2></center>
-                <form class="formContainer" onSubmit={(e)=>submit(e)}>
-                    <label for="Company">Company Name</label>
+                <form className="formContainer" onSubmit={(e)=>submit(e)}>
+                    <label htmlFor="Company">Company Name</label>
                     <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Company} type="text" id="Company" name="Company" placeholder="Company Name"/>
 
-                    <label for="Title">Job Title</label>
+                    <label htmlFor="Title">Job Title</label>
                     <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Title} type="text" id="Title" name="Title" placeholder="Job Title"/>
 
-                    <label for="Link">Job Link/URL</label>
+                    <label htmlFor="Link">Job Link/URL</label>
                     <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder="Job Link"/>
                     
-                    <label for="DateCreated">Date Created</label>
+                    <label htmlFor="DateCreated">Date Created</label>
                     <input type="date" id="start" name="DateCreated" className="formTextInput" value={jobPosting.DateCreated} onChange={(e)=> setValue(e)}></input>
 
-                    <label for="JobStatus">Job Status</label>
+                    <label htmlFor="JobStatus">Job Status</label>
                         <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>
                         <option name="JobStatus" value="Applied" onChange={(e)=> setValue(e)}>Applied</option>
                         <option name="JobStatus" value="Interview" onChange={(e)=> setValue(e)}>Interview</option>
