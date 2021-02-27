@@ -7,8 +7,9 @@ export const getProfile = (id) => async (dispatch)=> {
 
         // const profile= await axios.get(`${server}/users/${id}`, 
         // {headers:{'Authorization':localStorage.jwtToken}});
-        let id = auth.currentUser().user.uid
-        let userInfo = firestore.collection("Step-up-data").get(id)
+        // let id = auth.currentUser();
+        let userInfo = await firestore.collection("Step-up-data").doc(id).get();
+        userInfo = await userInfo.data();
         await dispatch({
             type:'GET_PROFILE',
             payload: userInfo

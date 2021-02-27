@@ -291,24 +291,24 @@ class EditJobModal extends Component{
                                     <li onClick={()=> this.setState({...this.state,contactModal: true})}>Contacts</li>
                                 </ul>
                             </div>
-                            <form class="formContainer" onSubmit={(e)=>this.submit(e)}>
+                            <form className="formContainer" onSubmit={(e)=>this.submit(e)}>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="Company">Company Name</label>
+                                        <label htmlFor="Company">Company Name</label>
                                         <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Company} type="text" id="Company" name="Company" placeholder={this.state.Company}/>
                                     </div>
                                     <div className="editInputContainer">
-                                        <label for="Title">Job Title</label>
+                                        <label htmlFor="Title">Job Title</label>
                                         <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Title} type="text" id="Title" name="Title" placeholder={this.state.Title}/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="Link">Job Link/URL</label>
+                                        <label htmlFor="Link">Job Link/URL</label>
                                         <input className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.Link} type="text" id="Link" name="Link" placeholder={this.state.Link}/>
                                     </div>
                                     <div className="editInputContainer">
-                                    <label for="JobStatus">Job Status</label>
+                                    <label htmlFor="JobStatus">Job Status</label>
                                         <select className="formTextInput" id="JobStatus" value={this.state.JobStatus} name="JobStatus" onChange={(e)=> this.setValue(e)}>
                                         <option name="JobStatus" value="Applied" onChange={(e)=> this.setValue(e)}>Applied</option>
                                         <option name="JobStatus" value="Interview" onChange={(e)=> this.setValue(e)}>Interview</option>
@@ -317,9 +317,9 @@ class EditJobModal extends Component{
                                     </select>
                                     </div>
                                 </div>
-                                <label for="DateCreated">Date Created</label>
+                                <label htmlFor="DateCreated">Date Created</label>
                                 <input type="date" id="start" name="DateCreated" className="formTextInput" onChange={(e)=> this.setValue(e)} value={this.state.DateCreated}></input>
-                                <label for="Link">Description</label>
+                                <label htmlFor="Link">Description</label>
                                 <textarea className="formTextArea" onChange={(e)=> this.setValue(e)} value={this.state.Description} type="text" id="Description" name="Description" placeholder="Description"/>
                             
                                 <center><input className="formButton" type="submit" value="Submit"/>
@@ -368,21 +368,21 @@ class EditJobModal extends Component{
                         <form className="contactForm" onSubmit={(e)=> this.onSubmitContact(e)}>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="firstName">First Name</label>
+                                        <label htmlFor="firstName">First Name</label>
                                         <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="First Name..."/>
                                     </div>
                                     <div className="editInputContainer">
-                                        <label for="lastName">Last Name</label>
+                                        <label htmlFor="lastName">Last Name</label>
                                         <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.lastName} type="text" id="lastName" name="lastName" placeholder="Last Name..."/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="jobTitle">Job Title</label>
+                                        <label htmlFor="jobTitle">Job Title</label>
                                         <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="Job Title..."/>
                                     </div>
                                     <div className="editInputContainer">
-                                        <label for="contactEmail">Contact's Email</label>
+                                        <label htmlFor="contactEmail">Contact's Email</label>
                                         <input className="formTextInput" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.contactEmail} type="text" id="contactEmail" name="contactEmail"  placeholder="Contact Email..."/>
                                     </div>
                                 </div><br/>
@@ -404,7 +404,7 @@ class EditJobModal extends Component{
                                 </div><br/>
                                 <div className="editInputRow">
                                     <div className="contactNoteContainer">
-                                        <label for="notes">Notes</label>
+                                        <label htmlFor="notes">Notes</label>
                                         <textarea className="formTextArea" onChange={(e)=> this.setContactValues(e)} value={this.state.contactInfo.notes} type="text" id="notes" name="notes" placeholder="Write your notes here..."/>
                                     </div>
                                 </div><br/>
@@ -428,21 +428,21 @@ class EditJobModal extends Component{
                             <form className="contactForm" onSubmit={(e)=> this.onSubmitEdit(e)}>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="firstName">First Name</label>
+                                        <label htmlFor="firstName">First Name</label>
                                         <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.firstName} type="text" id="firstName" name="firstName"  placeholder="First Name..."/>
                                     </div>
                                     <div className="editInputContainer">
-                                        <label for="lastName">Last Name</label>
+                                        <label htmlFor="lastName">Last Name</label>
                                         <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.lastName} type="text" id="lastName" name="lastName" placeholder="Last Name..."/>
                                     </div>
                                 </div>
                                 <div className="editInputRow">
                                     <div className="editInputContainer">
-                                        <label for="jobTitle">Job Title</label>
+                                        <label htmlFor="jobTitle">Job Title</label>
                                         <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.jobTitle} type="text" id="jobTitle" name="jobTitle" placeholder="Job Title..."/>
                                     </div>
                                     <div className="editInputContainer">
-                                        <label for="contactEmail">Contact's Email</label>
+                                        <label htmlFor="contactEmail">Contact's Email</label>
                                         <input className="formTextInput" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.contactEmail} type="text" id="contactEmail" name="contactEmail"  placeholder="Contact Email..."/>
                                     </div>
                                 </div><br/>
@@ -464,7 +464,7 @@ class EditJobModal extends Component{
                                 </div><br/>
                                 <div className="editInputRow">
                                     <div className="contactNoteContainer">
-                                        <label for="notes">Notes</label>
+                                        <label htmlFor="notes">Notes</label>
                                         <textarea className="formTextArea" onChange={(e)=> this.editContactValues(e)} value={this.state.EditInfo.notes} type="text" id="notes" name="notes" placeholder="Write your notes here..."/>
                                     </div>
                                 </div><br/>

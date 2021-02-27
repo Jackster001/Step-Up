@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import * as routes from '../Routes/routes';
+import { Link } from 'react-router-dom';
+import * as routes from '../../Routes/routes';
 import { connect } from 'react-redux';
-import { logoutUser } from '../Action/authAction';
-import {Grid, withStyles, Button} from '@material-ui/core';
-import logo from '../Assets/Step Up Careers Logo.svg'; 
-import {Color} from '../Utils/color';
-// import logo from '../Assets/main_logo.png'; 
+import { logoutUser } from '../../Action/authAction';
+import { useTheme } from '@material-ui/core/styles';
+import {Grid, withStyles, Button, Drawer, List, ListItem, ListItemText, ListItemIcon, IconButton, AppBar, Toolbar} from '@material-ui/core';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import logo from '../../Assets/Step Up Careers Logo.svg'; 
+import MenuIcon from "@material-ui/icons/Menu";
+import SideNavigation from './SideNavigation';
+import clsx from "clsx";
+
+const drawerWidth = "340px";
 
 const useStyles = (theme) => ({
     navBar:{
@@ -17,8 +23,7 @@ const useStyles = (theme) => ({
     },
     navLogoContainer:{
         width: '33.33%',
-        marginTop: '30px',
-        // border: '1px solid black'
+        marginTop: '30px'
     },
     navUL:{
         listStyleType: 'none',
@@ -30,12 +35,11 @@ const useStyles = (theme) => ({
         width:'33.33%',
         float: 'left',
         marginTop: '30px',
-        // border: '1px solid black'
     },
     linkColor:{
         textDecoration: 'none',
         color: 'black',
-        fontWeight: '400',
+        fontWeight: '400'
     },
     linkColor2:{
         textDecoration: 'none',
@@ -44,7 +48,28 @@ const useStyles = (theme) => ({
     },
     navItemSpace:{
         marginRight: '10px'
-    }
+    },
+    menuButton: {
+        marginRight: 36,
+    },
+    drawerOpen: {
+        width: drawerWidth,
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    drawerClose: {
+        transition: theme.transitions.create("width", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        overflowX: "hidden",
+        width: theme.spacing(7) + 1,
+        [theme.breakpoints.up("sm")]: {
+            width: theme.spacing(9) + 1,
+        },
+    },
 });
 
 class Navigation extends Component{
@@ -53,19 +78,37 @@ class Navigation extends Component{
         this.state={
             navigationType:"navigation",
             initials:"",
-            authenticated: false
+            authenticated: false,
+            openSideNavBar: true
         }
     }
+
+    drawerButton = () => {
+        const { classes } = this.props;
+        return (
+            <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={()=> this.setState({...this.state, openSideNavBar: true })}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                    [classes.hide]: this.state.openSideNavBar,
+                })}
+            >
+            <MenuIcon />
+            </IconButton>
+        );
+    };
+    
     NonAuthBar(){
         const { classes } = this.props;
         return(
             <div className={classes.navBar}>
                 <div className={classes.navLogoContainer}>
-                    {/* <a className="logoLink" href="/"><h1 className="LogoText">Step Up</h1></a> */}
                     <a href="/"><img src={logo} width={250}/></a>
                 </div>
                 <div className={classes.navULContainer}>
-                </div>
+                </div> 
                 <div className={classes.navULContainer}>
                     <ul className={classes.navUL}>
                         <li className={classes.navItemSpace}><Button><Link className={classes.linkColor} to={routes.SIGNUP}>Sign Up</Link></Button></li>
@@ -76,25 +119,8 @@ class Navigation extends Component{
         )
     }
     AuthBar(){
-        const { classes } = this.props;
         return(
-            <div className="navBar">
-                <div className="navLogoContainer">
-                    <a className="logoLink" href="/home"><h1 className="LogoText">Step Up</h1></a>
-                </div>
-                <div className="navULContainer">
-                    <ul className="navUL">
-                        <li><Link className="linkColor" to={routes.DASHBOARD}>Home</Link></li>
-                    </ul>
-                </div>
-                <div className="navULContainer">
-                    <div className="accountCircleContainer">
-                        <div className="accountCircle">
-                            <Link className="linkAccount" to={routes.ACCOUNT}>{this.props.isAuthenticated && this.props.profile ? `${this.props.profile.firstName.charAt(0)}${this.props.profile.lastName.charAt(0)}`:""}</Link>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <SideNavigation props={this.props}/>
         )
     }
     render(){

@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import { setAuth, disableAuthLoading, finishLogin} from '../src/Action/authAction';
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
-import Navigation from './Components/Navigation';
+import Navigation from './Components/Navigation/MainNavigation'
 import * as screens from './Screens';
 import * as routes from './Routes/routes';
 import {ClearErrors} from './Action/errorAction';
@@ -55,13 +55,10 @@ class Main extends Component {
             <PublicRoute exact path={routes.PRIVACY} component={screens.Privacy} isAuthenticated={this.state.auth}/>
             <PrivateRoute exact path={routes.HOME} component={screens.Dashboard} isAuthenticated={this.state.auth}/>
             <PrivateRoute exact path={routes.ACCOUNT} component={screens.Account} isAuthenticated={this.state.auth}/>
+            <PrivateRoute exact path={routes.JOBSEARCH} component={screens.JobSearch} isAuthenticated={this.state.auth}/>
+            <PrivateRoute exact path={routes.GOAL} component={screens.Goal} isAuthenticated={this.state.auth}/>
           </Container>
           <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/>
-          {/* {this.state.pathName === '/' ?
-            <Footer isAuthenticated={this.state.auth}/>
-            :
-            <></>
-          } */}
         </div>
       );
     }

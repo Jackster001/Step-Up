@@ -35,14 +35,14 @@ const useStyles = (theme) => ({
 
 class Login extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            email:'',
-            password:'',
-            errors:'',
-            email_error_text:'',
-            password_error_text:''
-        }
+      super(props);
+      this.state = {
+        email:'',
+        password:'',
+        errors:'',
+        email_error_text:'',
+        password_error_text:''
+      }
     }
     componentWillReceiveProps(nextProps) {
       if (nextProps.errors) {

@@ -6,5 +6,7 @@ import Dashboard from './Dashboard.js';
 import Account from './Account';
 import Privacy from './Privacy';
 import Reset from './Reset';
+import JobSearch from './JobSearch';
+import Goal from './Goal';
 
-export {Home, Login, Signup, Dashboard, Landing, Account, Privacy, Reset}
+export {Home, Login, Signup, Dashboard, Landing, Account, Privacy, Reset, JobSearch, Goal}

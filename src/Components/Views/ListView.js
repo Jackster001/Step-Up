@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ApplyJobModal from './Modals/ApplyJobModal';
-import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading} from '../Action/profileAction';
-import {JobStatus} from './';
-import EditJobModal from './Modals/EditJobModal';
-import {setEditModalData,openingEditModalFunction} from '../Action/profileAction' 
-import RemoveModal from './Modals/RemoveModal';
-import filterIcon from '../Assets/Filter_Icon.svg';
-class Appliedboard extends Component{
+import ApplyJobModal from '../Modals/ApplyJobModal';
+import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction} from '../../Action/profileAction';
+import {JobStatus} from '..';
+import EditJobModal from '../Modals/EditJobModal';
+import RemoveModal from '../Modals/RemoveModal';
+import filterIcon from '../../Assets/Filter_Icon.svg';
+class ListBoardView extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -161,13 +160,13 @@ class Appliedboard extends Component{
                           {
                             this.state.showCheckboxes ?
                               <div id="checkboxes">
-                                <label for="one">
+                                <label htmlFor="one">
                                   <input type="checkbox" id="one" value="Applied" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Applied"]}/>Applied</label>
-                                <label for="two">
+                                <label htmlFor="two">
                                   <input type="checkbox" id="two" value="Rejected" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Rejected"]}/>Rejected</label>
-                                <label for="three">
+                                <label htmlFor="three">
                                   <input type="checkbox" id="three" value="Interview" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Interview"]}/>Interview</label>
-                                <label for="four">
+                                <label htmlFor="four">
                                   <input type="checkbox" id="four" value="Offer" onChange={(e)=>this.onPressChangeFilter(e)} checked={!!this.state.checked["Offer"]}/>Offer</label>
                               </div>
                             : <div></div>
@@ -221,4 +220,4 @@ const mapStateToProps =(state) =>({
     openingEditModal: state.userState.openingEditModal
 })
 
-export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading,setEditModalData,openingEditModalFunction})(Appliedboard);
+export default connect(mapStateToProps,{addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading,setEditModalData,openingEditModalFunction})(ListBoardView);
