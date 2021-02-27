@@ -18,7 +18,7 @@ const useStyles = (theme) => ({
     appBar: {
       width: `calc(100% - ${DefaultSideWidth}px)`,
       marginLeft: DefaultSideWidth,
-      marginTop: '25%'
+      marginTop: '15%'
     },
     toolbar: {
       minHeight: '30px'
