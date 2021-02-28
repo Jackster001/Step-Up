@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import { setAuth, disableAuthLoading, finishLogin} from '../src/Action/authAction';
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
-import Navigation from './Components/Navigation/MainNavigation'
+import MainNavigation from './Components/Navigation/MainNavigation'
 import * as screens from './Screens';
 import * as routes from './Routes/routes';
 import {ClearErrors} from './Action/errorAction';
@@ -36,7 +36,6 @@ class Main extends Component {
         this.props.disableAuthLoading()
         this.setState({...this.state, auth: this.props.isAuthenticated})
       }
-      console.log(window.location.pathname !== this.state.pathName)
       if(window.location.pathname !== this.state.pathName){
         this.setState({...this.state, pathName: window.location.pathname})
       }
@@ -45,9 +44,9 @@ class Main extends Component {
       return (
         <div>
           <Container className="app" maxWidth="lg">
-            <Navigation/>
           </Container>
           <Container className="app" maxWidth="lg">
+            <MainNavigation/>
             {/* <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/> */}
             <PublicRoute exact path={routes.SIGNUP} component={screens.Signup} isAuthenticated={this.state.auth}/>
             <PublicRoute exact path={routes.LOGIN} component={screens.Login} isAuthenticated={this.state.auth}/>

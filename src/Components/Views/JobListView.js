@@ -58,7 +58,7 @@ class JobListView extends Component{
         let jobsApplied = this.props.profile.jobsApplied;
         let jobs = [];
         for(let i = 0; i< jobsApplied.length; i++){
-            if(jobsApplied[i].Company.indexOf(this.state.searchKeyword) !== -1 || jobsApplied[i].Company.indexOf(this.state.searchKeyword) !== -1){
+            if(jobsApplied[i].Company.indexOf(this.state.searchKeyword) !== -1 || jobsApplied[i].Title.indexOf(this.state.searchKeyword) !== -1){
                 jobs.push(jobsApplied[i]);
             }
         }

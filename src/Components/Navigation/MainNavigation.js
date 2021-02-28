@@ -72,7 +72,7 @@ const useStyles = (theme) => ({
     },
 });
 
-class Navigation extends Component{
+class MainNavigation extends Component{
     constructor(props){
         super(props)
         this.state={
@@ -140,4 +140,4 @@ const mapStateToProps =(state) =>({
     profile: state.userState.profile
 })
   
-export default connect(mapStateToProps, {logoutUser})(withStyles(useStyles)(Navigation));
+export default connect(mapStateToProps, {logoutUser})(withStyles(useStyles)(MainNavigation));

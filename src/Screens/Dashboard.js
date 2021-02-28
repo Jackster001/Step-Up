@@ -77,7 +77,7 @@ class Dashboard extends Component {
           <Grid container>
             <Grid item xs={10}>
               <Tabs value={this.state.index} onChange={(e,v)=> this.onChangeIndex(e,v)} aria-label="simple tabs example">
-                <Tab label="List View" {...a11yProps(0)}/>
+                <Tab label="List View" {...a11yProps(0)} />
                 <Tab label="Board View" {...a11yProps(1)} />
               </Tabs>            
             </Grid>
