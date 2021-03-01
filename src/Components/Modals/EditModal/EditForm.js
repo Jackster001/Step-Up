@@ -63,8 +63,12 @@ class EditForm extends Component{
 
     componentDidUpdate(){
             if(this.props.openingEditModal){
-                let currentDate = this.props.editModalData.DateCreated.split("/");
-                currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+                let currentDate = ""
+                if (this.props.editModalData.DateCreated){
+                    let currentDate = this.props.editModalData.DateCreated.split("/");
+                    currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+                }
+
                 this.props.openingEditModalFunction();
                 this.setState({
                     ...this.state,
