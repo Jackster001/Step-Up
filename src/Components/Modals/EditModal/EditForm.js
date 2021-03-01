@@ -44,10 +44,11 @@ class EditForm extends Component{
     }
 
     componentDidMount(){
-        let currentDate = this.props.editModalData.DateCreated;
-        currentDate = currentDate.split('/');
-        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
-        console.log(currentDate)
+        let currentDate = ""
+        if (this.props.editModalData.DateCreated){
+            let currentDate = this.props.editModalData.DateCreated.split("/");
+            currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        }
         // let month = '' + (currentDate.getMonth() + 1),
         //     day = '' + currentDate.getDate(),
         //     year = currentDate.getFullYear();
