@@ -82,7 +82,7 @@ class JobBoard extends Component{
                     </Grid>
                     <Grid item xs={12}>
                         {this.state.indexedJobs ? this.state.indexedJobs.map((job)=>{
-                            return <JobListItem Company={job.Company} Title={job.Title} DateCreated={job.DateCreated} JobStatus={job.JobStatus}/>
+                            return <JobListItem index={job.index} Company={job.Company} Title={job.Title} DateCreated={job.DateCreated} JobStatus={job.JobStatus} handleEditModal={()=>this.props.handleEditModal(job.index)}/>
                         }):<></>}
                     </Grid>
                     <Grid item xs={12}>

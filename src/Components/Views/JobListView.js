@@ -46,6 +46,7 @@ class JobListView extends Component{
     organizeJobs = (jobs) => {
         let Applied = [], Interview = [], Rejected = [], Offer = [];
         for(let i = 0; i < jobs.length; i++){
+            jobs[i].index = i
             if(jobs[i].JobStatus === "Applied") Applied.push(jobs[i]);
             else if(jobs[i].JobStatus === "Interview") Interview.push(jobs[i]);
             else if(jobs[i].JobStatus === "Rejected") Rejected.push(jobs[i]);
@@ -75,10 +76,10 @@ class JobListView extends Component{
                 { this.props.profile.jobsApplied.length ?
                     <>
                         <br/><br/><SearchBar value={this.props.searchKeyword} onPressSearch={this.onPressSearch} onChangeValue={this.onChangeValue}/><br/><br/>
-                        <JobBoard title="Applied" jobs={this.state.Applied}/><br/><br/>
-                        <JobBoard title="Interview" jobs={this.state.Interview}/><br/><br/>
-                        <JobBoard title="Rejected" jobs={this.state.Rejected}/><br/><br/>
-                        <JobBoard title="Offer" jobs={this.state.Offer}/>
+                        <JobBoard title="Applied" jobs={this.state.Applied} handleEditModal={(i)=> this.props.handleEditModal(i)} openModal={()=> this.props.openModal()} /><br/><br/>
+                        <JobBoard title="Interview" jobs={this.state.Interview} handleEditModal={(i)=> this.props.handleEditModal(i)} openModal={()=> this.props.openModal()} /><br/><br/>
+                        <JobBoard title="Rejected" jobs={this.state.Rejected} handleEditModal={(i)=> this.props.handleEditModal(i)} openModal={()=> this.props.openModal()} /><br/><br/>
+                        <JobBoard title="Offer" jobs={this.state.Offer} handleEditModal={(i)=> this.props.handleEditModal(i)} openModal={()=> this.props.openModal()} />
                     </>
                 :
                     <Typography variant={'h3'}>You do not added any jobs yet</Typography>

@@ -10,6 +10,7 @@ export const getProfile = (id) => async (dispatch)=> {
         // let id = auth.currentUser();
         let userInfo = await firestore.collection("Step-up-data").doc(id).get();
         userInfo = await userInfo.data();
+        console.log(userInfo)
         await dispatch({
             type:'GET_PROFILE',
             payload: userInfo
@@ -78,6 +79,7 @@ export const updateJob = (id, jobData, i) => async (dispatch)=> {
         let userInfo = await firestore.collection("Step-up-data").doc(id).get()
         userInfo = userInfo.data()
         userInfo.jobsApplied[i] = jobData
+        console.log(userInfo)
         await firestore.collection("Step-up-data").doc(id).set(userInfo)
         await dispatch({
             type:'UPDATE_JOB',

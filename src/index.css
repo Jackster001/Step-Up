@@ -15,7 +15,7 @@ body {
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center;
-  background-color: #eeeeee;
+  background-color: #F5F5F5;
 }
 
 code {
@@ -714,7 +714,7 @@ code {
   cursor: pointer;
 }
 .editNavbar{
-  width: 90%;
+  width: 100%;
   height: 20px;
   margin: 0 auto;
   list-style-type: none;

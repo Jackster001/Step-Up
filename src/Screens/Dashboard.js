@@ -9,8 +9,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { a11yProps, DefaultSideWidth } from '../Utils/helper';
 import TabPanel from '../Components/Navigation/TabPanel';
-import {getProfile, addJob} from '../Action/profileAction';
+import {getProfile, addJob, setEditModalData, disableUserProfileLoading} from '../Action/profileAction';
 import ApplyJobModal from '../Components/Modals/ApplyJobModal'
+import EditModal from '../Components/Modals/EditModal/EditModal.js';
 
 const useStyles = (theme) => ({
   root: {
@@ -27,9 +28,8 @@ const useStyles = (theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
-    width: `calc(100% - ${DefaultSideWidth-DefaultSideWidth/2}px)`,
-    marginLeft: DefaultSideWidth/2+60,
+    minWidth: `calc(100% - ${DefaultSideWidth-DefaultSideWidth/2+80}px)`,
+    marginLeft: DefaultSideWidth/2+100,
     marginTop: '20px'
   },
 })
@@ -39,7 +39,9 @@ class Dashboard extends Component {
     super(props)
     this.state = {
       index:0,
-      openModal: false
+      openModal: false,
+      openEditModal: false,
+      editIndex:0
     }
   }
 
@@ -47,9 +49,16 @@ class Dashboard extends Component {
     this.props.getProfile(this.props.profile.id);
   }
 
-  openModal(){
-    this.setState({openModal:true})
+  componentDidUpdate(){
+    if(this.props.loadingProfile){
+      this.props.disableUserProfileLoading()
+      this.setState({jobsApplied: this.props.profile.jobsApplied})
+      this.closeModal();
+      this.closeEditModal()
+    }
   }
+
+
 
   closeModal(){
     this.setState({openModal:false})
@@ -59,7 +68,30 @@ class Dashboard extends Component {
     this.props.addJob(this.props.profile.id,v);
   }
 
+  handleEditModal(i){
+    this.props.setEditModalData(this.props.profile.id, this.props.profile.jobsApplied[i]);
+    this.setState({...this.state, editIndex:i})
+  }
 
+  openEditModal(){
+    this.setState({...this.state, openEditModal: true})
+  }
+
+  closeEditModal(){
+    this.setState({openEditModal:false, editIndex:0})
+  }
+  openRemoveModal(){
+    this.setState({openRemoveModal: true})
+  }
+  closeRemoveModal(){
+    this.setState({openRemoveModal: false})
+  }
+  onSubmit(v){
+    this.props.addJob(this.props.profile.id,v);
+  }
+  onSubmitEdit(v,i){
+    this.props.updateJob(this.props.profile.id,v,i)
+  }
 
   onChangeIndex(e,v){
     if(v === 0){
@@ -82,14 +114,15 @@ class Dashboard extends Component {
               </Tabs>            
             </Grid>
           <Grid item xs={2}>
-          <Button variant={'contained'} color={'primary'} style={{float: 'right', marginTop: '5px', marginRight: '5px'}} onClick={()=> this.openModal()}>Add Job</Button></Grid>
+          <Button variant={'contained'} color={'primary'} style={{float: 'right', marginTop: '5px', marginRight: '5px'}} onClick={()=> this.setState({openModal:true})}>Add Job</Button></Grid>
           </Grid>
         </AppBar>
-        <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
+        <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)} closeModal={() => this.closeModal()}/>
+        <EditModal editIndex={this.state.editIndex} openModal={this.state.openEditModal} handleEditModal={(i)=>this.props.handleEditModal(i)} openEditModal={()=> this.openEditModal()} closeModal={()=>this.closeEditModal()}/>
         <main className={classes.content}>
           <div className={classes.toolbar}/>
           <TabPanel value={this.state.index} index={0}>
-            <JobListView closeModal={() => this.closeModal()}/>
+            <JobListView handleEditModal={(i)=>this.handleEditModal(i)} closeModal={() => this.closeModal()}/>
           </TabPanel>
           <TabPanel value={this.state.index} index={1}>
             <JobBoardView/>
@@ -101,7 +134,8 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps =(state) =>({
-  profile: state.userState.profile
+  profile: state.userState.profile,
+  loadingProfile: state.userState.loadingProfile
 })
 
-export default connect(mapStateToProps,{getProfile, addJob})(withStyles(useStyles)(Dashboard));
+export default connect(mapStateToProps,{getProfile, addJob, setEditModalData, disableUserProfileLoading})(withStyles(useStyles)(Dashboard));

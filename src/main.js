@@ -43,9 +43,7 @@ class Main extends Component {
     render() {
       return (
         <div>
-          <Container className="app" maxWidth="lg">
-          </Container>
-          <Container className="app" maxWidth="lg">
+          <Container maxWidth="xl">
             <MainNavigation/>
             {/* <PublicRoute exact path={routes.LANDING} component={screens.Landing} isAuthenticated={this.state.auth}/> */}
             <PublicRoute exact path={routes.SIGNUP} component={screens.Signup} isAuthenticated={this.state.auth}/>

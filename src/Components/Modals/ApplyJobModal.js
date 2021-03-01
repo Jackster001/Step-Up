@@ -1,30 +1,81 @@
-import React, {useState, useEffect} from 'react';
+import React, { Component } from 'react';
 import { FaRegTimesCircle } from 'react-icons/fa';
-const ApplyJobModal =({openModal, close, onSubmit})=>{
+import {Button, Container, Grid, withStyles, Typography, TextField, Select, MenuItem} from '@material-ui/core';
 
-    const [jobPosting, setJobPosting] = useState({
-        Title:"",
-        Company:"",
-        Description: "",
-        Link: "",
-        JobStatus: "Applied",
-        DateCreated: new Date(), 
-        removed:false
-    });
+const useStyles = (theme) => ({
+    fieldStyle:{
+        width: '100%',
+    },
+    inputStyle:{
+        padding: '12px 7px'
+    },
+    buttonStyle:{
+        padding: '9px 14px'
+    },
+    activeLink:{
+        color: '#846EF5',
+        textDecoration: 'underline',
+        fontSize: '16px'
+    },
+    nonActiveLink:{
+        fontSize: '16px'
+    },
+    itemStyle:{
+        paddingBottom: '0px'
+    },
 
-    useEffect(()=>{
-        let currentDate = jobPosting.DateCreated,
+    ModalContainer: {
+        position: 'fixed',
+        top:0,
+        left:0,
+        zIndex: 1201,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        width: '100%',
+        height: '100%',
+        padding: '30px',
+        boxSizing: 'border-box'
+    },
+    modal:{
+        width: '70%',
+        minHeight: '550px',
+        backgroundColor: 'white',
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        padding: '30px 50px',
+        transition: 'all 0.3s ease-out'
+      }
+});
+
+class ApplyJobModal extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            Title:"",
+            Company:"",
+            Description: "",
+            Link: "",
+            JobStatus: "Applied",
+            DateCreated: new Date(), 
+            removed:false
+        }
+    }
+
+    componentDidMount(){
+        let currentDate = this.state.DateCreated,
             month = '' + (currentDate.getMonth() + 1),
             day = '' + currentDate.getDate(),
             year = currentDate.getFullYear();
         currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
-        setJobPosting({...jobPosting, DateCreated: year + "-" + month + "-" + day})
-    },[]);
+        this.setState({...this.state, DateCreated: year + "-" + month + "-" + day})
+    };
 
-    const submit =(e)=>{
-        e.preventDefault();
-        let posting=jobPosting;
-        let myDate=posting.DateCreated;
+    submit = () => {
+        let {Title, Company} = this.state
+        if(Title.length <= 0 || Company.length <= 0) return;
+        let posting=this.state;
+        let myDate = this.state.DateCreated;
         myDate=myDate.split("-");
         let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
         posting.DateCreated = newDate
@@ -33,60 +84,84 @@ const ApplyJobModal =({openModal, close, onSubmit})=>{
         day = '' + currentDate.getDate(),
         year = currentDate.getFullYear();
         currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
-        onSubmit(posting);
-        setJobPosting({
-            ...jobPosting,
+        this.props.onSubmit(posting);
+        this.setState({
+            ...this.state,
             Title:"",
             Company:"",
             Description: "",
             Link: "",
             JobStatus: "Applied",
+            Location: '',
             DateCreated: year + "-" + month + "-" + day
         })
     }   
 
-    const setValue = (event) => {
+    setValue = (event) => {
         const { value, name } = event.target;
-        setJobPosting({
-            ...jobPosting,
+        this.setState({
+            ...this.state,
             [name]: value
         });
     }
 
-    return (
-        <div className={openModal ? "ModalContainer": "ClosedModal"}>
-            <div className="modal">
-                <div className="backButtonContainer">
-                    <div className="backButton"><FaRegTimesCircle size="35" color="#470eb3" onClick={()=>close()}/></div>
-                </div>
-                {/* <h3 className="backButton" onClick={()=>close()}>&#8592; Back</h3> */}
-                <center><h2>Add a Job</h2></center>
-                <form className="formContainer" onSubmit={(e)=>submit(e)}>
-                    <label htmlFor="Company">Company Name</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Company} type="text" id="Company" name="Company" placeholder="Company Name"/>
-
-                    <label htmlFor="Title">Job Title</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Title} type="text" id="Title" name="Title" placeholder="Job Title"/>
-
-                    <label htmlFor="Link">Job Link/URL</label>
-                    <input className="formTextInput" onChange={(e)=> setValue(e)} value={jobPosting.Link} type="text" id="Link" name="Link" placeholder="Job Link"/>
-                    
-                    <label htmlFor="DateCreated">Date Created</label>
-                    <input type="date" id="start" name="DateCreated" className="formTextInput" value={jobPosting.DateCreated} onChange={(e)=> setValue(e)}></input>
-
-                    <label htmlFor="JobStatus">Job Status</label>
-                        <select className="formTextInput" id="JobStatus" value={jobPosting.JobStatus} name="JobStatus" onChange={(e)=> setValue(e)}>
-                        <option name="JobStatus" value="Applied" onChange={(e)=> setValue(e)}>Applied</option>
-                        <option name="JobStatus" value="Interview" onChange={(e)=> setValue(e)}>Interview</option>
-                        <option name="JobStatus" value="Rejected" onChange={(e)=> setValue(e)}>Rejected</option>
-                        <option name="JobStatus" value="Offer" >Offer</option>
-                    </select>
-                
-                    <center><input className="formButton" type="submit" value="Submit"/></center><br/><br/>
-                </form>
+    render(){
+        const { classes } = this.props;
+        return (
+            <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
+            {
+                this.props.openModal ?
+                    <div className={classes.ModalContainer}>
+                    <Container className={classes.modal} maxWidth="lg">
+                        <Grid container spacing={5}>
+                            <Grid item xs={12}>
+                                <Typography variant={"h4"}>Add Job</Typography>
+                            </Grid>
+                            <Grid item xs={4} style={{paddingBottom: '5px'}}>
+                                <TextField className={classes.fieldStyle} label="Company Name (Required)" name="Company" variant="outlined" placeholder="Company Name" value={this.state.Company} onChange={(e)=> this.setValue(e)}/>
+                            </Grid>
+                            <Grid item xs={4} style={{paddingBottom: '5px'}}>
+                                <TextField className={classes.fieldStyle} label="Job Title (Required)"  name="Title" variant="outlined" placeholder="Job Title" value={this.state.Title} onChange={(e)=> this.setValue(e)} />
+                            </Grid>
+                            <Grid item xs={4} style={{paddingBottom: '5px'}}>
+                                <TextField className={classes.fieldStyle} label="Job URL" name="Link" variant="outlined" placeholder="Job URL" value={this.state.Link} onChange={(e)=> this.setValue(e)} />
+                            </Grid>
+                            <Grid item xs={4} >
+                                <Select
+                                    className={classes.fieldStyle}
+                                    value={this.state.JobStatus}
+                                    onChange={(e)=> this.setValue(e)}
+                                    variant="outlined"
+                                    name="JobStatus"
+                                >
+ 
+                                <MenuItem value={"Applied"}>Applied</MenuItem>
+                                <MenuItem value={"Interview"}>Interview</MenuItem>
+                                <MenuItem value={"Rejected"}>Rejected</MenuItem>
+                                <MenuItem value={"Offer"}>Offer</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField className={classes.fieldStyle} label="Date Created" name="DateCreated" variant="outlined" placeholder="Date Created" value={this.state.DateCreated} onChange={(e)=> this.setValue(e)} />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField className={classes.fieldStyle} label="Location" name="Location" variant="outlined" placeholder="Location" value={this.state.location} onChange={(e)=> this.setValue(e)} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField className={classes.fieldStyle} label="Description" name="Description" placeholder="Description" value={this.props.value} onChange={(e)=> this.setValue(e)}/>
+                            </Grid>
+                            <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>
+                                <Button color="primary" variant='contained' style={{float:'right', marginLeft: '15px'}} onClick={()=>this.submit()}>Save</Button>
+                                <Button color="primary" variant='outlined' style={{float:'right'}} onClick={()=>this.props.closeModal()}>Close</Button>
+                            </Grid>
+                        </Grid>
+                    </Container>
+                    </div>
+                : <></>
+            }
             </div>
-        </div>
-    );
+        );
+    }
 
 }
-export default ApplyJobModal;
+export default (withStyles(useStyles)(ApplyJobModal));

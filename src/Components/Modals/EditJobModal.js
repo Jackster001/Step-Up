@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {setEditModalData,openingEditModalFunction, addContactInfo, disableContactLoading, editContactInfo, deleteContactInfo, getAllContactInfo} from '../../Action/profileAction';
 import { FaRegTimesCircle, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
 import DeleteConfirmation from './DeleteConfirmation'
-import ContactCard from '../ContactCard'
+// import ContactCard from './EditModal/ContactCard'
 class EditJobModal extends Component{
 
     constructor(props){
@@ -340,7 +340,7 @@ class EditJobModal extends Component{
                                 <button className="createContactButton" onClick={()=> this.setState({...this.state,contactModal: false, addContact: true})}>Create Contact</button>
                             </div><br/>
                             <div className="contactCardBox">
-                                {this.state.contactList && this.state.contactList.length>0 ? 
+                                {/* {this.state.contactList && this.state.contactList.length>0 ? 
                                     <>{this.state.contactList.map((contact,i)=>{
                                         return <ContactCard key={i} contactInfo={contact} openEdit={()=> this.openEdit(contact,i)}/>
                                     })}</>
@@ -348,7 +348,7 @@ class EditJobModal extends Component{
                                     <div>
                                         <center><h3>You have no contacts yet</h3></center>
                                     </div>
-                                }
+                                } */}
                             </div>
                         </div>
                     : this.state.addContact? 
