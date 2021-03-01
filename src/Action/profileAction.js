@@ -86,7 +86,7 @@ export const updateJob = (id, jobData, i) => async (dispatch)=> {
             payload: userInfo
         })
     }catch(err){
-        throw err
+        console.log(err)
     }
 }
 

@@ -57,17 +57,19 @@ class ApplyJobModal extends Component{
             Description: "",
             Link: "",
             JobStatus: "Applied",
+            Location: "",
             DateCreated: new Date(), 
-            removed:false
         }
     }
 
     componentDidMount(){
-        let currentDate = this.state.DateCreated,
-            month = '' + (currentDate.getMonth() + 1),
+        let currentDate = new Date();
+        let month = '' + (currentDate.getMonth() + 1),
             day = '' + currentDate.getDate(),
             year = currentDate.getFullYear();
-        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        if(month < 10) month= "0"+month
+        currentDate = year + "-" + month + "-" + day;
+        console.log(currentDate)
         this.setState({...this.state, DateCreated: year + "-" + month + "-" + day})
     };
 
@@ -142,7 +144,17 @@ class ApplyJobModal extends Component{
                                 </Select>
                             </Grid>
                             <Grid item xs={4}>
-                                <TextField className={classes.fieldStyle} label="Date Created" name="DateCreated" variant="outlined" placeholder="Date Created" value={this.state.DateCreated} onChange={(e)=> this.setValue(e)} />
+                                <TextField
+                                    id="date"
+                                    label="Date Created"
+                                    type="date"
+                                    variant="outlined"
+                                    name={"DateCreated"}
+                                    value={this.state.DateCreated}
+                                    style={{width: '100%'}}
+                                    onChange={(e)=> this.setValue(e)}
+                                />
+                                {/* <TextField className={classes.fieldStyle} label="Date Created" name="DateCreated" variant="outlined" placeholder="Date Created" value={this.state.DateCreated} onChange={(e)=> this.setValue(e)} /> */}
                             </Grid>
                             <Grid item xs={4}>
                                 <TextField className={classes.fieldStyle} label="Location" name="Location" variant="outlined" placeholder="Location" value={this.state.location} onChange={(e)=> this.setValue(e)} />

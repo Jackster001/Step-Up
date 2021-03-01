@@ -47,6 +47,7 @@ class Dashboard extends Component {
 
   componentDidMount(){
     this.props.getProfile(this.props.profile.id);
+    console.log("new date")
   }
 
   componentDidUpdate(){

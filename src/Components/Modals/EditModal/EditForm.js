@@ -39,18 +39,32 @@ class EditForm extends Component{
             Link: this.props.editModalData.Link,
             JobStatus: this.props.editModalData.JobStatus,
             Location: this.props.editModalData.Location,
-            DateCreated: new Date()
+            DateCreated: this.props.editModalData.DateCreated
         }
     }
 
     componentDidMount(){
-    console.log(this.props.editModalData);
+        let currentDate = this.props.editModalData.DateCreated;
+        currentDate = currentDate.split('/');
+        currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+        console.log(currentDate)
+        // let month = '' + (currentDate.getMonth() + 1),
+        //     day = '' + currentDate.getDate(),
+        //     year = currentDate.getFullYear();
+        // if(month < 10) month= "0"+month
+        // currentDate = year + "-" + month + "-" + day;
+        // console.log(currentDate)
+        let Location = this.props.editModalData.Location;
+        if(this.props.editModalData.Location === undefined){
+            Location=""
+        }
+        this.setState({...this.state, DateCreated: currentDate, Location})
     }
 
     componentDidUpdate(){
             if(this.props.openingEditModal){
                 let currentDate = this.props.editModalData.DateCreated.split("/");
-                currentDate = currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
+                currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
                 this.props.openingEditModalFunction();
                 this.setState({
                     ...this.state,
@@ -91,7 +105,9 @@ class EditForm extends Component{
         let copy = this.props.editModalData;
         let myDate = DateCreated;
         myDate=myDate.split("-");
-        let newDate=myDate[1]+"/"+myDate[2]+"/"+myDate[0];
+        let newDate=""+myDate[1]+"/"+myDate[2]+"/"+myDate[0];
+        let Locat = "";
+        if(Location !== undefined) Locat = Location
         copy = {
             ...copy, 
             Title,
@@ -99,11 +115,9 @@ class EditForm extends Component{
             Description,
             Link,
             JobStatus,
-            newDate,
-            Location
+            Location: Locat,
+            DateCreated: newDate
         }
-        console.log(copy)
-        console.log(this.props.editIndex)
         this.props.updateJob(this.props.profile.id, copy, this.props.editIndex)
     }
 
@@ -135,7 +149,17 @@ class EditForm extends Component{
                     </Select>
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField className={classes.fieldStyle} label="Date Created" name="DateCreated" variant="outlined" placeholder="Date Created" value={this.state.DateCreated} onChange={(e)=> this.setValue(e)}/>
+                    <TextField
+                        id="date"
+                        label="Date Created"
+                        type="date"
+                        name="DateCreated"
+                        variant="outlined"
+                        value={this.state.DateCreated}
+                        style={{width: '100%'}}
+                        onChange={(e)=> this.setValue(e)}
+                    />
+                    {/* <TextField className={classes.fieldStyle} label="Date Created" name="DateCreated" variant="outlined" placeholder="Date Created" value={this.state.DateCreated} onChange={(e)=> this.setValue(e)}/> */}
                 </Grid>
                 <Grid item xs={4}>
                     <TextField className={classes.fieldStyle} label="Location" name="Location" variant="outlined" placeholder="Location" value={this.state.Location} onChange={(e)=> this.setValue(e)}/>
