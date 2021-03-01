@@ -23,4 +23,5 @@ const persistConfig = {key: 'root', storage: storage,};
 const persistedReducer = persistReducer(persistConfig, reducers);
 const store= createStore(persistedReducer, {}, applyMiddleware(reduxThunk));
 const persistor = persistStore(store);
+persistor.purge()
 export {store, persistor}
