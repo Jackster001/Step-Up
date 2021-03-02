@@ -102,7 +102,7 @@ class Login extends Component {
                     className={classes.inputStyle} 
                     label="Email" variant="outlined" 
                     onChange={this.handleInputChange}
-                    error={this.props.error.errorShow || this.state.email_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.email_error_text.length !== 0}
                     helperText={this.state.email_error_text}
                     required
                   />
@@ -116,7 +116,7 @@ class Login extends Component {
                     variant="outlined" 
                     onChange={this.handleInputChange}
                     value = {this.state.password}
-                    error={this.props.error.errorShow || this.state.password_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.password_error_text.length !== 0}
                     helperText={this.state.password_error_text}
                     required
                   />

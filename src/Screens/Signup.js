@@ -84,7 +84,7 @@ class SignUp extends Component {
             || email.length === 0 
             || password.length < 6
             || confirmPassword.length === 0 
-            || password != confirmPassword
+            || password !== confirmPassword
         ){
             this.handleInputErrors()
         }else{
@@ -104,7 +104,7 @@ class SignUp extends Component {
         if(email.length === 0 || (email.indexOf("@") === -1 || email.indexOf(".com") === -1)){
             email_error_text="Invalid or Missing Input"
         }
-        if(confirmPassword != password){
+        if(confirmPassword !== password){
             confirm_password_error_text="Passwords don't match"
         }
         if(password.length === 0){
@@ -130,7 +130,7 @@ class SignUp extends Component {
                     className={classes.inputStyle} 
                     label="First Name" variant="outlined" 
                     onChange={this.handleInputChange}
-                    error={this.props.error.errorShow || this.state.firstName_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.firstName_error_text.length !== 0}
                     helperText={this.state.firstName_error_text}
                     required
                   />
@@ -142,7 +142,7 @@ class SignUp extends Component {
                     className={classes.inputStyle} 
                     label="Last Name" variant="outlined" 
                     onChange={this.handleInputChange}
-                    error={this.props.error.errorShow || this.state.lastName_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.lastName_error_text.length !== 0}
                     helperText={this.state.firstName_error_text}
                     required
                   />
@@ -154,7 +154,7 @@ class SignUp extends Component {
                     className={classes.inputStyle} 
                     label="Email" variant="outlined" 
                     onChange={this.handleInputChange}
-                    error={this.props.error.errorShow || this.state.email_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.email_error_text.length !== 0}
                     helperText={this.state.email_error_text}
                     value={this.state.email}
                     required
@@ -169,7 +169,7 @@ class SignUp extends Component {
                     variant="outlined" 
                     onChange={this.handleInputChange}
                     value = {this.state.password}
-                    error={this.props.error.errorShow || this.state.password_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.password_error_text.length !== 0}
                     helperText={this.state.password_error_text}
                     required
                   />
@@ -183,7 +183,7 @@ class SignUp extends Component {
                     variant="outlined" 
                     onChange={this.handleInputChange}
                     value = {this.state.confirmPassword}
-                    error={this.props.error.errorShow || this.state.confirm_password_error_text.length != 0}
+                    error={this.props.error.errorShow || this.state.confirm_password_error_text.length !== 0}
                     helperText={this.state.confirm_password_error_text}
                     required
                   />

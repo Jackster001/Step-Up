@@ -67,10 +67,10 @@ class ApplyJobModal extends Component{
         let month = '' + (currentDate.getMonth() + 1),
             day = '' + currentDate.getDate(),
             year = currentDate.getFullYear();
-        if(month < 10) month= "0"+month
+        if(month < 10) month= "0" + month;
+        if(day < 10) day= "0" + day;
         currentDate = year + "-" + month + "-" + day;
-        console.log(currentDate)
-        this.setState({...this.state, DateCreated: year + "-" + month + "-" + day})
+        this.setState({...this.state, DateCreated: currentDate})
     };
 
     submit = () => {

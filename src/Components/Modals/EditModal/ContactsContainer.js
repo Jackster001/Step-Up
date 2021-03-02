@@ -5,6 +5,8 @@ import EditForm from './EditForm';
 import ContactsBox from './ContactsBox';
 import CreateContactForm from './CreateContactForm';
 import EditContactForm from './EditContactForm';
+import { connect } from 'react-redux';
+import {getAllContactInfo} from '../../../Action/profileAction';
 
 const useStyles = (theme) => ({
     activeLink:{
@@ -23,6 +25,9 @@ class ContactsContainer extends Component {
         this.state={
             ContactType:"main"
         }
+    }
+    componentDidMount(){
+        this.props.getAllContactInfo(this.props.profile.id);
     }
 
     render(){
@@ -45,5 +50,8 @@ class ContactsContainer extends Component {
         )
     }
 }
+const mapStateToProps =(state) =>({
+    profile: state.userState.profile
+})
 
-export default (withStyles(useStyles)(ContactsContainer));
+export default connect(mapStateToProps,{getAllContactInfo})(withStyles(useStyles)(ContactsContainer));

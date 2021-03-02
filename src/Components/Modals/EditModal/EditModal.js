@@ -55,10 +55,6 @@ class EditModal extends Component {
             formType:"Edit"
         }
     }
-
-    componentDidMount(){
-        console.log("hereee"+this.props.openModal)
-    }
     
     // onSubmitEdit(v,i){
     //     this.props.updateJob(this.props.profile.id,v,i)

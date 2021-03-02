@@ -10,7 +10,6 @@ export const getProfile = (id) => async (dispatch)=> {
         // let id = auth.currentUser();
         let userInfo = await firestore.collection("Step-up-data").doc(id).get();
         userInfo = await userInfo.data();
-        console.log(userInfo)
         await dispatch({
             type:'GET_PROFILE',
             payload: userInfo
@@ -153,7 +152,7 @@ export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
         let contactList = await firestore.collection("Contact-Data").doc(id).get();
         contactList = contactList.data();
         let result = [];
-        if(!!contactList && contactList[job_id] != undefined){
+        if(!!contactList && contactList[job_id] !== undefined){
             contactList[job_id].push(contactData);
             result = contactList[job_id];
             await firestore.collection("Contact-Data").doc(id).set(contactList);

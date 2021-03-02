@@ -4,6 +4,8 @@ import { a11yProps, DefaultSideWidth } from '../../../Utils/helper';
 import EditForm from './EditForm';
 import { FaRegTimesCircle, FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa';
 import ContactCard from './ContactCard';
+import { connect } from 'react-redux';
+import {disableContactLoading} from '../../../Action/profileAction';
 
 const useStyles = (theme) => ({
     activeLink:{
@@ -21,6 +23,17 @@ class ContactsBox extends Component {
         super(props);
         this.state={
             contactList:[]
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.props.contactLoading){
+            this.props.disableContactLoading();
+            console.log(this.props.contactList)
+            this.setState({
+                ...this.state,
+                contactList:this.props.contactList
+            })
         }
     }
 
@@ -62,5 +75,9 @@ class ContactsBox extends Component {
         )
     }
 }
+const mapStateToProps =(state) =>({
+    contactList: state.userState.contactList,
+    contactLoading: state.userState.contactLoading
+})
 
-export default (withStyles(useStyles)(ContactsBox));
+export default connect(mapStateToProps,{disableContactLoading})(withStyles(useStyles)(ContactsBox));

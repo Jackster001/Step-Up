@@ -45,16 +45,10 @@ class EditForm extends Component{
 
     componentDidMount(){
         let currentDate = ""
-        if (this.props.editModalData.DateCreated){
-            let currentDate = this.props.editModalData.DateCreated.split("/");
+        if (!!this.props.editModalData.DateCreated){
+            currentDate = this.props.editModalData.DateCreated.split("/");
             currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
         }
-        // let month = '' + (currentDate.getMonth() + 1),
-        //     day = '' + currentDate.getDate(),
-        //     year = currentDate.getFullYear();
-        // if(month < 10) month= "0"+month
-        // currentDate = year + "-" + month + "-" + day;
-        // console.log(currentDate)
         let Location = this.props.editModalData.Location;
         if(this.props.editModalData.Location === undefined){
             Location=""
@@ -66,9 +60,10 @@ class EditForm extends Component{
             if(this.props.openingEditModal){
                 let currentDate = ""
                 if (this.props.editModalData.DateCreated){
-                    let currentDate = this.props.editModalData.DateCreated.split("/");
+                    currentDate = this.props.editModalData.DateCreated.split("/");
                     currentDate = ""+currentDate[2]+"-"+currentDate[0]+"-"+currentDate[1];
                 }
+                console.log(this.props.editModalData)
 
                 this.props.openingEditModalFunction();
                 this.setState({
@@ -81,17 +76,6 @@ class EditForm extends Component{
                     JobStatus: this.props.editModalData.JobStatus,
                     DateCreated: currentDate,
                     Location: this.props.editModalData.Location
-                    // contactList: this.props.contactList,
-                    // EditInfo: {
-                    //     firstName: "",
-                    //     lastName: "",
-                    //     jobTitle:"",
-                    //     contactEmail: "",
-                    //     linkedin:"",
-                    //     github:"",
-                    //     twitter:"",
-                    //     notes:""
-                    // }
                 })
                 this.props.openEditModal();
             }
