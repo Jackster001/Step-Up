@@ -68,7 +68,6 @@ class EditModal extends Component {
     //     }
     // }
     setToContactBox(){
-        console.log("form is set")
         this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
     }
 
@@ -109,6 +108,11 @@ class EditModal extends Component {
         this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
     }
 
+    onCloseEditModal = () =>{
+        this.props.closeModal();
+        this.setState({formType:"Edit", ContactType:"contact-box"})
+    }
+
     render(){
         const { classes } = this.props;
         return (
@@ -141,7 +145,7 @@ class EditModal extends Component {
                         {this.state.formType === "Edit" ?
                                 <EditFormContainer editIndex={this.props.editIndex} openEditModal={()=> this.props.openEditModal()} closeModal={()=> this.props.closeModal()}/>
                             :
-                                <ContactsContainer ContactType={this.state.ContactType} onChangeContactType={(e) => this.onChangeContactType(e)} setToContactBox={()=>this.setToContactBox()} closeModal={()=> this.props.closeModal()} onClickEditContact={()=> this.onClickEditContact()} onClickFinishContactChange={()=> this.onClickFinishContactChange()}/>
+                                <ContactsContainer ContactType={this.state.ContactType} onChangeContactType={(e) => this.onChangeContactType(e)} setToContactBox={()=>this.setToContactBox()} closeModal={()=> this.onCloseEditModal()} onClickEditContact={()=> this.onClickEditContact()} onClickFinishContactChange={()=> this.onClickFinishContactChange()}/>
                         }
                         </Grid>
                         {/* <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>

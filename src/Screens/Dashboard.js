@@ -76,6 +76,7 @@ class Dashboard extends Component {
   }
 
   closeEditModal(){
+    console.log("here")
     this.setState({openEditModal:false, editIndex:0})
   }
   openRemoveModal(){
@@ -116,7 +117,7 @@ class Dashboard extends Component {
           </Grid>
         </AppBar>
         <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)} closeModal={() => this.closeModal()}/>
-        <EditModal editIndex={this.state.editIndex} openModal={this.state.openEditModal} handleEditModal={(i)=>this.props.handleEditModal(i)} openEditModal={()=> this.openEditModal()} closeModal={()=>this.closeEditModal()}/>
+        <EditModal editIndex={this.state.editIndex} openModal={this.state.openEditModal} handleEditModal={(i)=>this.handleEditModal(i)} openEditModal={()=> this.openEditModal()} closeModal={()=>this.closeEditModal()}/>
         <main className={classes.content}>
           <div className={classes.toolbar}/>
           <TabPanel value={this.state.index} index={0}>

@@ -55,13 +55,14 @@ class ListBoardView extends Component{
     }
     handleEditModal(i){
       this.setState({editIndex:i})
+      console.log("hello")
       this.props.setEditModalData(this.props.profile.id, this.state.jobsApplied[i]);
     }
     openEditModal(){
       this.setState({openEditModal: true})
     }
     closeEditModal(){
-      this.setState({openEditModal:false, editIndex:0, removed: false})
+      this.setState({openEditModal:false})
     }
     openRemoveModal(){
       this.setState({openRemoveModal: true})
