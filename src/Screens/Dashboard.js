@@ -58,8 +58,6 @@ class Dashboard extends Component {
     }
   }
 
-
-
   closeModal(){
     this.setState({openModal:false})
   }

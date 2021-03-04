@@ -64,6 +64,7 @@ export default function(state= initialState, action){
             }
         }
         case "ADD_CONTACT":{
+            console.log(action.payload)
             return{
                 ...state,
                 contactList: action.payload,

@@ -1,6 +1,6 @@
-import { Button, Grid, TextField, Typography, withStyles, Select, MenuItem} from '@material-ui/core';
+import { Button, Grid, TextField, Typography, withStyles, Select, MenuItem, Container} from '@material-ui/core';
 import React, { Component } from 'react';
-import {updateJob, openingEditModalFunction} from '../../../Action/profileAction';
+import {updateJob, openingEditModalFunction, addContactInfo} from '../../../Action/profileAction';
 import { connect } from 'react-redux';
 
 const useStyles = (theme) => ({
@@ -31,13 +31,16 @@ class CreateContactForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            contactModalOn:false,
-            Title:"",
-            Company:"",
-            Description: "",
-            Link: "",
-            JobStatus: "Applied",
-            DateCreated: new Date()
+            firstName: "",
+            lastName: "",
+            jobTitle: "",
+            phoneNumber: "",
+            contactEmail: "",
+            linkedin: "",
+            github: "",
+            twitter: "",
+            otherUrl: "",
+            notes: ""
         }
     }
 
@@ -51,6 +54,16 @@ class CreateContactForm extends Component{
             ...this.state,
             [name]: value
         });
+    }
+
+    onCreateContact = () => {
+        let contact = {...this.state}
+        if(contact.firstName.length && contact.lastName.length) {
+            this.props.addContactInfo(this.props.profile.id, this.props.editModalData.job_id, contact);
+        }
+        this.props.setToContactBox();
+        // this.props.addContactInfo(this.props.profile.id, this.props.editModalData.job_id, this.state.contactInfo);
+        // await this.props.editContactInfo(this.props.profile.id, this.state.job_id, copy)
     }
 
     onSubmitEdit = async(e)=>{
@@ -75,7 +88,41 @@ class CreateContactForm extends Component{
     render(){
         const { classes } = this.props;
         return (
-            <Grid container spacing={5}>
+            <Container maxWidth="lg">
+            <Grid container spacing={4}>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="First Name (Required)" name="firstName" variant="outlined" value={this.state.firstName} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Last Name (Required)" name="lastName"  variant="outlined" value={this.state.lastName} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Job Title" name="jobTitle"  variant="outlined" value={this.state.jobTitle} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Email Address" name="contactEmail" variant="outlined" value={this.state.contactEmail} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Phone Number" name="phoneNumber" variant="outlined" value={this.state.phoneNumber} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Linkedin URL" name="linkedin" variant="outlined" value={this.state.linkedin} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Github URL" name="github" variant="outlined" value={this.state.github} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Twitter URL" name="twitter" variant="outlined" value={this.state.twitter} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={4} style={{paddingBottom: '0px'}}>
+                    <TextField className={classes.fieldStyle} label="Other URL" name="otherUrl" variant="outlined" value={this.state.otherUrl} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField className={classes.fieldStyle} label="Notes" name="notes" value={this.props.notes} onChange={(e)=> this.setValue(e)}/>
+                </Grid>
+                <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>
+                    <Button color="primary" variant='contained' style={{float:'right', marginLeft: '15px'}} onClick={()=>this.onCreateContact()}>Add Contact</Button>
+                </Grid>
                 {/* <Grid item xs={4} style={{paddingBottom: '0px'}}>
                     <TextField className={classes.fieldStyle} label="Company Name (Required)" name="Company" variant="outlined" placeholder="Company Name" value={this.state.Company} onChange={(e)=> this.setValue(e)}/>
                 </Grid>
@@ -113,6 +160,7 @@ class CreateContactForm extends Component{
                     <Button color="primary" variant='outlined' style={{float:'right'}} onClick={()=>this.props.closeModal()}>Close</Button>
                 </Grid> */}
             </Grid>
+        </Container>
         );
     }
 }
@@ -120,7 +168,8 @@ class CreateContactForm extends Component{
 const mapStateToProps =(state) =>({
     profile: state.userState.profile,
     editModalData: state.userState.editModalData,
-    openingEditModal: state.userState.openingEditModal
+    openingEditModal: state.userState.openingEditModal,
+    contactList: state.userState.contactList,
 })
 
-export default connect(mapStateToProps, {openingEditModalFunction, updateJob})(withStyles(useStyles)(CreateContactForm));
+export default connect(mapStateToProps, {openingEditModalFunction, updateJob, addContactInfo})(withStyles(useStyles)(CreateContactForm));

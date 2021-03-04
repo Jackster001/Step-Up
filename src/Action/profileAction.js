@@ -149,6 +149,7 @@ export const getAllContactInfo = (id) => async (dispatch)=> {
 // add contact
 export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
     try{
+        console.log("hello")
         let contactList = await firestore.collection("Contact-Data").doc(id).get();
         contactList = contactList.data();
         let result = [];
@@ -164,7 +165,7 @@ export const addContactInfo = (id, job_id, contactData) => async (dispatch)=> {
         await dispatch({
             type:'ADD_CONTACT',
             // payload: contactList
-            payload: result
+            payload: contactList
         })
     }catch(err){
         throw err

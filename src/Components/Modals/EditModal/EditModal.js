@@ -5,6 +5,10 @@ import EditFormContainer from './EditFormContainer';
 import ContactsContainer from './ContactsContainer'
 import { connect } from 'react-redux';
 import {updateJob} from '../../../Action/profileAction'
+import ContactsBox from './ContactsBox';
+import CreateContactForm from './CreateContactForm';
+import EditContactForm from './EditContactForm';
+import {getAllContactInfo, disableContactLoading} from '../../../Action/profileAction';
 
 const useStyles = (theme) => ({
     content: {
@@ -52,13 +56,22 @@ class EditModal extends Component {
     constructor(props) {
         super(props);
         this.state={
-            formType:"Edit"
+            formType:"Edit",
+            ContactType:"contact-box"
         }
     }
-    
-    // onSubmitEdit(v,i){
-    //     this.props.updateJob(this.props.profile.id,v,i)
+
+    // componentDidUpdate(){
+    //     if(this.props.addedContactLoading){
+    //         this.props.disableContactLoading();
+    //         this.setState({...this.state, formType: "Contact", ContactType: "contact-box"})
+    //     }
     // }
+    setToContactBox(){
+        console.log("form is set")
+        this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
+    }
+
 
     onSubmitEdit = async(v)=>{
         let { Title, Company, Description, Link, JobStatus, DateCreated, Location } = this.state;
@@ -79,6 +92,23 @@ class EditModal extends Component {
         this.props.updateJob(this.props.profile.id, copy, this.props.editIndex)
     }
 
+    onChangeContactType = (v) =>{
+        this.setState({...this.state, ContactType: v})
+    }
+
+    onClickContact = () => {
+        this.props.getAllContactInfo(this.props.profile.id);
+        this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
+    }
+
+    onClickEditContact = () =>{
+        this.setState({...this.state, ContactType: "contact-edit"})
+    }
+
+    onClickFinishContactChange = () =>{
+        this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
+    }
+
     render(){
         const { classes } = this.props;
         return (
@@ -92,26 +122,28 @@ class EditModal extends Component {
                             <Grid item xs={9} style={{paddingTop:"0"}}>
                                 <Grid container spacing={1}>
                                     <Grid item xs={2}>
-                                        <p className={this.state.formType === "Edit" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.setState({...this.state,formType: "Edit"})}>Job Info</p>
+                                        <p className={this.state.formType === "Edit" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.setState({...this.state, formType: "Edit", ContactType: "contact-box"})}>Job Info</p>
                                     </Grid>
                                     <Grid item xs={2}>
-                                        <p className={this.state.formType === "Contact" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.setState({...this.state,formType: "Contact"})}>Contacts</p>
+                                        <p className={this.state.formType === "Contact" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.onClickContact()}>Contacts</p>
                                     </Grid>
                                 </Grid>
                             </Grid>
-                            {this.state.formType === "Contact" ?
-                                <Grid item xs={3} style={{paddingTop:"0"}}>
-                                    <Button color="primary" variant="contained" style={{float: 'right'}}>Create Contact</Button>
-                                </Grid>
-                                :<></>
+                            {   
+                                this.state.formType === "Contact" && this.state.ContactType === "contact-box" ?
+                                    <Grid item xs={3} style={{paddingTop:"0"}}>
+                                        <Button color="primary" variant="contained" style={{float: 'right'}} onClick={()=> this.onChangeContactType("create-form")}>Create Contact</Button>
+                                    </Grid>
+                                : <></>
                             }
                             <Grid item xs={12} style={{height:'30px'}}></Grid>
-                        </Grid>
+                        
                         {this.state.formType === "Edit" ?
-                            <EditFormContainer editIndex={this.props.editIndex} openEditModal={()=> this.props.openEditModal()} closeModal={()=> this.props.closeModal()}/>
+                                <EditFormContainer editIndex={this.props.editIndex} openEditModal={()=> this.props.openEditModal()} closeModal={()=> this.props.closeModal()}/>
                             :
-                            <ContactsContainer/>
+                                <ContactsContainer ContactType={this.state.ContactType} onChangeContactType={(e) => this.onChangeContactType(e)} setToContactBox={()=>this.setToContactBox()} closeModal={()=> this.props.closeModal()} onClickEditContact={()=> this.onClickEditContact()} onClickFinishContactChange={()=> this.onClickFinishContactChange()}/>
                         }
+                        </Grid>
                         {/* <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>
                             <Button color="primary" variant='contained' style={{float:'right', marginLeft: '15px'}} onClick={()=>this.onSubmitEdit()}>Save</Button>
                             <Button color="primary" variant='outlined' style={{float:'right'}} onClick={()=>this.props.closeModal()}>Close</Button>
@@ -124,7 +156,9 @@ class EditModal extends Component {
 }
 
 const mapStateToProps =(state) =>({
-    profile: state.userState.profile
+    profile: state.userState.profile,
+    addedContactLoading: state.userState.addedContactLoading,
+    contactList: state.userState.contactList,
 })
 
-export default connect(mapStateToProps, {updateJob})(withStyles(useStyles)(EditModal));
+export default connect(mapStateToProps, {updateJob, getAllContactInfo, disableContactLoading})(withStyles(useStyles)(EditModal));
