@@ -190,7 +190,7 @@ class SignUp extends Component {
                 </div>
                 <ErrorComponent location="sign-up"/>
                 <br/>
-                <Button variant="contained" color="primary" className={classes.signUpButton} onClick={(e)=>this.onSubmit(e)}>Sign In</Button>
+                <Button variant="contained" color="primary" className={classes.signUpButton} onClick={(e)=>this.onSubmit(e)}>Sign Up</Button>
               </form>
             </Grid>
             <Grid item xs={6}><br/><br/>
