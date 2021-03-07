@@ -76,7 +76,6 @@ class Dashboard extends Component {
   }
 
   closeEditModal(){
-    console.log("here")
     this.setState({openEditModal:false, editIndex:0})
   }
   openRemoveModal(){

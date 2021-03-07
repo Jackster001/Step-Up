@@ -31,18 +31,20 @@ export const registerUser=  (userData)=> async dispatch=>{
             date : new Date()
         })
 
-        let user = await auth.signInWithEmailAndPassword(userData.email, userData.password)
+        let user = await auth.signInWithEmailAndPassword(userData.email, userData.password);
 
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        .then(function() {  
-            return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
-        })
-        .catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        });     
+        // console.log(user);
+
+        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        // .then(function() {  
+        //     return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
+        // })
+        // .catch(function(error) {
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        // });     
         
-        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get()
+        let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
         userInfo = userInfo.data();
         await setUserProfileLoading();
@@ -50,7 +52,11 @@ export const registerUser=  (userData)=> async dispatch=>{
             type:"SET_CURRENT_USER",
             payload: userInfo
         }) 
-        await setAuth(true);
+        dispatch({
+            type:"SET_AUTH",
+            payload: true
+        });
+
     }catch(err){
         dispatch({
             type: "SET_ERROR",
