@@ -4,7 +4,7 @@ import { a11yProps, DefaultSideWidth } from '../../../Utils/helper';
 import EditForm from './EditForm';
 import ContactsBox from './ContactsBox';
 import CreateContactForm from './CreateContactForm';
-import EditContactForm from './EditContactForm';
+import ContactEditForm from './ContactEditForm';
 import { connect } from 'react-redux';
 import {getAllContactInfo, disableContactLoading} from '../../../Action/profileAction';
 
@@ -48,7 +48,7 @@ class ContactsContainer extends Component {
                 {this.state.ContactType === "create-form" ? 
                     <CreateContactForm setToContactBox={()=> this.props.setToContactBox()}/>
                 : this.state.ContactType === "edit-form" ? 
-                    <EditContactForm/>
+                    <ContactEditForm/>
                 :
                     <ContactsBox setToContactBox={()=> this.props.setToContactBox()} closeModal={()=> this.props.closeModal()} onClickEditContact={()=> this.props.onClickEditContact()} onClickFinishContactChange={()=> this.props.onClickFinishContactChange()}/>
                 }

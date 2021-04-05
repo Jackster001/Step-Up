@@ -12,7 +12,7 @@ const initialState = {
     openingEditModal:false,
     contactLoading: false,
     addedContactLoading: false,
-    contactList:[]
+    contactList:[],
 }
 
 export default function(state= initialState, action){

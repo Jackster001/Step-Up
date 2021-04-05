@@ -23,6 +23,13 @@ const useStyles = (theme) => ({
     },
     itemStyle:{
         paddingBottom: '0px'
+    },
+    deleteButton:{
+        color: 'white',
+        backgroundColor: '#e0553d',
+        '&:hover':{
+            backgroundColor: '#f73411'
+        }
     }
 });
 
@@ -156,7 +163,8 @@ class EditForm extends Component{
                 <Grid item xs={12}>
                     <TextField className={classes.fieldStyle} label="Description" name="Description" placeholder="Description" value={this.state.Description} onChange={(e)=> this.setValue(e)}/>
                 </Grid>
-                <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>
+                <Grid item xs={12} style={{position: 'absolute', bottom: '12px', width:'96%'}}>
+                    <Button className={classes.deleteButton} color="primary" variant='contained' style={{float:'left'}} onClick={()=>this.props.onPressRemove()}>Remove Job</Button>
                     <Button color="primary" variant='contained' style={{float:'right', marginLeft: '15px'}} onClick={()=>this.onSubmitEdit()}>Save</Button>
                     <Button color="primary" variant='outlined' style={{float:'right'}} onClick={()=>this.props.closeModal()}>Close</Button>
                 </Grid>

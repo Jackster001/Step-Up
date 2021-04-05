@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {Button, Container, Grid, withStyles, Typography} from '@material-ui/core';
 import { a11yProps, DefaultSideWidth } from '../../../Utils/helper';
-import EditFormContainer from './EditFormContainer';
 import ContactsContainer from './ContactsContainer'
 import { connect } from 'react-redux';
 import {updateJob} from '../../../Action/profileAction'
 import ContactsBox from './ContactsBox';
 import CreateContactForm from './CreateContactForm';
-import EditContactForm from './EditContactForm';
-import {getAllContactInfo, disableContactLoading} from '../../../Action/profileAction';
+// import EditContactForm from './EditContactForm';
+import EditForm from './EditForm';
+import {getAllContactInfo, disableContactLoading, removeJob} from '../../../Action/profileAction';
+import EditDeleteModal from '../EditDeleteModal';
 
 const useStyles = (theme) => ({
     content: {
@@ -26,7 +27,7 @@ const useStyles = (theme) => ({
         backgroundColor: 'rgba(0,0,0,0.5)',
         width: '100%',
         height: '100%',
-        padding: '30px',
+        // padding: '30px',
         boxSizing: 'border-box'
     },
     modal:{
@@ -40,6 +41,16 @@ const useStyles = (theme) => ({
         padding: '30px 50px',
         transition: 'all 0.3s ease-out'
       },
+    deleteModal:{
+        width: '70%',
+        minHeight: '550px',
+        backgroundColor: 'white',
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        transition: 'all 0.3s ease-out'
+    },
     activeLink:{
         color: '#846EF5',
         textDecoration: 'underline',
@@ -68,7 +79,7 @@ class EditModal extends Component {
     //     }
     // }
     setToContactBox(){
-        this.setState({...this.state, formType: "Contact", ContactType: "contact-box"});
+        this.setState({...this.state, formType: "Edit", ContactType: "contact-box"});
     }
 
 
@@ -113,26 +124,37 @@ class EditModal extends Component {
         this.setState({formType:"Edit", ContactType:"contact-box"})
     }
 
+    onDelete = () => {
+        this.props.removeJob(this.props.profile.id, this.props.editIndex);
+        this.setState({formType:"Edit", ContactType:"contact-box"})
+    }
+
     render(){
         const { classes } = this.props;
         return (
             <div className={this.props.openModal ? "ModalContainer": "ClosedModal"}>
                 <div className={classes.ModalContainer}>
-                    <Container className={classes.modal} maxWidth="lg">
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} style={{paddingBottom:"0"}}>
-                                <Typography variant={"h4"}>Edit Job</Typography>
-                            </Grid>
-                            <Grid item xs={9} style={{paddingTop:"0"}}>
-                                <Grid container spacing={1}>
-                                    <Grid item xs={2}>
-                                        <p className={this.state.formType === "Edit" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.setState({...this.state, formType: "Edit", ContactType: "contact-box"})}>Job Info</p>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <p className={this.state.formType === "Contact" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.onClickContact()}>Contacts</p>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                    <Container className={this.state.formType === 'Delete' ? classes.deleteModal : classes.modal} maxWidth="lg" style={this.state.formType === 'Delete' ? {padding: '0'}:{}}>
+                        <Grid container spacing={0} style={this.state.formType === 'Delete' ? {padding: '0'}:{}}>
+                            {this.state.formType === 'Delete'
+                                ?   <></>
+                                :   <>
+                                        <Grid item xs={12} style={{paddingBottom:"0"}}>
+                                            <Typography variant={"h4"}>Edit Job</Typography>
+                                        </Grid>
+                                        <Grid item xs={9} style={{paddingTop:"0"}}>
+                                            <Grid container spacing={1}>
+                                                <Grid item xs={2}>
+                                                    <p className={this.state.formType === "Edit" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.setState({...this.state, formType: "Edit", ContactType: "contact-box"})}>Job Info</p>
+                                                </Grid>
+                                                <Grid item xs={2}>
+                                                    <p className={this.state.formType === "Contact" ? classes.activeLink : classes.nonActiveLink} onClick={()=> this.onClickContact()}>Contacts</p>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </>
+
+                            }
                             {   
                                 this.state.formType === "Contact" && this.state.ContactType === "contact-box" ?
                                     <Grid item xs={3} style={{paddingTop:"0"}}>
@@ -140,12 +162,13 @@ class EditModal extends Component {
                                     </Grid>
                                 : <></>
                             }
-                            <Grid item xs={12} style={{height:'30px'}}></Grid>
+                            {this.state.formType === "Delete" ? <></> : <Grid item xs={12} style={{height:'30px'}}></Grid>}
                         
-                        {this.state.formType === "Edit" ?
-                                <EditFormContainer editIndex={this.props.editIndex} openEditModal={()=> this.props.openEditModal()} closeModal={()=> this.props.closeModal()}/>
-                            :
-                                <ContactsContainer ContactType={this.state.ContactType} onChangeContactType={(e) => this.onChangeContactType(e)} setToContactBox={()=>this.setToContactBox()} closeModal={()=> this.onCloseEditModal()} onClickEditContact={()=> this.onClickEditContact()} onClickFinishContactChange={()=> this.onClickFinishContactChange()}/>
+                        {this.state.formType === "Edit" 
+                            ?   <EditForm editIndex={this.props.editIndex} openEditModal={()=> this.props.openEditModal()} closeModal={()=> this.props.closeModal()} onPressRemove={()=>this.setState({formType: "Delete"})}/>
+                            :   this.state.formType === "Delete" 
+                            ?   <EditDeleteModal onDelete={()=>this.onDelete()} onCancel={()=> this.setState({formType: "Edit"})}/>
+                            :   <ContactsContainer ContactType={this.state.ContactType} onChangeContactType={(e) => this.onChangeContactType(e)} setToContactBox={()=>this.setToContactBox()} closeModal={()=> this.onCloseEditModal()} onClickEditContact={()=> this.onClickEditContact()} onClickFinishContactChange={()=> this.onClickFinishContactChange()}/>
                         }
                         </Grid>
                         {/* <Grid item xs={12} style={{position: 'absolute', bottom: '12px', right: '25px'}}>
@@ -165,4 +188,4 @@ const mapStateToProps =(state) =>({
     contactList: state.userState.contactList,
 })
 
-export default connect(mapStateToProps, {updateJob, getAllContactInfo, disableContactLoading})(withStyles(useStyles)(EditModal));
+export default connect(mapStateToProps, {updateJob, getAllContactInfo, disableContactLoading, removeJob})(withStyles(useStyles)(EditModal));

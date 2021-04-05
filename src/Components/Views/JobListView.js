@@ -4,6 +4,7 @@ import JobBoard from '../BoardComponents/JobBoard';
 import SearchBar from '../BoardComponents/SearchBar';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction} from '../../Action/profileAction';
 import { Typography } from '@material-ui/core';
+import TutorialBar from '../Tutorial/TutorialBar';
 
 class JobListView extends Component{
     constructor(props) {
@@ -73,6 +74,7 @@ class JobListView extends Component{
     render(){
         return (
             <>
+                {/* <TutorialBar/> */}
                 { this.props.profile.jobsApplied.length ?
                     <>
                         <br/><br/><SearchBar value={this.props.searchKeyword} onPressSearch={this.onPressSearch} onChangeValue={this.onChangeValue}/><br/><br/>

@@ -28,7 +28,8 @@ export const registerUser=  (userData)=> async dispatch=>{
             lastName : userData.lastName,
             email : userData.email,
             jobsApplied : [],
-            date : new Date()
+            date : new Date(),
+            tutorialCompletion : false
         })
 
         let user = await auth.signInWithEmailAndPassword(userData.email, userData.password);
@@ -47,6 +48,11 @@ export const registerUser=  (userData)=> async dispatch=>{
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
         userInfo = userInfo.data();
+        await firestore.collection("tutorial-data").doc(user.user.uid).set({
+            tutorialLink: false,
+            addCardDuration: false
+        })
+        
         await setUserProfileLoading();
         await dispatch({
             type:"SET_CURRENT_USER",
@@ -77,17 +83,26 @@ export const loginUser =(userData)=> async dispatch =>{
         .catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
-          console.log(errorMessage)
         });     
         
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
         userInfo = await userInfo.data();
+
+        if(!userInfo.hasOwnProperty("tutorialCompletion")){
+            userInfo.tutorialCompletion = false;
+            await firestore.collection("tutorial-data").doc(user.user.uid).set({
+                tutorialLink: false,
+                addCardDuration: false
+            })
+            await firestore.collection("Step-up-data").doc(user.user.uid).set(userInfo)
+        }
+
         await dispatch({
             type:"SET_CURRENT_USER",
             payload: userInfo
         }) 
-        dispatch({
+        await dispatch({
             type:"SET_AUTH",
             payload: true
         })

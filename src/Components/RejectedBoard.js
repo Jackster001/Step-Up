@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ApplyJobModal from './Modals/ApplyJobModal';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading} from '../Action/profileAction';
 import {JobStatus} from './';
-import EditJobModal from './Modals/EditJobModal';
+// import EditJobModal from './Modals/EditJobModal';
 import {setEditModalData,openingEditModalFunction} from '../Action/profileAction' 
 import RemoveModal from './Modals/RemoveModal';
 class RejectedBoard extends Component{
@@ -95,7 +95,7 @@ class RejectedBoard extends Component{
                       <button className="addJobButton" onClick={()=>this.openModal()}>Add Job</button>
                     </div>
                 </div>
-                <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
+                {/* <EditJobModal openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/>  */}
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 {
                   this.state.jobsApplied.length ===0 ? 

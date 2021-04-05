@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import ApplyJobModal from '../Modals/ApplyJobModal';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction} from '../../Action/profileAction';
 import {JobStatus} from '..';
-import EditJobModal from '../Modals/EditJobModal';
+// import EditJobModal from '../Modals/EditJobModal';
 import RemoveModal from '../Modals/RemoveModal';
 import filterIcon from '../../Assets/Filter_Icon.svg';
 class ListBoardView extends Component{
@@ -175,7 +175,7 @@ class ListBoardView extends Component{
                         </div>
                     </div>
                 </div>
-                <EditJobModal removed={this.state.removed} openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} handleRemove={()=>this.handleRemove(this.state.editIndex)} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/> 
+                {/* <EditJobModal removed={this.state.removed} openEditModal={()=>this.openEditModal()} Index={this.state.editIndex} handleRemove={()=>this.handleRemove(this.state.editIndex)} openModal={this.state.openEditModal} close={()=>this.closeEditModal()} onSubmit={(v)=> this.onSubmitEdit(v,this.state.editIndex)}/>  */}
                 <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)}/>
                 <div className="jobsInnerContainer">
                 {

@@ -10,8 +10,10 @@ import Tab from '@material-ui/core/Tab';
 import { a11yProps, DefaultSideWidth } from '../Utils/helper';
 import TabPanel from '../Components/Navigation/TabPanel';
 import {getProfile, addJob, setEditModalData, disableUserProfileLoading} from '../Action/profileAction';
-import ApplyJobModal from '../Components/Modals/ApplyJobModal'
+import {getTutorialSet} from '../Action/tutorialAction';
+import ApplyJobModal from '../Components/Modals/ApplyJobModal';
 import EditModal from '../Components/Modals/EditModal/EditModal.js';
+import TutorialBar from '../Components/Tutorial/TutorialBar';
 
 const useStyles = (theme) => ({
   root: {
@@ -21,7 +23,7 @@ const useStyles = (theme) => ({
     width: `calc(100% - ${DefaultSideWidth}px)`,
     marginLeft: DefaultSideWidth,
     backgroundColor: '#125182',
-    padding: '10px'
+    // padding: '10px'
   },
   toolbar: {
     minHeight: '30px'
@@ -41,7 +43,9 @@ class Dashboard extends Component {
       index:0,
       openModal: false,
       openEditModal: false,
-      editIndex:0
+      editIndex:0,
+      tutorialLoaded: false,
+      tutorialCompletion: false
     }
   }
 
@@ -52,9 +56,12 @@ class Dashboard extends Component {
   componentDidUpdate(){
     if(this.props.loadingProfile){
       this.props.disableUserProfileLoading()
-      this.setState({jobsApplied: this.props.profile.jobsApplied})
+      this.setState({jobsApplied: this.props.profile.jobsApplied, tutorialCompletion: this.props.profile.tutorialCompletion})
       this.closeModal();
       this.closeEditModal()
+      if(this.props.profile.tutorialCompletion === false){
+        this.props.getTutorialSet(this.props.profile.id);
+      }
     }
   }
 
@@ -97,6 +104,9 @@ class Dashboard extends Component {
     }
     this.setState({...this.state, index: v}) ;
   }
+  setLoad(){
+    this.setState({...this.state, tutorialLoaded: true});
+  }
 
   render() {
     const { classes } = this.props;
@@ -104,22 +114,24 @@ class Dashboard extends Component {
       <div className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
-          <Grid container>
+          <Grid container style={{padding:'10px'}}>
             <Grid item xs={10}>
               <Tabs value={this.state.index} onChange={(e,v)=> this.onChangeIndex(e,v)} aria-label="simple tabs example">
-                <Tab label="List View" {...a11yProps(0)} />
+                <Tab label="List View" {...a11yProps(0)}/>
                 <Tab label="Board View" {...a11yProps(1)} />
               </Tabs>            
             </Grid>
           <Grid item xs={2}>
           <Button variant={'contained'} color={'primary'} style={{float: 'right', marginTop: '5px', marginRight: '5px'}} onClick={()=> this.setState({openModal:true})}>Add Job</Button></Grid>
           </Grid>
+          <TutorialBar tutorialCompletion={this.props.profile.tutorialCompletion} tutorialLoaded={this.state.tutorialLoaded} setLoad={()=>this.setLoad()}/>
         </AppBar>
         <ApplyJobModal openModal={this.state.openModal} close={()=>this.closeModal()} onSubmit={(v)=> this.onSubmit(v)} closeModal={() => this.closeModal()}/>
         <EditModal editIndex={this.state.editIndex} openModal={this.state.openEditModal} handleEditModal={(i)=>this.handleEditModal(i)} openEditModal={()=> this.openEditModal()} closeModal={()=>this.closeEditModal()}/>
         <main className={classes.content}>
           <div className={classes.toolbar}/>
           <TabPanel value={this.state.index} index={0}>
+            {this.props.profile.tutorialCompletion === false? <div style={{height: '50px', width: '100%'}}></div> : <></>}
             <JobListView handleEditModal={(i)=>this.handleEditModal(i)} closeModal={() => this.closeModal()}/>
           </TabPanel>
           <TabPanel value={this.state.index} index={1}>
@@ -136,4 +148,4 @@ const mapStateToProps =(state) =>({
   loadingProfile: state.userState.loadingProfile
 })
 
-export default connect(mapStateToProps,{getProfile, addJob, setEditModalData, disableUserProfileLoading})(withStyles(useStyles)(Dashboard));
+export default connect(mapStateToProps,{getProfile, addJob, setEditModalData, disableUserProfileLoading, getTutorialSet})(withStyles(useStyles)(Dashboard));
