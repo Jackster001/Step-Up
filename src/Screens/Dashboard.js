@@ -22,8 +22,7 @@ const useStyles = (theme) => ({
   appBar: {
     width: `calc(100% - ${DefaultSideWidth}px)`,
     marginLeft: DefaultSideWidth,
-    backgroundColor: '#125182',
-    // padding: '10px'
+    backgroundColor: '#125182'
   },
   toolbar: {
     minHeight: '30px'
@@ -73,6 +72,10 @@ class Dashboard extends Component {
     this.props.addJob(this.props.profile.id,v);
   }
 
+  openModal(){
+    this.setState({...this.state, openModal: true})
+  }
+
   handleEditModal(i){
     this.props.setEditModalData(this.props.profile.id, this.props.profile.jobsApplied[i]);
     this.setState({...this.state, editIndex:i})
@@ -116,9 +119,9 @@ class Dashboard extends Component {
         <AppBar position="fixed" className={classes.appBar}>
           <Grid container style={{padding:'10px'}}>
             <Grid item xs={10}>
-              <Tabs value={this.state.index} onChange={(e,v)=> this.onChangeIndex(e,v)} aria-label="simple tabs example">
-                <Tab label="List View" {...a11yProps(0)}/>
-                <Tab label="Board View" {...a11yProps(1)} />
+              <Tabs value={this.state.index} onChange={(e,v)=> this.onChangeIndex(e,v)} indicatorColor="none" aria-label="simple tabs example">
+                <Tab label="List View" {...a11yProps(0)} style={this.state.index === 0 ? {color: '#125182', background: 'white'} : {}}/>
+                <Tab label="Board View" {...a11yProps(1)} style={this.state.index === 1 ? {color: '#125182', background: 'white'} : {}}/>
               </Tabs>            
             </Grid>
           <Grid item xs={2}>
@@ -135,7 +138,7 @@ class Dashboard extends Component {
             <JobListView handleEditModal={(i)=>this.handleEditModal(i)} closeModal={() => this.closeModal()}/>
           </TabPanel>
           <TabPanel value={this.state.index} index={1}>
-            <JobBoardView/>
+            <JobBoardView openModal={() => this.openModal()}/>
           </TabPanel>
         </main>
     </div>

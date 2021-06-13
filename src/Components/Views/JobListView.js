@@ -39,21 +39,21 @@ class JobListView extends Component{
     componentDidUpdate(){
         if(this.props.loadingProfile){
             this.props.disableUserProfileLoading();
-            this.organizeJobs(this.props.profile.jobsApplied);
+            this.organizeJobs();
             this.props.closeModal();
         }
     }
 
     organizeJobs = (jobs) => {
-        let Applied = [], Interview = [], Rejected = [], Offer = [];
-        for(let i = 0; i < jobs.length; i++){
-            jobs[i].index = i
-            if(jobs[i].JobStatus === "Applied") Applied.push(jobs[i]);
-            else if(jobs[i].JobStatus === "Interview") Interview.push(jobs[i]);
-            else if(jobs[i].JobStatus === "Rejected") Rejected.push(jobs[i]);
-            else if(jobs[i].JobStatus === "Offer") Offer.push(jobs[i]);
-        }
-        this.setState({...this.state, Applied, Interview, Rejected, Offer, indexUpdate: this.props.index});
+        // let Applied = [], Interview = [], Rejected = [], Offer = [];
+        // for(let i = 0; i < jobs.length; i++){
+        //     jobs[i].index = i
+        //     if(jobs[i].JobStatus === "Applied") Applied.push(jobs[i]);
+        //     else if(jobs[i].JobStatus === "Interview") Interview.push(jobs[i]);
+        //     else if(jobs[i].JobStatus === "Rejected") Rejected.push(jobs[i]);
+        //     else if(jobs[i].JobStatus === "Offer") Offer.push(jobs[i]);
+        // }
+        this.setState({...this.state, Applied: this.props.profile.jobData.Applied, Interview: this.props.profile.jobData.Interview, Rejected: this.props.profile.jobData.Rejected, Offer: this.props.profile.jobData.Offer, indexUpdate: this.props.index});
     }
 
     onPressSearch = () =>{

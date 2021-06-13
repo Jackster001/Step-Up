@@ -13,6 +13,7 @@ const initialState = {
     contactLoading: false,
     addedContactLoading: false,
     contactList:[],
+    settingCard: false
 }
 
 export default function(state= initialState, action){
@@ -23,6 +24,17 @@ export default function(state= initialState, action){
                 profile: action.payload,
                 loadingProfile: true,
                 loginError:false
+            }
+        case "SET_CARD":
+            return{
+                ...state,
+                profile: action.payload,
+                settingCard: true,
+            }
+        case "FINISH_CARD":
+            return{
+                ...state,
+                settingCard: false
             }
         case "SET_CURRENT_USER":
             return{

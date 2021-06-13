@@ -76,14 +76,14 @@ export const loginUser =(userData)=> async dispatch =>{
     try{
         let user = await auth.signInWithEmailAndPassword(userData.email, userData.password)
 
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        .then(function() {
-          return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
-        })
-        .catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-        });     
+        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        // .then(function() {
+        //   return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
+        // })
+        // .catch(function(error) {
+        //   var errorCode = error.code;
+        //   var errorMessage = error.message;
+        // });     
         
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
@@ -97,6 +97,21 @@ export const loginUser =(userData)=> async dispatch =>{
             })
             await firestore.collection("Step-up-data").doc(user.user.uid).set(userInfo)
         }
+        var jobData = {
+            jobStatuses: ["Applied", "Interview", "Offer", "Rejected"],
+            Applied: [],
+            Interview: [],
+            Offer: [],
+            Rejected: []
+        };
+
+        if(!!userInfo.jobsApplied && !userInfo.jobData){
+            for(let i = 0; i < userInfo.jobsApplied.length; i++){
+                jobData[userInfo.jobsApplied[i].JobStatus].push(userInfo.jobsApplied[i]);
+            }
+            userInfo.jobData = jobData;
+        }
+        await firestore.collection("Step-up-data").doc(userInfo.id).set(userInfo)
 
         await dispatch({
             type:"SET_CURRENT_USER",
