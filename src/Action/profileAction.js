@@ -50,6 +50,12 @@ export const addJob = (id , jobData) => async (dispatch)=> {
             type:'APPLY_JOB',
             payload: userInfo
         })
+
+        await dispatch({
+            type: "SET_JOBDATA",
+            payload: userInfo.jobData
+        })
+        
     }catch(err){
         throw err
     }

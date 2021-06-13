@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import { a11yProps, DefaultSideWidth } from '../Utils/helper';
 import TabPanel from '../Components/Navigation/TabPanel';
 import {getProfile, addJob, setEditModalData, disableUserProfileLoading} from '../Action/profileAction';
+import {setJobTabNumber, finishSettingTab, getTabNumber} from '../Action/tabAction';
 import {getTutorialSet} from '../Action/tutorialAction';
 import ApplyJobModal from '../Components/Modals/ApplyJobModal';
 import EditModal from '../Components/Modals/EditModal/EditModal.js';
@@ -39,7 +40,7 @@ class Dashboard extends Component {
   constructor(props){
     super(props)
     this.state = {
-      index:0,
+      index: 0,
       openModal: false,
       openEditModal: false,
       editIndex:0,
@@ -50,6 +51,7 @@ class Dashboard extends Component {
 
   componentDidMount(){
     this.props.getProfile(this.props.profile.id);
+    this.props.getTabNumber();
   }
 
   componentDidUpdate(){
@@ -61,6 +63,10 @@ class Dashboard extends Component {
       if(this.props.profile.tutorialCompletion === false){
         this.props.getTutorialSet(this.props.profile.id);
       }
+    }
+    if(this.props.settingNumber){
+      this.props.finishSettingTab();
+      this.setState({...this.state, index: this.props.jobViewTabNumber});
     }
   }
 
@@ -106,6 +112,7 @@ class Dashboard extends Component {
       this.props.getProfile(this.props.profile.id);
     }
     this.setState({...this.state, index: v}) ;
+    this.props.setJobTabNumber(v)
   }
   setLoad(){
     this.setState({...this.state, tutorialLoaded: true});
@@ -148,7 +155,9 @@ class Dashboard extends Component {
 
 const mapStateToProps =(state) =>({
   profile: state.userState.profile,
-  loadingProfile: state.userState.loadingProfile
+  loadingProfile: state.userState.loadingProfile,
+  settingNumber: state.localNavigationState.settingNumber,
+  jobViewTabNumber: state.localNavigationState.jobViewTabNumber
 })
 
-export default connect(mapStateToProps,{getProfile, addJob, setEditModalData, disableUserProfileLoading, getTutorialSet})(withStyles(useStyles)(Dashboard));
+export default connect(mapStateToProps,{getProfile, addJob, setEditModalData, disableUserProfileLoading, getTutorialSet, setJobTabNumber, getTabNumber, finishSettingTab})(withStyles(useStyles)(Dashboard));

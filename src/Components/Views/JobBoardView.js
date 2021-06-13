@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import {setCard, finishSettingCard} from '../../Action/jobBoardViewAction';
+import {setCard, finishSettingCard, setJobData} from '../../Action/jobBoardViewAction';
 import {getProfile} from '../../Action/profileAction';
 import { v4 as generateId } from 'uuid';
 
@@ -60,22 +60,7 @@ class JobBoardView extends Component {
                             <AddIcon style={{float: 'right', cursor: 'pointer'}} onClick={()=>this.addJob()}/>
                         </div>
                     ),
-                    cards: [
-                        {
-                            id: "i2h3f2o", 
-                            title: (
-                                <div>
-                                    <p className={classes.roleText}>title</p>
-                                    <h1 className={classes.companyName}>Company</h1>
-                                </div>
-                            ), 
-                            description: (
-                                <span className={classes.inlineStyle}><DateRangeIcon/> <p className={classes.dateText}>date</p></span>
-                            ), 
-                            label: <MoreHorizIcon/>
-                        }
-
-                    ],
+                    cards: [],
                     cardStyle: { border: '1px solid #D1D1D1' },
                     draggable: true,
                     laneDraggable: true
@@ -134,7 +119,9 @@ class JobBoardView extends Component {
     }
 
     componentDidMount(){
-        this.organizeJobs();
+        this.props.setJobData(this.props.profile.id);
+        // this.organizeJobs();
+        // console.log(this.props.jobData)
         // this.props.getProfile(this.props.profile.id);
     }
 
@@ -143,9 +130,10 @@ class JobBoardView extends Component {
             this.props.disableUserProfileLoading();
             this.organizeJobs();
         }
-        if(this.props.settingCard){
+        if(this.props.loadingData){
             this.props.finishSettingCard();
             this.organizeJobs();
+            console.log("here")
         }
     }
 
@@ -153,11 +141,11 @@ class JobBoardView extends Component {
         const { classes } = this.props;
         let allJobs = []
         let dataMap = {};
-        let statusTypes = this.props.profile.jobData.jobStatuses;
+        let statusTypes = this.props.jobData.jobStatuses;
 
         for(let i=0; i<statusTypes.length; i++)
         {
-            let count = this.props.profile.jobData[statusTypes[i]].length;
+            let count = this.props.jobData[statusTypes[i]].length;
             dataMap[statusTypes[i]] = {
                 id: statusTypes[i],
                 title: (
@@ -171,7 +159,7 @@ class JobBoardView extends Component {
                 draggable: true,
                 laneDraggable: true
             };
-            allJobs.push(...this.props.profile.jobData[statusTypes[i]]);
+            allJobs.push(...this.props.jobData[statusTypes[i]]);
         }
 
         for(let i=0; i<allJobs.length; i++){
@@ -222,7 +210,7 @@ class JobBoardView extends Component {
 
     onDrop = (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
         let profile = JSON.parse(JSON.stringify(this.props.profile));
-        let JobData = profile.jobData;
+        let JobData = JSON.parse(JSON.stringify(this.props.jobData));
         let newDataMap = JSON.parse(JSON.stringify(this.state.dataMap));
         let sourceCards = newDataMap[sourceLaneId].cards;
         let index = 0;
@@ -236,6 +224,7 @@ class JobBoardView extends Component {
         let cardData = JobData[sourceLaneId].splice(index, 1);
         cardData[0].JobStatus = targetLaneId;
         JobData[targetLaneId].splice(position, 0, cardData[0]);
+        profile.jobData = JobData
         
         this.props.setCard(profile);
     }
@@ -272,7 +261,8 @@ class JobBoardView extends Component {
 
 const mapStateToProps =(state) =>({
     profile: state.userState.profile,
-    settingCard: state.userState.settingCard
+    loadingData: state.jobDataState.loadingData,
+    jobData: state.jobDataState.jobData
 })
 
-export default connect(mapStateToProps, {setCard, getProfile, finishSettingCard})(withStyles(useStyles)(JobBoardView));
+export default connect(mapStateToProps, {setCard, getProfile, finishSettingCard, setJobData})(withStyles(useStyles)(JobBoardView));
