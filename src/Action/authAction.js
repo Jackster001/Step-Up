@@ -28,6 +28,13 @@ export const registerUser=  (userData)=> async dispatch=>{
             lastName : userData.lastName,
             email : userData.email,
             jobsApplied : [],
+            jobData : {
+                jobStatuses: ["Applied", "Interview", "Offer", "Rejected"],
+                Applied: [],
+                Interview: [],
+                Offer: [],
+                Rejected: []
+            },
             date : new Date(),
             tutorialCompletion : false
         })
