@@ -5,11 +5,13 @@ import SearchBar from '../BoardComponents/SearchBar';
 import {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction} from '../../Action/profileAction';
 import { Typography } from '@material-ui/core';
 import TutorialBar from '../Tutorial/TutorialBar';
+import {setCard, finishSettingCard, setJobData} from '../../Action/jobBoardViewAction';
 
 class JobListView extends Component{
     constructor(props) {
         super(props);
         this.state = {
+            statusTypes: ["Applied", "Interview", "Offer", "Rejected"],
             openModal: false,
             updatedData: {},
             jobsApplied:[],
@@ -36,34 +38,51 @@ class JobListView extends Component{
         }
     }
 
+    componentDidMount(){
+        this.props.setJobData(this.props.profile.id);
+    }
+
     componentDidUpdate(){
-        if(this.props.loadingProfile){
-            this.props.disableUserProfileLoading();
-            this.organizeJobs();
-            this.props.closeModal();
+        if(this.props.loadingData){
+            this.props.finishSettingCard();
+            let jobData = this.props.jobData;
+            let jobs = [];
+            for(let i = 0; i < this.state.statusTypes.length; i++){
+                console.log(jobData[this.state.statusTypes[i]])
+                jobs = jobs.concat(jobData[this.state.statusTypes[i]]);
+            }
+            console.log(jobs)
+            this.organizeJobs(jobs);
         }
     }
 
     organizeJobs = (jobs) => {
-        // let Applied = [], Interview = [], Rejected = [], Offer = [];
-        // for(let i = 0; i < jobs.length; i++){
-        //     jobs[i].index = i
-        //     if(jobs[i].JobStatus === "Applied") Applied.push(jobs[i]);
-        //     else if(jobs[i].JobStatus === "Interview") Interview.push(jobs[i]);
-        //     else if(jobs[i].JobStatus === "Rejected") Rejected.push(jobs[i]);
-        //     else if(jobs[i].JobStatus === "Offer") Offer.push(jobs[i]);
-        // }
-        this.setState({...this.state, Applied: this.props.profile.jobData.Applied, Interview: this.props.profile.jobData.Interview, Rejected: this.props.profile.jobData.Rejected, Offer: this.props.profile.jobData.Offer, indexUpdate: this.props.index});
+        let Applied = [], Interview = [], Rejected = [], Offer = [];
+        for(let i = 0; i < jobs.length; i++){
+            jobs[i].index = i
+            if(jobs[i].JobStatus === "Applied") Applied.push(jobs[i]);
+            else if(jobs[i].JobStatus === "Interview") Interview.push(jobs[i]);
+            else if(jobs[i].JobStatus === "Rejected") Rejected.push(jobs[i]);
+            else if(jobs[i].JobStatus === "Offer") Offer.push(jobs[i]);
+        }
+        this.setState({...this.state, Applied: Applied, Interview: Interview, Rejected: Rejected, Offer: Offer, indexUpdate: this.props.index});
     }
 
     onPressSearch = () =>{
-        let jobsApplied = this.props.profile.jobsApplied;
+        let jobData = this.props.jobData;
+        let statusTypes = this.state.statusTypes;
         let jobs = [];
-        for(let i = 0; i< jobsApplied.length; i++){
-            if(jobsApplied[i].Company.indexOf(this.state.searchKeyword) !== -1 || jobsApplied[i].Title.indexOf(this.state.searchKeyword) !== -1){
-                jobs.push(jobsApplied[i]);
+        for(let i = 0; i< statusTypes.length; i++){
+            for(let j=0; j< jobData[statusTypes[i]].length; j++){
+                if(jobData[statusTypes[i]][j].Company.indexOf(this.state.searchKeyword) !== -1 || jobData[statusTypes[i]][j].Title.indexOf(this.state.searchKeyword) !== -1){
+                    jobs.push(jobData[statusTypes[i]][j]);
+                }
             }
+            // if(jobsApplied[i].Company.indexOf(this.state.searchKeyword) !== -1 || jobsApplied[i].Title.indexOf(this.state.searchKeyword) !== -1){
+            //     jobs.push(jobsApplied[i]);
+            // }
         }
+        console.log(jobs)
         this.organizeJobs(jobs);
     }
 
@@ -97,7 +116,9 @@ const mapStateToProps =(state) =>({
     profile: state.userState.profile,
     loadingProfile: state.userState.loadingProfile,
     editModalData: state.userState.editModalData,
-    openingEditModal: state.userState.openingEditModal
+    openingEditModal: state.userState.openingEditModal,
+    loadingData: state.jobDataState.loadingData,
+    jobData: state.jobDataState.jobData
 })
 
-export default connect(mapStateToProps, {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction})(JobListView);
+export default connect(mapStateToProps, {addJob, removeJob, updateJob, getAllJobs, disableUserProfileLoading, setEditModalData, openingEditModalFunction, setJobData, finishSettingCard})(JobListView);

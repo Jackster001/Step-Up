@@ -28,9 +28,9 @@ class JobListItem extends Component{
     }
 
     componentDidUpdate(){
-        if(this.props.profile.jobsApplied[this.props.index].JobStatus !==  this.state.JobStatus){
-            this.setState({JobStatus: this.props.profile.jobsApplied[this.props.index].JobStatus})
-        }
+        // if(this.props.profile.jobsApplied[this.props.index].JobStatus !==  this.state.JobStatus){
+        //     this.setState({JobStatus: this.props.profile.jobsApplied[this.props.index].JobStatus})
+        // }
     }
 
     updateStatus(e){
