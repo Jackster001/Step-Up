@@ -8,29 +8,65 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabPanel from '../Components/Navigation/TabPanel';
 import {ListView, BoardView} from '../Components';
-import {withStyles} from '@material-ui/core';
+import {makeStyles,withStyles} from '@material-ui/core';
+import { height, shadows } from '@material-ui/system';
+import {Grid,Button} from '@material-ui/core';
+import TextField  from '@material-ui/core/TextField';
+import { mergeClasses } from '@material-ui/styles';
 
-const useStyles = (theme) => ({
+
+
+const useStyles =theme=> ({
     root: {
       // display: 'flex'
-      marginTop: '30%'
+      marginTop: '8%'
     },
     appBar: {
       width: `calc(100% - ${DefaultSideWidth}px)`,
       marginLeft: DefaultSideWidth,
-      marginTop: '15%'
+      backgroundColor: '#125182'
+      
     },
     toolbar: {
       minHeight: '30px'
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      padding: theme.spacing(0),
       width: `calc(100% - ${DefaultSideWidth - DefaultSideWidth/2}px)`,
-      marginLeft: DefaultSideWidth/2+60,
+      marginLeft: DefaultSideWidth/2+120,
       marginTop: '0px'
     },
+    title: {
+      borderBottom:'2px solid',
+      paddingBottom:'20px',
+      width:'80%'
+    },
+    form: {
+      width: `calc(100% - ${DefaultSideWidth - DefaultSideWidth/2}px)`,
+    },
+    label:{
+      width: '300px',
+      marginTop: '20px',
+      marginRight:'97px',
+      marginBottom:'20px',
+    },
+    btn:{
+      width: '300px',
+      marginTop: '20px',
+      marginRight:'97px',
+      marginBottom:'30px',
+      backgroundColor:'rgb(104,104,104)',
+      color:'white',
+      
+      boxShadow:'0px -1.5px 0px 2px rgb(136,136,136) '
+      
+      
+    }
+
+    
 })
+
 
 class Account extends Component {
     constructor(props){
@@ -66,14 +102,64 @@ class Account extends Component {
         //       </TabPanel>
         //     </main>
         // </div>
-        <div className={classes.appBar}>
-          <center><h1>My Account</h1></center>
-          <div className="ProfileContainer">
-            <h3>Name: {this.props.profile.firstName} {this.props.profile.lastName}</h3>
-            <h3>Email: {this.props.profile.email}</h3><br/><br/>
-            <center><button className="signOutButton" onClick={()=>this.props.logoutUser()}>Sign Out</button></center>
+        
+          <div className={classes.root}>
+            <AppBar position="fixed" className={classes.appBar}>
+              <Grid container style={{padding:'33px'}}></Grid>
+            </AppBar>
+            <div className={classes.content}>
+              <h1 className={classes.title}>Account Settings</h1>
+              <form className={classes.form}>
+                <TextField
+                type="Firstname"
+                name="Firstname"
+                label="First Name (Required)" variant="outlined"
+                className={classes.label}
+                id="validation-outlined-input"
+                
+                />
+                
+                <TextField
+                type="Last name"
+                name="Last Name"
+                label="Last Name (Required)" variant="outlined"
+                className={classes.label}/>
+                
+                <TextField
+                type="email"
+                name="email"
+                label="Email (Required)" variant="outlined"
+                className={classes.label}/>
+
+                <TextField
+                type="Old Passwword"
+                name="Old Password"
+                label="Old Password" variant="outlined"
+                className={classes.label}/>
+
+                <TextField
+                type="New Passwword"
+                name="New Password"
+                label="New Password" variant="outlined"
+                className={classes.label}/>
+
+                <TextField
+                type="Confirm Password"
+                name="Confirm Password"
+                label="Confirm Password" variant="outlined"
+                className={classes.label}/>
+
+                <Button className={classes.btn}>UPDATE ACCOUNT SETTING</Button>
+                
+
+                
+        
+              </form>
+              
+            </div>
+            
           </div>
-        </div>
+        
         );
     }
 }
