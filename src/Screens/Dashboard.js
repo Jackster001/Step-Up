@@ -15,6 +15,7 @@ import {getTutorialSet} from '../Action/tutorialAction';
 import ApplyJobModal from '../Components/Modals/ApplyJobModal';
 import EditModal from '../Components/Modals/EditModal/EditModal.js';
 import TutorialBar from '../Components/Tutorial/TutorialBar';
+import ViewType from '../Utils/types'
 
 const useStyles = (theme) => ({
   root: {
@@ -82,6 +83,10 @@ class Dashboard extends Component {
     this.setState({...this.state, openModal: true})
   }
 
+  openBoardModal(){
+    this.setState({...this.state, openModal: true})
+  }
+
   handleEditModal(i){
     this.props.setEditModalData(this.props.profile.id, this.props.profile.jobsApplied[i]);
     this.setState({...this.state, editIndex:i})
@@ -145,7 +150,7 @@ class Dashboard extends Component {
             <JobListView handleEditModal={(i)=>this.handleEditModal(i)} closeModal={() => this.closeModal()}/>
           </TabPanel>
           <TabPanel value={this.state.index} index={1}>
-            <JobBoardView openModal={() => this.openModal()}/>
+            <JobBoardView openModal={() => this.openBoardModal()}/>
           </TabPanel>
         </main>
     </div>

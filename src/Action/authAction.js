@@ -1,6 +1,3 @@
-import axios from 'axios';
-import setAuthToken from '../Utils/setAuthToken';
-import jwt_decode from 'jwt-decode';
 import {auth, firestore} from '../Firebase/firebase'
 import firebase from "firebase/app";
 import { persistor } from '../store';
@@ -19,7 +16,7 @@ export const disableAuthLoading = () => dispatch =>{
     })
 }
 
-export const registerUser=  (userData)=> async dispatch=>{
+export const registerUser = (userData)=> async dispatch=>{
     try{
         let newUser = await auth.createUserWithEmailAndPassword(userData.email, userData.password);
         await firestore.collection("Step-up-data").doc(`${newUser.user.uid}`).set({
@@ -39,18 +36,7 @@ export const registerUser=  (userData)=> async dispatch=>{
             tutorialCompletion : false
         })
 
-        let user = await auth.signInWithEmailAndPassword(userData.email, userData.password);
-
-        // console.log(user);
-
-        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        // .then(function() {  
-        //     return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
-        // })
-        // .catch(function(error) {
-        //   var errorCode = error.code;
-        //   var errorMessage = error.message;
-        // });     
+        let user = await auth.signInWithEmailAndPassword(userData.email, userData.password);   
         
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
@@ -83,15 +69,6 @@ export const loginUser =(userData)=> async dispatch =>{
     try{
         let user = await auth.signInWithEmailAndPassword(userData.email, userData.password)
 
-        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-        // .then(function() {
-        //   return firebase.auth().signInWithEmailAndPassword(userData.email, userData.password);
-        // })
-        // .catch(function(error) {
-        //   var errorCode = error.code;
-        //   var errorMessage = error.message;
-        // });     
-        
         let userInfo = await firestore.collection("Step-up-data").doc(user.user.uid).get();
 
         userInfo = await userInfo.data();
@@ -217,18 +194,4 @@ export const clearSignUpEmail = () =>{
     return{
         type: "CLEAR_SIGNUP_EMAIL"
     }
-}
-
-// const CheckError=(err)=>{
-//     console.log(err);
-//     console.log("helloooo")
-
-// }
-// export const ClearErrors = dispatch =>{
-//     dispatch({
-//         type: "CLEAR_ERROR"
-//     })
-// }
-
-
-  
+} 

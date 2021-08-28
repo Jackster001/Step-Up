@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import firebase from "firebase/app";
-import { setAuth, disableAuthLoading, finishLogin} from '../src/Action/authAction';
+import { setAuth, disableAuthLoading, finishLogin, logoutUser} from '../src/Action/authAction';
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
 import MainNavigation from './Components/Navigation/MainNavigation'
@@ -21,7 +21,10 @@ class Main extends Component {
     }
     componentDidMount() {
       this.props.ClearErrors()
-      if(this.props.isAuthenticated){
+      if(!this.props.profile.id || !this.props.profile.jobsApplied){
+        this.props.logoutUser();
+      }
+      else if(this.props.isAuthenticated){
         firebase.auth().onAuthStateChanged((user)=>{
           if (user) {
             this.props.setAuth(true)
@@ -66,4 +69,4 @@ const mapStateToProps = state => ({
   profile: state.userState.profile
 });
 
-export default connect(mapStateToProps, {setAuth, disableAuthLoading, ClearErrors})(Main);
+export default connect(mapStateToProps, {setAuth, disableAuthLoading, ClearErrors, logoutUser})(Main);

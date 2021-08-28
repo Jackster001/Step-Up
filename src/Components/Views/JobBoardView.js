@@ -151,7 +151,8 @@ class JobBoardView extends Component {
                 title: (
                     <div className={classes.categoryCard} style={{borderTop: '5px solid #26C6DA'}}>{statusTypes[i]}
                         <span className={classes.jobNumber}>({count}) Jobs</span>
-                        <AddIcon style={{float: 'right', cursor: 'pointer'}} onClick={()=>this.addJob()}/>
+                        {/* <AddIcon style={{float: 'right', cursor: 'pointer'}} onClick={()=>this.addJob()}/> */}
+                        <AddIcon style={{float: 'right', cursor: 'pointer'}} />
                     </div>
                 ),
                 cards: [],
